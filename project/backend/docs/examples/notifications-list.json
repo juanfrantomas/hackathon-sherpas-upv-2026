@@ -1,0 +1,30 @@
+{
+  "status_code": 200,
+  "body": {
+    "notifications": [
+      {
+        "id": "ntf_2b236e1aa1e0473e",
+        "case_id": "timothy-melanie-weah",
+        "milestone_id": "ms_cc46d071df4971ee",
+        "type": "checkin_pending",
+        "title": "A review is waiting for you",
+        "body": "\"Schedule $6,800 payment to the Chase credit card\" was scheduled for review on 2026-11-13.",
+        "reference_date": "2026-11-13",
+        "created_at": "2026-11-17T15:33:51Z",
+        "read_at": null
+      },
+      {
+        "id": "ntf_f89f93aeb83e4a43",
+        "case_id": "timothy-melanie-weah",
+        "milestone_id": "ms_cc46d071df4971ee",
+        "type": "overdue",
+        "title": "A milestone passed its target date",
+        "body": "\"Schedule $6,800 payment to the Chase credit card\" was due on 2026-11-08 and is still open.",
+        "reference_date": "2026-11-08",
+        "created_at": "2026-11-17T15:33:51Z",
+        "read_at": null
+      }
+    ],
+    "unread_count": 2
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "status_code": 200,
+  "body": {
+    "milestones_total": 8,
+    "completed": 0,
+    "in_progress": 1,
+    "not_started": 7,
+    "on_hold": 0,
+    "cancelled": 0,
+    "overdue": 1,
+    "checkins_pending": 1,
+    "task_progress_average": 6,
+    "financial_progress_average": null
+  }
+}

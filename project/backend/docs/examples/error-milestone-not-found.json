@@ -1,0 +1,10 @@
+{
+  "status_code": 404,
+  "body": {
+    "error": {
+      "code": "MILESTONE_NOT_FOUND",
+      "message": "Milestone ms_does_not_exist does not exist for this case",
+      "details": {}
+    }
+  }
+}

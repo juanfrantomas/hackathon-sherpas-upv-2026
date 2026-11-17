@@ -1,0 +1,24 @@
+{
+  "status_code": 200,
+  "body": [
+    {
+      "case_id": "timothy-melanie-weah",
+      "short_id": "weah",
+      "household_name": "Timothy & Melanie",
+      "city": "San Francisco",
+      "state": "CA",
+      "is_couple": true,
+      "members": [
+        "Timothy",
+        "Melanie"
+      ],
+      "score": 60,
+      "band": "stable",
+      "voice_style": "refranero",
+      "voice_label": "Cercana, Familiar y con Refranes",
+      "voice_name": "Aoede (Cercana / Refranero Popular)",
+      "gemini_voice": "Aoede",
+      "openai_voice": "coral"
+    }
+  ]
+}

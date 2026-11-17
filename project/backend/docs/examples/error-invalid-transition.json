@@ -1,0 +1,13 @@
+{
+  "status_code": 409,
+  "body": {
+    "error": {
+      "code": "INVALID_STATUS_TRANSITION",
+      "message": "A milestone cannot go from in_progress to not_started",
+      "details": {
+        "from": "in_progress",
+        "to": "not_started"
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "status_code": 200,
+  "body": {
+    "case_id": "timothy-melanie-weah",
+    "short_id": "weah",
+    "style_key": "refranero",
+    "style_label": "Cercana, Familiar y con Refranes",
+    "proactive_nudge": {
+      "badge": "Paso en casa",
+      "greeting": "Hola, familia Weah",
+      "message": "Tener tanto dinero parado en el banco mientras debéis la tarjeta es como tener un cubo con un agujero en el fondo; más vale prevenir que curar, así que vamos a quitar esa espinita usando parte de los ahorros para liquidar esos seis mil ochocientos dólares de la tarjeta al dieciocho por ciento. Grano a grano se hace el granero, y con este pequeño gesto vuestra tranquilidad familiar dará un salto muy alegre.",
+      "cta_label": "Ver el paso de la tarjeta",
+      "voice_question": "¿Queréis que repasemos cómo dejar la tarjeta a cero usando los ahorros?"
+    },
+    "jargon_pills": [
+      {
+        "term": "High revolving balance with high APR",
+        "short_tag": "Deuda de tarjeta",
+        "metaphor_title": "La gotera de la tarjeta de crédito",
+        "metaphor_explanation": "Es como dejar el grifo abierto todo el día: el banco os cobra un interés altísimo por el dinero que dejáis pendiente cada mes, haciendo que la deuda crezca sola sin que os deis cuenta.",
+        "family_impact": "Os quita poder en casa y frena vuestra nota de salud financiera porque ese dinero se va en intereses en lugar de en cosas para los niños.",
+        "voice_question": "¿Os explico cómo cerrar este grifo de golpe?"
+      },
+      {
+        "term": "Mortality coverage ratio",
+        "short_tag": "Red de protección familiar",
+        "metaphor_title": "El paraguas para los días de lluvia",
+        "metaphor_explanation": "Es la cantidad de dinero que quedaría en casa para cuidar de los peques si faltara alguno de los dos; el banco lo mide con una proporción fría, pero en casa es simplemente proteger el futuro de Liam y de Josh.",
+        "family_impact": "Al faltar protección, la familia queda expuesta; más vale pájaro en mano que ciento volando, y asegurar esto os da paz mental total.",
+        "voice_question": "¿Queréis saber qué seguro hace falta en nuestro caso?"
+      },
+      {
+        "term": "Idle cash",
+        "short_tag": "Dinero dormido",
+        "metaphor_title": "Dinero debajo del colchón",
+        "metaphor_explanation": "Es tener demasiado efectivo guardado sin moverse, rindiendo casi nada, mientras los precios suben y el dinero pierde fuerza por el camino.",
+        "family_impact": "Significa que vuestros ahorros están perdiendo oportunidades de trabajar para vosotros y para la familia.",
+        "voice_question": "¿Vemos cómo poner a trabajar este dinero?"
+      },
+      {
+        "term": "Umbrella coverage",
+        "short_tag": "Escudo extra",
+        "metaphor_title": "El tejado grande contra tormentas",
+        "metaphor_explanation": "Es un seguro adicional que os cubre las espaldas ante cualquier imprevisto o demanda grande que supere los seguros normales de casa o coche.",
+        "family_impact": "Protege todo lo que habéis construido con tanto esfuerzo para que un susto inesperado no os arruine el día.",
+        "voice_question": "¿Queréis que veamos si nos conviene este escudo?"
+      }
+    ],
+    "generated": true
+  }
+}

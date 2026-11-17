@@ -1,0 +1,59 @@
+{
+  "status_code": 200,
+  "body": {
+    "case_id": "timothy-melanie-weah",
+    "short_id": "weah",
+    "household_title": "Timothy & Melanie",
+    "city": "San Francisco",
+    "state": "CA",
+    "is_couple": true,
+    "score": 60,
+    "band": "stable",
+    "voice_name": "Aoede (Cercana / Refranero Popular)",
+    "style_key": "refranero",
+    "style_label": "Cercana, Familiar y con Refranes",
+    "main_challenge": "You earn $270,000 a year together and have built a wonderful cushion of cash and retirement savings for Liam and Josh, but having money sitting idle while protection gaps and an 18% credit card balance remain open leaves your household exposed. Balancing these priorities together will unlock your true potential.",
+    "scenes": [
+      {
+        "scene_id": 1,
+        "chapter": "Where We Start",
+        "headline_figure": "$270,000",
+        "title": "A solid foundation built on hard work",
+        "subtitle": "Your income and cash reserves are strong, but much of that money rests quietly while your goals wait.",
+        "caption_narration": "Grano a grano se hace el granero. Juntos ganáis doscientos setenta mil dólares al año y habéis reunido una gran reserva de efectivo que cubre muchos meses de vuestros gastos esenciales. Vuestro plan de jubilación es un verdadero orgullo y avanza con paso firme, pero tener tanto dinero parado en el banco mientras otras áreas reclaman atención es como tener una hermosa casa cuya puerta principal aún no tiene cerradura."
+      },
+      {
+        "scene_id": 2,
+        "chapter": "What Holds Us Back",
+        "headline_figure": "18%",
+        "title": "The small stones that slow down the journey",
+        "subtitle": "An expensive credit card balance quietly creates friction in an otherwise steady financial life.",
+        "caption_narration": "No se puede empezar la casa por el tejado. Tenéis un saldo en vuestra tarjeta de crédito al dieciocho por ciento que frena vuestra puntuación financiera y os quita energía mes a mes. Vuestros ahorros para la universidad de los niños también piden paso. Más vale prevenir que curar, y dedicar parte de vuestro efectivo disponible a aligerar esta deuda os devolverá la tranquilidad sin descuidar vuestra seguridad."
+      },
+      {
+        "scene_id": 3,
+        "chapter": "Who We Protect",
+        "headline_figure": "$1,000,000",
+        "title": "Guarding the smiles of Liam and Josh",
+        "subtitle": "Two little ones depend on both of your incomes, making life and liability cover essential shields.",
+        "caption_narration": "Más vale pájaro en mano que ciento volando, pero cuando se trata de proteger a Liam y a Josh, más vale prevenir que curar. Timothy y Melanie, vuestros ingresos sostienen un hogar maravilloso, pero faltan coberturas clave como un seguro de vida adecuado para ambos y una póliza de responsabilidad civil. Proteger a quienes más amáis es el pilar que sostiene todo lo demás en la familia."
+      },
+      {
+        "scene_id": 4,
+        "chapter": "The First Step",
+        "headline_figure": "$6,800",
+        "title": "Taking the first step toward true peace of mind",
+        "subtitle": "Small, deliberate moves today will clear the gate and let your family's wealth thrive tomorrow.",
+        "caption_narration": "No dejes para mañana lo que puedas quitar hoy. El primer paso de nuestro camino juntos es destinar una parte de vuestro efectivo a reducir esa tarjeta al dieciocho por ciento y reforzar vuestro seguro de vida. Vuestro futuro está lleno de promesas y, pasito a pasito, con cariño y orden, lograremos que cada dólar trabaje feliz para la tranquilidad de vuestro hogar."
+      }
+    ],
+    "full_narration_script": "Grano a grano se hace el granero. Juntos ganáis doscientos setenta mil dólares al año y habéis reunido una gran reserva de efectivo que cubre muchos meses de vuestros gastos esenciales. Vuestro plan de jubilación es un verdadero orgullo y avanza con paso firme, pero tener tanto dinero parado en el banco mientras otras áreas reclaman atención es como tener una hermosa casa cuya puerta principal aún no tiene cerradura. No se puede empezar la casa por el tejado. Tenéis un saldo en vuestra tarjeta de crédito al dieciocho por ciento que frena vuestra puntuación financiera y os quita energía mes a mes. Vuestros ahorros para la universidad de los niños también piden paso. Más vale prevenir que curar, y dedicar parte de vuestro efectivo disponible a aligerar esta deuda os devolverá la tranquilidad sin descuidar vuestra seguridad. Más vale pájaro en mano que ciento volando, pero cuando se trata de proteger a Liam y a Josh, más vale prevenir que curar. Timothy y Melanie, vuestros ingresos sostienen un hogar maravilloso, pero faltan coberturas clave como un seguro de vida adecuado para ambos y una póliza de responsabilidad civil. Proteger a quienes más amáis es el pilar que sostiene todo lo demás en la familia. No dejes para mañana lo que puedas quitar hoy. El primer paso de nuestro camino juntos es destinar una parte de vuestro efectivo a reducir esa tarjeta al dieciocho por ciento y reforzar vuestro seguro de vida. Vuestro futuro está lleno de promesas y, pasito a pasito, con cariño y orden, lograremos que cada dólar trabaje feliz para la tranquilidad de vuestro hogar.",
+    "first_step_cta": {
+      "title": "Pay down revolving card",
+      "action": "Pay $6,800 on the 18% card from cash to remove high revolving exposure and clear the gate",
+      "score_before": 60,
+      "score_after": 62
+    },
+    "generated": true
+  }
+}

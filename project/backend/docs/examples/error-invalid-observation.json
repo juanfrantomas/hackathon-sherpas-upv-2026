@@ -1,0 +1,17 @@
+{
+  "status_code": 422,
+  "body": {
+    "error": {
+      "code": "VALIDATION_ERROR",
+      "message": "The request payload is not valid",
+      "details": {
+        "errors": [
+          {
+            "field": "body.value",
+            "message": "Value error, a financial observation cannot be negative"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,626 @@
+{
+  "status_code": 200,
+  "body": {
+    "milestones": [
+      {
+        "id": "ms_329f10ade5f90b72",
+        "title": "Decide how to allocate the cash surplus across protection, debt and education",
+        "why": "There is a clear tension: \"The central tension is that this spare cash sits idle while protection is open.\" About $60,222.50 sits above the reserve and near-term goals and competes with life insurance, umbrella, the card and education.",
+        "action": "Agree a sequence and amounts for using the $60,222.50 in cash above the emergency reserve and short-term goals—e.g., split between life insurance premiums, an umbrella policy, credit-card paydown and college saving—and schedule the first moves.",
+        "section": "summary",
+        "status": "in_progress",
+        "checkin": "Dec 24",
+        "case_id": "timothy-melanie-weah",
+        "category": "Financial Planning",
+        "type": "educational",
+        "priority": "high",
+        "tasks": [
+          {
+            "id": "task_b1220531232f4fc5",
+            "title": "List priorities and the numbers each needs",
+            "description": null,
+            "order": 0,
+            "is_required": true,
+            "status": "completed",
+            "origin": "ai",
+            "completed_at": "2026-11-17T15:33:51.440513Z"
+          },
+          {
+            "id": "task_00b6fd8f069341c9",
+            "title": "Model 2–3 allocation scenarios",
+            "description": null,
+            "order": 1,
+            "is_required": false,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          },
+          {
+            "id": "task_452d547521f44c26",
+            "title": "Agree on sequence and set dollar amounts",
+            "description": null,
+            "order": 2,
+            "is_required": true,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          },
+          {
+            "id": "task_53bfcae65af4480f",
+            "title": "Schedule the first implementations",
+            "description": null,
+            "order": 3,
+            "is_required": false,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          }
+        ],
+        "task_progress": 50,
+        "financial_progress": null,
+        "financial_progress_state": "not_quantifiable",
+        "financial_metric_key": null,
+        "financial_direction": null,
+        "financial_start_value": null,
+        "financial_target_value": null,
+        "financial_unit": null,
+        "financial_currency": null,
+        "due_date": null,
+        "checkin_pending": false,
+        "checkin_date": "2026-12-24",
+        "overdue": false,
+        "source": [
+          {
+            "part": "financial-health",
+            "section": "narrative.summary",
+            "json_path": "financial-health.narrative.summary.summary_main",
+            "quote": "The central tension is that this spare cash sits idle while protection is open. About $60,223 sits above that reserve and your near-term goals."
+          }
+        ],
+        "created_at": "2026-11-17T15:33:51Z",
+        "updated_at": "2026-11-17T15:33:51Z",
+        "completed_at": null,
+        "last_reviewed_at": "2026-11-17T15:33:51.481359Z"
+      },
+      {
+        "id": "ms_6221fb07528070d2",
+        "title": "Decide target life insurance coverage for Timothy and Melanie",
+        "why": "Protection is a major gap: \"- Timothy has $140,000 of life insurance against a recommended range of $750,000 to $1,500,000, a shortfall of $610,000. Melanie has $110,000 against a range of $600,000 to $1,200,000, a shortfall of $490,000.\"",
+        "action": "Review current policies and decide how much new life insurance to buy (who, amount, term vs whole) and the sequence relative to other priorities.",
+        "section": "protection",
+        "status": "not_started",
+        "checkin": "Nov 24",
+        "case_id": "timothy-melanie-weah",
+        "category": "Insurance & Protection",
+        "type": "educational",
+        "priority": "high",
+        "tasks": [
+          {
+            "id": "task_65db123c9167406f",
+            "title": "Collect current policy documents and amounts",
+            "description": null,
+            "order": 0,
+            "is_required": true,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          },
+          {
+            "id": "task_18de3b77c7a54d64",
+            "title": "Agree household income-replacement and debt/education targets",
+            "description": null,
+            "order": 1,
+            "is_required": false,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          },
+          {
+            "id": "task_7f7297e3ff984f31",
+            "title": "Request term-life quotes and compare features",
+            "description": null,
+            "order": 2,
+            "is_required": false,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          },
+          {
+            "id": "task_409d311e116d47b5",
+            "title": "Decide purchase amount and timing",
+            "description": null,
+            "order": 3,
+            "is_required": false,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          }
+        ],
+        "task_progress": 0,
+        "financial_progress": null,
+        "financial_progress_state": "not_quantifiable",
+        "financial_metric_key": null,
+        "financial_direction": null,
+        "financial_start_value": null,
+        "financial_target_value": null,
+        "financial_unit": null,
+        "financial_currency": null,
+        "due_date": null,
+        "checkin_pending": false,
+        "checkin_date": "2026-11-24",
+        "overdue": false,
+        "source": [
+          {
+            "part": "financial-health",
+            "section": "narrative.protection",
+            "json_path": "financial-health.narrative.protection.protection_life_insurance_short_observations",
+            "quote": "- Timothy has $140,000 of life insurance against a recommended range of $750,000 to $1,500,000, a shortfall of $610,000. Melanie has $110,000 against a range of $600,000 to $1,200,000, a shortfall of $490,000."
+          }
+        ],
+        "created_at": "2026-11-17T15:33:51Z",
+        "updated_at": "2026-11-17T15:33:51Z",
+        "completed_at": null,
+        "last_reviewed_at": null
+      },
+      {
+        "id": "ms_af6ef363a92faa5a",
+        "title": "Open 529 accounts and begin regular contributions for Liam and Josh",
+        "why": "College is unfunded: \"College funding still needed beyond current 529 balances\" is 113,508.6 and the plan shows extra yearly saving needed of 4,609.22 in the first year.",
+        "action": "Open 529 accounts (one per child or a pooled plan), set an automatic contribution schedule and target at least the plan's suggested first-year extra saving amount, then review progress annually.",
+        "section": "retirement",
+        "status": "not_started",
+        "checkin": "Dec 1",
+        "case_id": "timothy-melanie-weah",
+        "category": "Education",
+        "type": "educational",
+        "priority": "medium",
+        "tasks": [
+          {
+            "id": "task_0a3cb0c1552442e4",
+            "title": "Decide whether to use one account per child or a pooled 529",
+            "description": null,
+            "order": 0,
+            "is_required": true,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          },
+          {
+            "id": "task_e0a8ae870dce4724",
+            "title": "Open the 529 account(s)",
+            "description": null,
+            "order": 1,
+            "is_required": true,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          },
+          {
+            "id": "task_5e54555a598b4ba9",
+            "title": "Set an automatic contribution schedule",
+            "description": null,
+            "order": 2,
+            "is_required": false,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          },
+          {
+            "id": "task_23ecfc020f9544aa",
+            "title": "Review contributions annually",
+            "description": null,
+            "order": 3,
+            "is_required": false,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          }
+        ],
+        "task_progress": 0,
+        "financial_progress": null,
+        "financial_progress_state": "not_quantifiable",
+        "financial_metric_key": null,
+        "financial_direction": null,
+        "financial_start_value": null,
+        "financial_target_value": null,
+        "financial_unit": null,
+        "financial_currency": null,
+        "due_date": null,
+        "checkin_pending": false,
+        "checkin_date": "2026-12-01",
+        "overdue": false,
+        "source": [
+          {
+            "part": "financial-health",
+            "section": "key_metrics.facts",
+            "json_path": "financial-health.key_metrics.facts",
+            "quote": "College funding still needed beyond current 529 balances: 113508.6"
+          }
+        ],
+        "created_at": "2026-11-17T15:33:51Z",
+        "updated_at": "2026-11-17T15:33:51Z",
+        "completed_at": null,
+        "last_reviewed_at": null
+      },
+      {
+        "id": "ms_cc46d071df4971ee",
+        "title": "Schedule $6,800 payment to the Chase credit card",
+        "why": "The plan recommends an initial payment to reduce the high-rate card: \"The first move is paying $6,800 on the 18% card from cash. The published score moves from 60 to 62, leaving $11,200 total after the move.\"",
+        "action": "Confirm available accessible cash and schedule a $6,800 payment from a cash account to the Chase CC to reduce the outstanding balance to $11,200; record the payment in your cash plan.",
+        "section": "debt",
+        "status": "not_started",
+        "checkin": "Nov 13",
+        "case_id": "timothy-melanie-weah",
+        "category": "Debt",
+        "type": "financial",
+        "priority": "medium",
+        "tasks": [
+          {
+            "id": "task_2bc18c6c2c7944f7",
+            "title": "Confirm accessible cash and intended funding account",
+            "description": null,
+            "order": 0,
+            "is_required": true,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          },
+          {
+            "id": "task_3526802c151d4203",
+            "title": "Schedule the $6,800 payment to Chase CC",
+            "description": null,
+            "order": 1,
+            "is_required": true,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          },
+          {
+            "id": "task_4bbcedc1b78f4c9a",
+            "title": "Update your budget and cash plan",
+            "description": null,
+            "order": 2,
+            "is_required": false,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          }
+        ],
+        "task_progress": 0,
+        "financial_progress": null,
+        "financial_progress_state": "conflicting",
+        "financial_metric_key": "liability_chase_cc",
+        "financial_direction": "decrease",
+        "financial_start_value": "18000.00",
+        "financial_target_value": "11200.00",
+        "financial_unit": "USD",
+        "financial_currency": "USD",
+        "due_date": "2026-11-08",
+        "checkin_pending": true,
+        "checkin_date": "2026-11-13",
+        "overdue": true,
+        "source": [
+          {
+            "part": "financial-health",
+            "section": "score",
+            "json_path": "financial-health.score",
+            "quote": "The first move is paying $6,800 on the 18% card from cash. The published score moves from 60 to 62, leaving $11,200 total after the move."
+          }
+        ],
+        "created_at": "2026-11-17T15:33:51Z",
+        "updated_at": "2026-11-17T15:33:51Z",
+        "completed_at": null,
+        "last_reviewed_at": null
+      },
+      {
+        "id": "ms_fac21055ec39fc0b",
+        "title": "Decide whether to buy an umbrella liability policy (recommendation: $1,000,000)",
+        "why": "There is no umbrella cover now and a $1,000,000 gap: \"You have no umbrella policy, against a recommended minimum of $1,000,000, so the full $1,000,000 is uncovered.\"",
+        "action": "Obtain quotes for a $1,000,000 umbrella policy, confirm cost and how it fits with other protection priorities, then decide whether to purchase.",
+        "section": "protection",
+        "status": "not_started",
+        "checkin": "Dec 1",
+        "case_id": "timothy-melanie-weah",
+        "category": "Insurance & Protection",
+        "type": "educational",
+        "priority": "medium",
+        "tasks": [
+          {
+            "id": "task_a41e49842a394be0",
+            "title": "Gather current liability limits from homeowners and auto policies",
+            "description": null,
+            "order": 0,
+            "is_required": true,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          },
+          {
+            "id": "task_7db04683e9ed4558",
+            "title": "Request umbrella quotes for $1,000,000 and compare cost",
+            "description": null,
+            "order": 1,
+            "is_required": false,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          },
+          {
+            "id": "task_fd90e5679a064c1f",
+            "title": "Decide whether to purchase and, if yes, select carrier and start date",
+            "description": null,
+            "order": 2,
+            "is_required": false,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          }
+        ],
+        "task_progress": 0,
+        "financial_progress": null,
+        "financial_progress_state": "not_quantifiable",
+        "financial_metric_key": null,
+        "financial_direction": null,
+        "financial_start_value": null,
+        "financial_target_value": null,
+        "financial_unit": null,
+        "financial_currency": null,
+        "due_date": null,
+        "checkin_pending": false,
+        "checkin_date": "2026-12-01",
+        "overdue": false,
+        "source": [
+          {
+            "part": "financial-health",
+            "section": "narrative.protection",
+            "json_path": "financial-health.narrative.protection.protection_umbrella_short_observations",
+            "quote": "- You have no umbrella policy, against a recommended minimum of $1,000,000, so the full $1,000,000 is uncovered."
+          }
+        ],
+        "created_at": "2026-11-17T15:33:51Z",
+        "updated_at": "2026-11-17T15:33:51Z",
+        "completed_at": null,
+        "last_reviewed_at": null
+      },
+      {
+        "id": "ms_1b5c9ecc9da73165",
+        "title": "Review asset allocation and concentrated positions (technology and UPRO)",
+        "why": "The invested accounts are overweight in stocks: \"Your invested $210,000 is about 77% equity against a 60% Moderate target\" and the portfolio includes a leveraged ETF (UPRO).",
+        "action": "Obtain account-level allocation, discuss the desired household allocation given each spouse's risk profile, and decide whether to reduce technology concentration and the leveraged ETF position.",
+        "section": "assets",
+        "status": "not_started",
+        "checkin": "Dec 17",
+        "case_id": "timothy-melanie-weah",
+        "category": "Investments",
+        "type": "educational",
+        "priority": "low",
+        "tasks": [
+          {
+            "id": "task_b22c14b62c4e4788",
+            "title": "Get account-level asset allocation and holdings report",
+            "description": null,
+            "order": 0,
+            "is_required": true,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          },
+          {
+            "id": "task_64729ad01e614a84",
+            "title": "Agree a household target allocation that balances both risk profiles",
+            "description": null,
+            "order": 1,
+            "is_required": false,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          },
+          {
+            "id": "task_b88ac92498b24ed9",
+            "title": "Decide whether to trim the leveraged ETF and reduce technology concentration",
+            "description": null,
+            "order": 2,
+            "is_required": false,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          },
+          {
+            "id": "task_70663b02cd01423b",
+            "title": "Implement rebalancing or tax-aware transfers",
+            "description": null,
+            "order": 3,
+            "is_required": false,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          }
+        ],
+        "task_progress": 0,
+        "financial_progress": null,
+        "financial_progress_state": "not_quantifiable",
+        "financial_metric_key": null,
+        "financial_direction": null,
+        "financial_start_value": null,
+        "financial_target_value": null,
+        "financial_unit": null,
+        "financial_currency": null,
+        "due_date": null,
+        "checkin_pending": false,
+        "checkin_date": "2026-12-17",
+        "overdue": false,
+        "source": [
+          {
+            "part": "investment-analysis",
+            "section": "narrative",
+            "json_path": "investment-analysis.narrative.portfolio_today_priorities",
+            "quote": "- Your invested $210,000 is about 77% equity against a 60% Moderate target, with technology near 30% of the equity and $12,740 in a leveraged ETF (UPRO) in Timothy's Roth."
+          }
+        ],
+        "created_at": "2026-11-17T15:33:51Z",
+        "updated_at": "2026-11-17T15:33:51Z",
+        "completed_at": null,
+        "last_reviewed_at": null
+      },
+      {
+        "id": "ms_4cf3a5a7e1d7ac6a",
+        "title": "Decide whether to use unused Roth IRA, HSA and additional 401(k) room this year",
+        "why": "You have unused contribution room: \"Your Roth IRAs have $0 contributed so far. You could each contribute up to $5,250.10, though this competes with education for the same surplus.\" Employer 401(k) room also exists.",
+        "action": "Confirm Roth IRA and HSA eligibility, check payroll and employer match rules, decide how much to contribute this year to Roth IRAs, an HSA (if eligible) and additional 401(k) deferrals, and set up contributions.",
+        "section": "savings",
+        "status": "not_started",
+        "checkin": "Dec 17",
+        "case_id": "timothy-melanie-weah",
+        "category": "Tax Planning",
+        "type": "educational",
+        "priority": "low",
+        "tasks": [
+          {
+            "id": "task_2d8c1d44a9214262",
+            "title": "Confirm Roth IRA and HSA eligibility and limits",
+            "description": null,
+            "order": 0,
+            "is_required": true,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          },
+          {
+            "id": "task_e91e48a803234665",
+            "title": "Confirm payroll deferral rules and employer match details",
+            "description": null,
+            "order": 1,
+            "is_required": false,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          },
+          {
+            "id": "task_b0fbde19136b42dc",
+            "title": "Decide contribution amounts for Roth IRAs, HSA and additional 401(k) deferrals",
+            "description": null,
+            "order": 2,
+            "is_required": false,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          },
+          {
+            "id": "task_e6251766ff76404c",
+            "title": "Set up contributions (payroll for 401(k), automatic transfers for IRAs/HSAs)",
+            "description": null,
+            "order": 3,
+            "is_required": false,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          }
+        ],
+        "task_progress": 0,
+        "financial_progress": null,
+        "financial_progress_state": "not_quantifiable",
+        "financial_metric_key": null,
+        "financial_direction": null,
+        "financial_start_value": null,
+        "financial_target_value": null,
+        "financial_unit": null,
+        "financial_currency": null,
+        "due_date": null,
+        "checkin_pending": false,
+        "checkin_date": "2026-12-17",
+        "overdue": false,
+        "source": [
+          {
+            "part": "financial-health",
+            "section": "narrative.savings",
+            "json_path": "financial-health.narrative.savings.savings_short_observations",
+            "quote": "Your Roth IRAs have $0 contributed so far. You could each contribute up to $5,250.10, though this competes with education for the same surplus."
+          }
+        ],
+        "created_at": "2026-11-17T15:33:51Z",
+        "updated_at": "2026-11-17T15:33:51Z",
+        "completed_at": null,
+        "last_reviewed_at": null
+      },
+      {
+        "id": "ms_7e2c6977681f06e1",
+        "title": "Decide what portion of idle cash above the reserve to move to higher-yield accounts or investments",
+        "why": "Idle cash sits above the emergency reserve: the plan notes cash above the emergency reserve and near-term goals is 60,222.50 and accessible cash is 150,800.",
+        "action": "Compare competitive high-yield cash or short-term options and taxable or tax-advantaged investments, decide how much beyond the reserve to move, and schedule transfers.",
+        "section": "savings",
+        "status": "not_started",
+        "checkin": "Dec 17",
+        "case_id": "timothy-melanie-weah",
+        "category": "Savings",
+        "type": "educational",
+        "priority": "low",
+        "tasks": [
+          {
+            "id": "task_230791eabe314800",
+            "title": "Confirm your minimum emergency reserve to keep liquid",
+            "description": null,
+            "order": 0,
+            "is_required": true,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          },
+          {
+            "id": "task_dc6d472361dc4899",
+            "title": "Compare short-term, higher-yield cash options",
+            "description": null,
+            "order": 1,
+            "is_required": false,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          },
+          {
+            "id": "task_4cdf6a11d6b542de",
+            "title": "Decide target amounts to move and set transfers",
+            "description": null,
+            "order": 2,
+            "is_required": false,
+            "status": "pending",
+            "origin": "ai",
+            "completed_at": null
+          }
+        ],
+        "task_progress": 0,
+        "financial_progress": null,
+        "financial_progress_state": "not_quantifiable",
+        "financial_metric_key": null,
+        "financial_direction": null,
+        "financial_start_value": null,
+        "financial_target_value": null,
+        "financial_unit": null,
+        "financial_currency": null,
+        "due_date": null,
+        "checkin_pending": false,
+        "checkin_date": "2026-12-17",
+        "overdue": false,
+        "source": [
+          {
+            "part": "financial-health",
+            "section": "narrative.protection",
+            "json_path": "financial-health.narrative.protection.protection_emergency_fund_short_observations",
+            "quote": "Cash above the emergency reserve and your near-term goals comes to $60,223. That is a resource you have available as you look at the other protection gaps."
+          }
+        ],
+        "created_at": "2026-11-17T15:33:51Z",
+        "updated_at": "2026-11-17T15:33:51Z",
+        "completed_at": null,
+        "last_reviewed_at": null
+      }
+    ],
+    "meta": {
+      "case_id": "timothy-melanie-weah",
+      "count": 8,
+      "stale": false,
+      "stale_reason": null,
+      "data_source": "local",
+      "last_successful_sync_at": "2026-11-17T15:33:51.412301Z"
+    },
+    "grouped_by_category": null
+  }
+}

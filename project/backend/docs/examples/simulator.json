@@ -1,0 +1,116 @@
+{
+  "status_code": 200,
+  "body": {
+    "case_id": "timothy-melanie-weah",
+    "short_id": "weah",
+    "household_name": "Timothy & Melanie",
+    "score_base": 60,
+    "simulated_score": 73,
+    "score_delta": 13,
+    "synergy_detected": true,
+    "synergy_message": "Al juntar el pago de la tarjeta con el seguro de vida, vuestra tranquilidad da un salto de gigante. Como dice el refrán, más vale prevenir que curar; quitar los intereses de la tarjeta y arropar a los peques al mismo tiempo deja la casa cimentada como una roca.",
+    "combo_mentor_question": "¿Os imagináis respirando con total tranquilidad sabiendo que ni los imprevistos ni las deudas de la tarjeta pueden con vuestro esfuerzo diario?",
+    "annual_saving_dollars": 1224,
+    "saving_label": "euros al año que os ahorráis en intereses de la tarjeta",
+    "time_impact": "Os quita un peso de encima para llegar a la jubilación con los deberes hechos.",
+    "visual_summary": "Más vale pájaro en mano: quitando deudas y protegiendo a la familia, vuestra salud financiera pasa de 60 a 73 puntos de golpe.",
+    "confetti": true,
+    "power_ups": [
+      {
+        "id": "pay-down-revolving-card",
+        "icon": "💳",
+        "title": "Pay down revolving card",
+        "short_action": "Pay $6,800 on the 18% card from cash to remove high revolving exposure and clear the gate",
+        "effort": "Esfuerzo medio usando parte de los ahorros del banco",
+        "lifts_a_cap": false,
+        "lock_label": "Bloqueo de tarjeta de alta tasa",
+        "individual_impact": "Tener dinero ahorrado mientras pagáis un 18% en la tarjeta es como tener un cubo con un agujero en el fondo. Al dar este paso, tapáis esa fuga para siempre.",
+        "mentor_question": "¿Cómo os sentiríais al ver que el dinero que antes se iba en intereses de la tarjeta ahora se queda en casa?",
+        "score_before": 60,
+        "score_after": 62,
+        "score_impact": 2,
+        "active": true
+      },
+      {
+        "id": "add-life-cover",
+        "icon": "🛡️",
+        "title": "Add life cover",
+        "short_action": "Add $235,000 of life cover to raise the mortality ratio and clear the gate",
+        "effort": "Esfuerzo bajo, un trámite sencillo",
+        "lifts_a_cap": false,
+        "lock_label": "Bloqueo de protección familiar",
+        "individual_impact": "No se puede empezar la casa por el tejado. Añadir esta protección asegura que los pequeños de la casa tengan su futuro garantizado pase lo que pase.",
+        "mentor_question": "¿Qué tranquilidad os aporta saber que los niños están totalmente cubiertos ante cualquier imprevisto de la vida?",
+        "score_before": 60,
+        "score_after": 60,
+        "score_impact": 0,
+        "active": true
+      },
+      {
+        "id": "add-umbrella-cover",
+        "icon": "☂️",
+        "title": "Add umbrella cover",
+        "short_action": "Add $1M of umbrella to raise the liability shield",
+        "effort": "Esfuerzo bajo de contratación",
+        "lifts_a_cap": false,
+        "lock_label": "Escudo de responsabilidad civil",
+        "individual_impact": "Poner este paraguas extra protege todo lo que habéis construido con tanto sudor frente a cualquier tormenta inesperada.",
+        "mentor_question": "¿Sentís que vuestro patrimonio familiar está del todo seguro ante reclamaciones del día a día?",
+        "score_before": 60,
+        "score_after": 60,
+        "score_impact": 0,
+        "active": false
+      }
+    ],
+    "timeline_comparison": [
+      {
+        "milestone": "Hoy en día",
+        "icon": "🏠",
+        "without_changes": "La salud financiera se queda atascada en 60 puntos por culpa de la tarjeta y la falta de protección.",
+        "with_decisions": "Ponemos orden desde ya mismo, quitando las ataduras que no os dejan avanzar con alegría.",
+        "highlighted_change": "Punto de partida con 60 puntos y las manos atadas."
+      },
+      {
+        "milestone": "Al activar las decisiones",
+        "icon": "🚀",
+        "without_changes": "Seguiríais pagando mes a mes los intereses altos de la tarjeta sin ver la luz al final del túnel.",
+        "with_decisions": "La puntuación salta hasta los 73 puntos gracias a quitar la deuda y asegurar el futuro de los niños.",
+        "highlighted_change": "Salto directo a 73 puntos de bienestar."
+      },
+      {
+        "milestone": "Años venideros",
+        "icon": "🌟",
+        "without_changes": "La familia tira hacia adelante con el freno de mano echado por las cargas financieras.",
+        "with_decisions": "Grano a grano se hace el granero: disfrutáis de una casa sin deudas caras y con el futuro blindado.",
+        "highlighted_change": "Camino despejado hacia la jubilación soñada."
+      }
+    ],
+    "pact_cards": [
+      {
+        "card_id": "pact-1",
+        "icon": "⚖️",
+        "title": "El plan básico de casa",
+        "subtitle_for": "Manteniendo el rumbo actual sin tocar nada",
+        "peace_percentage": 50,
+        "return_percentage": 55,
+        "resulting_score": 60,
+        "verdict": "Seguir igual es como dejar pasar el tiempo sin limpiar el trastero; las cosas se acumulan y la tranquilidad no llega.",
+        "mentor_question": "¿De verdad queréis seguir cargando con este freno en vuestro día a día?",
+        "recommended": false
+      },
+      {
+        "card_id": "pact-2",
+        "icon": "✨",
+        "title": "El pacto de la tranquilidad familiar",
+        "subtitle_for": "Pagando la tarjeta y asegurando a los niños",
+        "peace_percentage": 85,
+        "return_percentage": 80,
+        "resulting_score": 73,
+        "verdict": "Esta es la decisión que da paz de espíritu. Limpiáis la deuda que quema y arropáis a la familia como se merece.",
+        "mentor_question": "¿Estáis listos para dar este paso y dormir por fin con la conciencia tranquila?",
+        "recommended": true
+      }
+    ],
+    "generated": true
+  }
+}
