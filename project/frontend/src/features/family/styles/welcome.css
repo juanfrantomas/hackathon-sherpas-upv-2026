@@ -1,0 +1,12 @@
+/* =========================== 1 Welcome =========================== */
+.screen--welcome { background: var(--sw-gradient-soft); padding: 8px 24px 40px; min-height: 100%; }
+.welcome__top { padding: 8px 0 0; }
+.welcome__body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px; padding: 24px 0; }
+.welcome__badge { text-decoration: none;  align-self: flex-start; display: inline-flex; gap: 6px; align-items: center; padding: 6px 12px; border-radius: var(--r-pill); background: var(--surface); border: 1px solid var(--sw-blue-100); color: var(--sw-blue-700); font-size: 12.5px; font-weight: 600; }
+.welcome__title { font-size: 34px; line-height: 40px; letter-spacing: -0.025em; font-weight: 650; margin: 8px 0 0; text-wrap: balance; }
+.welcome__lede { font-size: 19px; line-height: 26px; color: var(--ink-700); }
+.welcome__copy { color: var(--ink-500); }
+.welcome__list { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 10px; }
+.welcome__list li { display: flex; gap: 10px; align-items: center; font-size: 14.5px; color: var(--ink-700); }
+.welcome__list .ic { color: var(--sw-blue-600); width: 30px; height: 30px; padding: 7px; border-radius: 9px; background: var(--surface); border: 1px solid var(--line); }
+.welcome__foot { display: grid; gap: 14px; }
