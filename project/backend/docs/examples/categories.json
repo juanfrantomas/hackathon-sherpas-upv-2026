@@ -1,0 +1,62 @@
+{
+  "status_code": 200,
+  "body": {
+    "categories": [
+      {
+        "id": "debt",
+        "label": "Debt",
+        "default_section": "debt"
+      },
+      {
+        "id": "savings",
+        "label": "Savings",
+        "default_section": "savings"
+      },
+      {
+        "id": "investments",
+        "label": "Investments",
+        "default_section": "assets"
+      },
+      {
+        "id": "retirement",
+        "label": "Retirement",
+        "default_section": "retirement"
+      },
+      {
+        "id": "insurance_and_protection",
+        "label": "Insurance & Protection",
+        "default_section": "protection"
+      },
+      {
+        "id": "education",
+        "label": "Education",
+        "default_section": "retirement"
+      },
+      {
+        "id": "tax_planning",
+        "label": "Tax Planning",
+        "default_section": "summary"
+      },
+      {
+        "id": "housing",
+        "label": "Housing",
+        "default_section": "summary"
+      },
+      {
+        "id": "estate_planning",
+        "label": "Estate Planning",
+        "default_section": "summary"
+      },
+      {
+        "id": "financial_planning",
+        "label": "Financial Planning",
+        "default_section": "summary"
+      },
+      {
+        "id": "other",
+        "label": "Other",
+        "default_section": "summary"
+      }
+    ]
+  }
+}

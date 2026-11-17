@@ -1,0 +1,31 @@
+/* =========================== Prototype shell =========================== */
+.proto { min-height: 100%; display: flex; flex-direction: column; }
+.proto-bar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 10px max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px)); background: rgba(255,255,255,.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.proto-bar__brand { display: flex; align-items: center; gap: 10px; margin-right: auto; }
+.proto-bar__tag { font-size: 11px; font-weight: 600; color: var(--ink-500); border: 1px solid var(--line); border-radius: 6px; padding: 2px 6px; }
+.fam-select { display: grid; gap: 2px; }
+.fam-select select { height: 34px; border: 1px solid var(--line); border-radius: 10px; padding: 0 10px; font: inherit; font-size: 13.5px; background: var(--surface); color: var(--ink-900); }
+
+.stage { flex: 1; display: grid; grid-template-columns: 220px auto 260px; justify-content: center; gap: 40px; padding: 32px 16px 48px; align-items: start; }
+.flow, .controls { position: sticky; top: 90px; display: grid; gap: 12px; }
+.flow__h { text-transform: uppercase; letter-spacing: .08em; color: var(--ink-400); margin: 0; font-weight: 700; }
+.flow ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.flow li button { width: 100%; display: flex; gap: 10px; align-items: center; border: 0; background: transparent; text-align: left; padding: 8px 10px; border-radius: 10px; font-size: 14px; color: var(--ink-700); cursor: pointer; }
+.flow li button span { width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; background: var(--line-soft); font-size: 11.5px; font-weight: 700; color: var(--ink-500); flex: none; }
+.flow li button:hover { background: var(--surface); }
+.flow li button.is-on { background: var(--surface); color: var(--ink-900); font-weight: 600; box-shadow: var(--sh-1); }
+.flow li button.is-on span { background: var(--sw-blue-600); color: #fff; }
+.flow__note { max-width: 210px; }
+.ctl-block { display: grid; gap: 10px; padding: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); }
+.ctl-block .btn { max-width: 100%; min-width: 0; }
+.ctl-block .btn span { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.state-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+.state-grid .pill { height: 30px; font-size: 12.5px; padding: 0 10px; }
+
+.backend-status { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--ink-500); border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; }
+.backend-status__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink-400); }
+.backend-status--connected { color: #0a7a3d; }
+.backend-status--connected .backend-status__dot { background: #16a34a; }
+.backend-status--offline { color: #b42318; }
+.backend-status--offline .backend-status__dot { background: #dc2626; }
+.backend-status--checking .backend-status__dot { background: #d97706; }

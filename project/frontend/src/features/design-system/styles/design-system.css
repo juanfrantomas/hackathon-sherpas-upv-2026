@@ -1,0 +1,30 @@
+/* =========================== Design system =========================== */
+.ds { max-width: 1100px; margin: 0 auto; padding: 32px max(16px, env(safe-area-inset-right, 0px)) 64px max(16px, env(safe-area-inset-left, 0px)); display: grid; gap: 28px; }
+.ds-intro { display: grid; gap: 12px; max-width: 760px; }
+.ds-sec { display: grid; gap: 14px; padding: 22px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); }
+.ds-two { grid-template-columns: 1fr 1fr; gap: 28px; }
+.ds-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.sw-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
+.sw { display: flex; gap: 10px; align-items: center; }
+.sw__chip { width: 40px; height: 40px; border-radius: 10px; border: 1px solid rgba(0,0,0,.06); flex: none; }
+.sw div { display: grid; }
+.grad-sample { flex: 1; min-width: 200px; height: 64px; border-radius: var(--r-md); display: grid; place-items: center; font-size: 13px; font-weight: 600; border: 1px solid var(--line); }
+.grad-sample--accent { color: #fff; border: 0; }
+.type-scale { display: grid; gap: 12px; }
+.type-scale > div { display: grid; grid-template-columns: 200px 1fr; gap: 16px; align-items: baseline; padding-bottom: 12px; border-bottom: 1px solid var(--line-soft); }
+.fig { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+.space-scale { display: flex; gap: 14px; align-items: flex-end; flex-wrap: wrap; }
+.space-scale div { display: grid; gap: 4px; justify-items: center; }
+.space-scale span { background: var(--sw-blue-200); border-radius: 2px; }
+.radius-demo { width: 84px; height: 56px; border: 1px solid var(--line); background: var(--canvas); display: grid; place-items: center; }
+.shadow-demo { width: 100px; height: 56px; border-radius: 12px; background: var(--surface); display: grid; place-items: center; }
+.voice-states { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.vs { display: flex; gap: 10px; align-items: center; padding: 10px; border: 1px solid var(--line); border-radius: var(--r-md); }
+.vs div { display: grid; }
+.vs__dot { width: 30px; height: 30px; border-radius: 50%; background: var(--sw-blue-600); flex: none; }
+.vs--listening .vs__dot { background: var(--surface); box-shadow: 0 0 0 2px var(--sw-blue-600); }
+.vs--thinking .vs__dot { background: var(--sw-blue-200); }
+.vs--speaking .vs__dot { box-shadow: 0 0 0 5px var(--sw-blue-100); }
+.vs--interrupted .vs__dot { background: var(--surface); box-shadow: 0 0 0 2px var(--sw-blue-600), 0 0 0 6px var(--sw-blue-50); }
+.vs--muted .vs__dot { background: var(--line); }
+.vs--error .vs__dot { background: var(--err-50); box-shadow: 0 0 0 1.5px #efc9c5; }

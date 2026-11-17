@@ -1,0 +1,106 @@
+{
+  "status_code": 200,
+  "body": {
+    "checkins": [
+      {
+        "id": "chk_fabef32c8247455b",
+        "milestone_id": "ms_6221fb07528070d2",
+        "title": "Decide target life insurance coverage for Timothy and Melanie",
+        "scheduled_date": "2026-11-24",
+        "effective_date": null,
+        "status": "scheduled",
+        "completed_at": null,
+        "pending": false,
+        "note": null
+      },
+      {
+        "id": "chk_c2008fc96c834fa5",
+        "milestone_id": "ms_329f10ade5f90b72",
+        "title": "Decide how to allocate the cash surplus across protection, debt and education",
+        "scheduled_date": "2026-11-24",
+        "effective_date": "2026-11-17",
+        "status": "completed",
+        "completed_at": "2026-11-17T15:33:51.479949Z",
+        "pending": false,
+        "note": null
+      },
+      {
+        "id": "chk_c41e5ba1783b4b9d",
+        "milestone_id": "ms_cc46d071df4971ee",
+        "title": "Schedule $6,800 payment to the Chase credit card",
+        "scheduled_date": "2026-12-01",
+        "effective_date": null,
+        "status": "scheduled",
+        "completed_at": null,
+        "pending": false,
+        "note": null
+      },
+      {
+        "id": "chk_6be10e747feb4ea6",
+        "milestone_id": "ms_fac21055ec39fc0b",
+        "title": "Decide whether to buy an umbrella liability policy (recommendation: $1,000,000)",
+        "scheduled_date": "2026-12-01",
+        "effective_date": null,
+        "status": "scheduled",
+        "completed_at": null,
+        "pending": false,
+        "note": null
+      },
+      {
+        "id": "chk_c0bf90cb42f547eb",
+        "milestone_id": "ms_af6ef363a92faa5a",
+        "title": "Open 529 accounts and begin regular contributions for Liam and Josh",
+        "scheduled_date": "2026-12-01",
+        "effective_date": null,
+        "status": "scheduled",
+        "completed_at": null,
+        "pending": false,
+        "note": null
+      },
+      {
+        "id": "chk_f902b77b91d54da8",
+        "milestone_id": "ms_7e2c6977681f06e1",
+        "title": "Decide what portion of idle cash above the reserve to move to higher-yield accounts or investments",
+        "scheduled_date": "2026-12-17",
+        "effective_date": null,
+        "status": "scheduled",
+        "completed_at": null,
+        "pending": false,
+        "note": null
+      },
+      {
+        "id": "chk_1d93728f3af3495c",
+        "milestone_id": "ms_1b5c9ecc9da73165",
+        "title": "Review asset allocation and concentrated positions (technology and UPRO)",
+        "scheduled_date": "2026-12-17",
+        "effective_date": null,
+        "status": "scheduled",
+        "completed_at": null,
+        "pending": false,
+        "note": null
+      },
+      {
+        "id": "chk_2c5f7ba7b2004b3c",
+        "milestone_id": "ms_4cf3a5a7e1d7ac6a",
+        "title": "Decide whether to use unused Roth IRA, HSA and additional 401(k) room this year",
+        "scheduled_date": "2026-12-17",
+        "effective_date": null,
+        "status": "scheduled",
+        "completed_at": null,
+        "pending": false,
+        "note": null
+      },
+      {
+        "id": "chk_bc4f04a803f24baa",
+        "milestone_id": "ms_329f10ade5f90b72",
+        "title": "Decide how to allocate the cash surplus across protection, debt and education",
+        "scheduled_date": "2026-12-24",
+        "effective_date": null,
+        "status": "scheduled",
+        "completed_at": null,
+        "pending": false,
+        "note": null
+      }
+    ]
+  }
+}

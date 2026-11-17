@@ -1,0 +1,16 @@
+/* =========================== Responsive =========================== */
+@media (max-width: 1100px) {
+  .stage { grid-template-columns: auto 260px; }
+  .flow { display: none; }
+}
+@media (max-width: 760px) {
+  .stage { grid-template-columns: minmax(0, 1fr); padding: 16px 0 32px; gap: 20px; }
+  .controls { position: static; padding: 0 16px; }
+  .phone { width: min(390px, 100vw); border-radius: 0; box-shadow: none; height: 844px; }
+  .phone__status { display: none; }
+  .adv { grid-template-columns: 1fr; }
+  .adv-side { display: none; }
+  .adv-grid, .ds-two { grid-template-columns: 1fr; }
+  .type-scale > div { grid-template-columns: 1fr; gap: 4px; }
+  .proto-bar__tag { display: none; }
+}
