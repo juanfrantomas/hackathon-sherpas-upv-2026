@@ -6,6 +6,7 @@ Mentor Proactivo + Traductor de Jerga, Modo Multijugador Familiar y Vídeo Intro
 """
 
 import os
+import re
 import json
 import asyncio
 import hashlib
@@ -105,67 +106,67 @@ _MILESTONE_STATE: Dict[str, Dict[int, str]] = {}
 _LAST_CELEBRATION: Dict[str, CelebrationInfo] = {}
 _HIGH_FIVES_STATE: Dict[str, List[HighFiveItem]] = {}
 
-# Traducciones y contexto humano en español para los hitos reales de las 4 familias
+# Traducciones y contexto humano empático en español para los hitos reales de las 4 familias
 MOVE_TRANSLATIONS: Dict[str, Dict[str, str]] = {
     "Pay down revolving card": {
-        "titulo": "Tapar el agujero: liquidar el tramo crítico de la tarjeta al 18%",
-        "descripcion": "Destinar $6,800 de vuestros $150,800 en efectivo para bajar el saldo de la tarjeta Chase (18% TAE) y eliminar el primer freno del Score.",
-        "por_que_importa": "Pagáis $3,240/año en intereses mientras el efectivo os rinde un 0.1%. Para Timothy es un 18% de retorno garantizado y para Melanie sigue quedando un colchón enorme.",
-        "pregunta_mentor": "¿Cómo nos afecta usar $6,800 del efectivo para quitar la tarjeta al 18% sin perder seguridad?",
+        "titulo": "Cerrar la pequeña fuga: reducir el tramo caro de la tarjeta al 18%",
+        "descripcion": "Destinar solo $6,800 de vuestros $150,800 en efectivo para bajar el saldo de la tarjeta Chase (18% TAE) y quitar el primer freno del Score.",
+        "por_que_importa": "Os ahorráis $3,240/año en intereses usando una pequeña parte del efectivo que hoy rinde un 0.1%. Para Timothy es un 18% de retorno garantizado y para Melanie sigue quedando un colchón enorme de seguridad.",
+        "pregunta_mentor": "¿Cómo nos ayuda usar $6,800 del efectivo sobrante para quitar la tarjeta al 18% manteniendo intacta nuestra tranquilidad?",
     },
     "Add life cover": {
-        "titulo": "Blindar el seguro de vida para proteger a Liam y Josh",
-        "descripcion": "Añadir $235,000 de cobertura de vida para superar el umbral mínimo familiar ($485,000) y levantar el segundo tope de vuestro Score.",
-        "por_que_importa": "Al quitar el tope de la tarjeta y el del seguro de vida juntos, vuestro Score da un salto directo de 60 a 73 puntos y protegéis el futuro de los niños.",
-        "pregunta_mentor": "¿Por qué nuestro Score sube de 60 a 73 al combinar el pago de la tarjeta con el seguro de vida?",
+        "titulo": "Tejer una red de tranquilidad familiar para Liam y Josh",
+        "descripcion": "Sumar $235,000 de respaldo familiar para alcanzar el nivel recomendado ($485,000) y desbloquear el segundo impulso de vuestro Score.",
+        "por_que_importa": "Al combinar el ajuste de la tarjeta con este respaldo familiar, vuestro Score da un salto directo de 60 a 73 puntos y los proyectos de los niños quedan siempre garantizados.",
+        "pregunta_mentor": "¿Por qué nuestro Score da un salto tan positivo de 60 a 73 al unir el ajuste de la tarjeta con el respaldo familiar?",
     },
     "Add umbrella cover": {
-        "titulo": "Activar escudo de responsabilidad civil ($1M Umbrella)",
-        "descripcion": "Contratar una póliza paraguas (Umbrella) de $1,000,000 para proteger vuestro patrimonio e ingresos frente a imprevistos.",
-        "por_que_importa": "Con altos ingresos y patrimonio acumulado, una reclamación podría comprometer vuestros ahorros. Es el paso más sencillo y económico para blindar el plan.",
-        "pregunta_mentor": "¿Qué es exactamente la póliza Umbrella de $1 millón y cuánto nos ayuda en el Score?",
+        "titulo": "Activar paraguas de tranquilidad patrimonial ($1M Umbrella)",
+        "descripcion": "Incorporar una póliza paraguas (Umbrella) de $1,000,000 para cuidar vuestro patrimonio y ahorros con total serenidad.",
+        "por_que_importa": "Es un escudo muy sencillo y económico que mantiene a salvo todo el esfuerzo que habéis construido.",
+        "pregunta_mentor": "¿Qué es exactamente la póliza paraguas de $1 millón y cómo nos ayuda a estar más tranquilos?",
     },
     "Lower the withdrawal rate": {
-        "titulo": "Equilibrar el ritmo de retiro y el flujo de caja",
-        "descripcion": "Ajustar las retiradas proyectadas hacia la banda sostenible ($10,300/año, 6.0%) para que tus ahorros no se agoten a los 85 años.",
-        "por_que_importa": "Hoy tu flujo de caja es de -$8,336/año y comprar la casa de $550,000 en enero de 2027 compite con jubilarte a los 58 años. Este ajuste impulsa tu Score de 26 a 62.",
-        "pregunta_mentor": "¿Puedo comprar la casa de $550,000 en 2027 y aun así jubilarme a los 58 años?",
+        "titulo": "Sincronizar el ritmo entre tu casa de 2027 y tu retiro a los 58",
+        "descripcion": "Acompasar las retiradas futuras hacia la banda cómoda ($10,300/año, 6.0%) para que tu ahorro te acompañe con holgura hasta los 91 años.",
+        "por_que_importa": "Ahorras $43,000 al año con una disciplina admirable; solo necesitas acompasar el ritmo con la compra de tu casa en enero de 2027 para dar un salto directo de 26 a 62 puntos.",
+        "pregunta_mentor": "¿Cómo acompasamos la compra de mi casa de $550,000 en 2027 para poder jubilarme con tranquilidad a los 58 años?",
     },
     "Raise growth allocation toward glide": {
-        "titulo": "Alinear tu cartera de inversión con tu horizonte Growth",
-        "descripcion": "Pasar el peso de crecimiento del 74% al 88% (~$19,900 de tu cartera invertida) para aprovechar tus 20 años hasta la jubilación.",
-        "por_que_importa": "Tu perfil es Growth, pero parte de tu cartera a largo plazo e impuestos (como el fondo JNK en cuenta sujeta a impuestos) frenan tu crecimiento compuesto.",
-        "pregunta_mentor": "¿Qué cambios concretos debo hacer en mis fondos y ETFs para optimizar mi cartera?",
+        "titulo": "Poner tu cartera a trabajar a favor de tus 20 años de horizonte",
+        "descripcion": "Pasar el peso de crecimiento del 74% al 88% (~$19,900 de tu cartera invertida) para impulsar tu retiro temprano.",
+        "por_que_importa": "Aprovechas tus 20 años de margen hasta la jubilación y reduces impuestos anuales recolocando el fondo JNK.",
+        "pregunta_mentor": "¿Qué ajustes sencillos puedo hacer en mis fondos para que mi dinero crezca mejor de cara a los 58 años?",
     },
     "Raise mortality coverage": {
-        "titulo": "Proteger los ingresos de Daniel y Emily con seguro de vida",
-        "descripcion": "Añadir $1,166,000 de cobertura de vida para cubrir la brecha familiar y proteger el futuro de Oliver y Sophia.",
-        "por_que_importa": "Vuestro hogar depende de dos sueldos que representan el 55% de vuestro patrimonio neto y el área de protección está hoy en 0 de 20 puntos.",
-        "pregunta_mentor": "¿Cómo repartimos el seguro de vida entre Daniel y Emily sin ahogar el presupuesto mensual?",
+        "titulo": "Blindar la tranquilidad del hogar y el futuro de Oliver y Sophia",
+        "descripcion": "Ampliar el respaldo familiar en $1,166,000 para que los proyectos y estudios de los niños estén siempre garantizados.",
+        "por_que_importa": "Vuestro hogar cuenta con dos grandes sueldos ($280,000/año). Poner esta red de tranquilidad familiar suma +5 puntos inmediatos al plan y os da paz mental.",
+        "pregunta_mentor": "¿Cómo organizamos esta red de protección familiar entre Daniel y Emily de forma cómoda cada mes?",
     },
     "Raise annual savings": {
-        "titulo": "Redirigir el flujo de caja libre hacia la jubilación",
-        "descripcion": "Canalizar los $15,032/año de flujo libre hacia ahorro de jubilación (401k) y atacar la tarjeta al 24.9%.",
-        "por_que_importa": "Hoy aportáis $0 a ambos 401(k) mientras pagáis un 24.9% en la tarjeta Chase Sapphire. Aprovechar el 401(k) os ahorra hasta $11,760/año en impuestos.",
-        "pregunta_mentor": "¿Qué hacemos primero con nuestro margen anual: pagar la tarjeta al 24.9%, el 401(k) o el fondo de los niños?",
+        "titulo": "Aprovechar vuestro margen anual para ahorrar impuestos y quitar la tarjeta",
+        "descripcion": "Canalizar los $15,032/año de margen libre hacia vuestros planes 401(k) y reducir la tarjeta al 24.9%.",
+        "por_que_importa": "Unís el gran hábito ahorrador de Emily con un descuento fiscal de hasta $11,760/año en los 401(k) y os quitáis los intereses de la tarjeta.",
+        "pregunta_mentor": "¿Cómo ordenamos nuestro margen anual entre la tarjeta, el 401(k) y el fondo de los niños para ganar tranquilidad?",
     },
     "Close a coverage gap": {
-        "titulo": "Registrar y blindar el seguro de tu vivienda de $900,000",
-        "descripcion": "Incorporar la póliza de hogar sobre tu vivienda principal libre de hipoteca para cerrar la alerta de cobertura.",
-        "por_que_importa": "Tu casa representa el 65% de tu patrimonio neto ($900,000 de $1,395,000). Cerrar esta brecha eleva tu Score directamente de 82 a 84.",
-        "pregunta_mentor": "Mi Score es 82, ¿por qué el plan dice que mis ahorros se agotan a los 73 años y qué pasa con el seguro de mi casa?",
+        "titulo": "Registrar la cobertura de tu vivienda de $900,000",
+        "descripcion": "Incorporar la póliza de hogar de tu vivienda principal libre de hipoteca para completar tu escudo patrimonial.",
+        "por_que_importa": "Tu casa es el pilar central de tu patrimonio ($900,000 de $1,395,000). Registrarla sube tu Score directamente de 82 a 84.",
+        "pregunta_mentor": "Con mi Score de 82, ¿cómo alargamos la comodidad de mi liquidez más allá de los 73 años y completamos el seguro de mi casa?",
     },
     "Reduce single-name concentration": {
-        "titulo": "Diversificar la concentración en VTI y optimizar fiscalidad",
-        "descripcion": "Reducir el peso de VTI del 39% al 25% del capital invertible (~$58,300) y abrir cuentas con ventaja fiscal (IRA/HSA).",
-        "por_que_importa": "Aunque ahorras $60,000/año, tienes $0 en cuentas de jubilación y pierdes ~$3,032/año en impuestos por dividendos en tu cuenta de bróker.",
-        "pregunta_mentor": "¿Cómo puedo reducir los $3,032 de impuestos anuales de mi cartera y financiar la universidad de Ethan y Ava?",
+        "titulo": "Diversificar VTI y aprovechar cuentas con ventaja fiscal",
+        "descripcion": "Equilibrar el peso de VTI del 39% al 25% (~$58,300) y estrenar cuentas con ventaja fiscal (IRA/HSA).",
+        "por_que_importa": "Tu capacidad de ahorro de $60,000/año es excelente; sumarle ventaja fiscal te ahorra ~$3,032/año en impuestos y alarga tu liquidez hasta los 90 años.",
+        "pregunta_mentor": "¿Cómo puedo ahorrar esos $3,032 anuales en impuestos y organizar con calma la universidad de Ethan y Ava?",
     },
     "Reduce growth allocation toward glide": {
-        "titulo": "Ajustar el riesgo de cartera al 80% antes de los pagos de universidad",
-        "descripcion": "Ajustar la exposición a renta variable del 85% al 80% objetivo (~$17,100) para proteger tu liquidez ante pagos cercanos.",
-        "por_que_importa": "Con los pagos universitarios de Ethan (2027) y Ava (2028) y la compra de vivienda en 2030, reducir la volatilidad protege tu flujo de caja.",
-        "pregunta_mentor": "¿Cómo equilibramos mi cartera Growth del 85% con los pagos de universidad de 2027 y 2028?",
+        "titulo": "Dar estabilidad a tu cartera (80%) para las etapas universitarias",
+        "descripcion": "Ajustar suavemente la renta variable del 85% al 80% (~$17,100) para tener liquidez serena en 2027 y 2028.",
+        "por_que_importa": "Acompaña con total tranquilidad los pagos universitarios de Ethan (2027) y Ava (2028) y tu futura casa en 2030.",
+        "pregunta_mentor": "¿Cómo equilibramos mi cartera para afrontar con total comodidad los pagos de universidad de 2027 y 2028?",
     },
 }
 
@@ -376,24 +377,24 @@ KIDS_SAFE_GOALS_BY_CASE: Dict[str, List[Dict[str, Any]]] = {
 
 SUGGESTED_PROMPTS_BY_CASE: Dict[str, List[str]] = {
     "timothy-melanie-weah": [
-        "¿Por qué tenemos $150,000 en el banco y una tarjeta al 18% a la vez?",
+        "¿Cómo aprovechamos parte de los $150,000 en el banco para quitar la tarjeta sin perder tranquilidad?",
         "¿Cómo nos ponemos de acuerdo Timothy y Melanie con el nivel de riesgo?",
-        "¿Por qué nuestro Score sube de 60 a 73 al unir tarjeta y seguro de vida?",
+        "¿Por qué nuestro Score sube de 60 a 73 al unir tarjeta y protección familiar?",
     ],
     "michael-carter": [
-        "¿Puedo comprar la casa de $550,000 en enero de 2027 y jubilarme a los 58?",
-        "¿Por qué mi Score es 26 si gano $180,000 y ahorro $43,000 al año?",
-        "¿Qué hago primero con mi flujo de caja negativo de -$8,336 al año?",
+        "¿Cómo acompaso la compra de mi casa en 2027 para jubilarme tranquilo a los 58?",
+        "Con todo lo que ahorro al año ($43,000), ¿cómo doy el salto rápido de 26 a 62 puntos?",
+        "¿Cómo organizo mi ahorro mensual para llegar cómodo a la entrada de la casa?",
     ],
     "daniel-emily-johnson": [
-        "¿Atacamos primero la tarjeta al 24.9%, el colchón de efectivo o el 401(k)?",
-        "¿Cómo coordinamos las cuentas de Emily y Daniel para proteger a los niños?",
-        "¿Cuánto ahorraríamos en impuestos si activamos nuestros 401(k)?",
+        "¿Por dónde empezamos con suavidad: la tarjeta, el colchón familiar o el 401(k)?",
+        "¿Cómo coordinamos las cuentas de Emily y Daniel para dar tranquilidad a los niños?",
+        "¿Cuánto ahorraríamos en impuestos al año si activamos nuestros 401(k)?",
     ],
     "samantha-lewis": [
-        "Si mi Score es 82 (fuerte), ¿por qué mis ahorros se agotan a los 73 años?",
-        "¿Cómo afronto los pagos de universidad de Ethan y Ava sin cuentas 529 ni 401(k)?",
-        "¿Cómo reduzco los $3,032 al año que pierdo en impuestos en mi cartera de ETFs?",
+        "Con mi Score de 82, ¿cómo alargo la holgura de mi liquidez hasta los 90 años?",
+        "¿Cómo organizo con comodidad la universidad de Ethan y Ava y mi retiro?",
+        "¿Cómo ahorro los $3,032 anuales de impuestos en mi cartera de ETFs?",
     ],
 }
 
@@ -550,38 +551,92 @@ MENTOR_INSIGHTS_BY_CASE: Dict[str, Dict[str, Any]] = {
 }
 
 
-async def synthesize_elevenlabs_speech(text: str, voice_profile: Dict[str, str]) -> Tuple[bytes, str]:
+def _normalize_text_for_spanish_tts(text: str) -> str:
     """
-    Genera audio MP3 con ElevenLabs (`eleven-flash-v2.5`).
-    Implementa caché en disco por hash (voz + texto) para proteger el cupo de $1.40.
+    Adapta fonéticamente el texto antes de enviarlo a ElevenLabs para evitar que
+    símbolos anglosajones ($6,800), siglas (401k, Roth IRA) o nombres en inglés
+    (Timothy, Melanie, Weah, Chase, Score) hagan que el motor TTS cambie a acento inglés.
+    El texto original sin modificar se sigue mostrando limpio en el chat de la interfaz.
     """
-    os.makedirs("assets", exist_ok=True)
-    voice_id = voice_profile["voice_id"]
-    digest = hashlib.sha256(f"{voice_id}::{text.strip()}".encode("utf-8")).hexdigest()[:12]
-    cached_path = f"assets/tts_{digest}.mp3"
+    s = text.strip()
+    # 1. Convertir importes en formato EE.UU. ($6,800 o $150,800) a formato hablado en español
+    s = re.sub(
+        r"\$\s*([0-9]{1,3}(?:,[0-9]{3})+)",
+        lambda m: f"{m.group(1).replace(',', '')} dólares",
+        s,
+    )
+    s = re.sub(r"\$\s*([0-9]+)\s*[kK]\b", r"\1 mil dólares", s)
+    s = re.sub(r"\$\s*([0-9]+)\s*[mM]\b", r"\1 millones de dólares", s)
+    s = re.sub(r"\$\s*([0-9]+)", r"\1 dólares", s)
 
-    if os.path.exists(cached_path) and os.path.getsize(cached_path) > 256:
-        with open(cached_path, "rb") as f:
-            return f.read(), cached_path
+    # 2. Porcentajes con punto decimal anglosajón (ej. 24.9% -> 24 coma 9 por ciento)
+    s = re.sub(r"([0-9]+)\.([0-9]+)\s*%", r"\1 coma \2 por ciento", s)
+    s = re.sub(r"([0-9]+)\s*%", r"\1 por ciento", s)
+
+    # 3. Adaptación fonética castellana de nombres y jerga anglosajona
+    phonetic_map = [
+        (r"\b401\s*\(\s*k\s*\)", "plan cuatrocientos uno ca"),
+        (r"\b401k\b", "plan cuatrocientos uno ca"),
+        (r"\bRoth\s+IRA\b", "cuenta Roz Ira"),
+        (r"\bIRA\b", "cuenta Ira"),
+        (r"\bHSA\b", "cuenta H S A"),
+        (r"\b529\b", "plan quinientos veintinueve"),
+        (r"\bScore\b", "nivel de salud financiera"),
+        (r"\bscore\b", "nivel de salud financiera"),
+        (r"\bUmbrella\b", "póliza paraguas"),
+        (r"\bumbrella\b", "póliza paraguas"),
+        (r"\bGrowth\b", "crecimiento"),
+        (r"\bModerate\b", "moderado"),
+        (r"\bChase\s+Sapphire\b", "Cheis Safáir"),
+        (r"\bChase\b", "Cheis"),
+        (r"\bTimothy\b", "Tímoti"),
+        (r"\bMelanie\b", "Mélani"),
+        (r"\bWeah\b", "Uea"),
+        (r"\bMichael\s+Carter\b", "Máicol Cárter"),
+        (r"\bMichael\b", "Máicol"),
+        (r"\bSamantha\s+Lewis\b", "Samanta Luis"),
+        (r"\bSamantha\b", "Samanta"),
+        (r"\bEmily\b", "Émili"),
+        (r"\bJosh\b", "Yos"),
+        (r"\bSherpas\s+Wealth\b", "Sherpas"),
+    ]
+    for pattern, replacement in phonetic_map:
+        s = re.sub(pattern, replacement, s)
+    return s
+
+
+async def synthesize_elevenlabs_speech(text: str, voice_profile: Dict[str, Any]) -> Tuple[bytes, str]:
+    """
+    Genera audio MP3 en memoria con ElevenLabs (`eleven-multilingual-v2`).
+    Devuelve los bytes en memoria y una URL de datos Base64 (data:audio/mp3;base64,...)
+    sin crear ni guardar ningún archivo físico en disco.
+    """
+    import base64
+
+    voice_id = voice_profile["voice_id"]
+    fallback_voice = voice_profile["fallback_voice"]
+    tts_model = voice_profile.get("tts_model", "eleven-multilingual-v2")
+    lang = voice_profile.get("detected_language", "es")
+    tts_text = _normalize_text_for_spanish_tts(text) if lang == "es" else text.strip()
 
     try:
         audio_resp = await llm_client.audio.speech.create(
-            model="eleven-flash-v2.5",
+            model=tts_model,
             voice=voice_id,
-            input=text,
+            input=tts_text,
         )
         audio_bytes = audio_resp.content
     except Exception:
         audio_resp = await llm_client.audio.speech.create(
             model="eleven-flash-v2.5",
-            voice=voice_profile["fallback_voice"],
-            input=text,
+            voice=fallback_voice,
+            input=tts_text,
         )
         audio_bytes = audio_resp.content
 
-    with open(cached_path, "wb") as f:
-        f.write(audio_bytes)
-    return audio_bytes, cached_path
+    b64_audio = base64.b64encode(audio_bytes).decode("ascii")
+    data_uri = f"data:audio/mp3;base64,{b64_audio}"
+    return audio_bytes, data_uri
 
 
 async def ask_llm_with_tools(
@@ -591,31 +646,42 @@ async def ask_llm_with_tools(
     voice_profile: Dict[str, str],
 ) -> Tuple[str, bool, List[str]]:
     """
-    Ejecuta el ciclo de consulta a `gemini-3.5-flash-lite` con soporte de tool calling (`get_case`).
+    Ejecuta el ciclo de consulta a `gemini-3.5-flash-lite`.
+    Para responder en <1s en los botones rápidos, usa directamente los datos del `brief`
+    y solo habilita `get_case` si la pregunta pide un detalle profundo no incluido en el brief.
     """
     case_id = normalize_case_id(client_id)
+    q_lower = (question or "").lower()
+    needs_deep_tool = any(
+        kw in q_lower
+        for kw in ("ticker", "etf", "fondo", "jnk", "vti", "upro", "posicion", "position", "2033", "2035", "2038", "2044")
+    )
+
     messages: List[Dict[str, Any]] = [
         {
             "role": "system",
             "content": (
-                "Eres el asesor de Sherpas Wealth, pero NO hablas como un banco aburrido.\n"
+                "Eres el asesor de Sherpas Wealth, cercano, optimista y claro.\n"
                 f"{voice_profile['tone_instructions']}\n\n"
                 "REGLA DE ORO: PROHIBIDO recitar listas largas de cifras o decimales. "
-                "Usa los datos reales del plan como tu chuleta interna y tradúcelos al registro del cliente "
-                "en máximo 2 o 3 frases vivas y directas.\n\n"
+                "Usa los datos reales de tu CHULETA INTERNA y responde directamente "
+                "en máximo 2 frases vivas, cálidas y directas.\n\n"
                 f"CHULETA INTERNA:\n{brief}"
             ),
         },
         {"role": "user", "content": question},
     ]
 
-    response = await llm_client.chat.completions.create(
-        model="gemini-3.5-flash-lite",
-        messages=messages,
-        tools=CHAT_TOOLS,
-        tool_choice="auto",
-        max_tokens=250,
-    )
+    req_kwargs: Dict[str, Any] = {
+        "model": "gemini-3.5-flash-lite",
+        "messages": messages,
+        "max_tokens": 180,
+    }
+    if needs_deep_tool:
+        req_kwargs["tools"] = CHAT_TOOLS
+        req_kwargs["tool_choice"] = "auto"
+
+    response = await llm_client.chat.completions.create(**req_kwargs)
 
     mensaje_ia = response.choices[0].message
     claves_consultadas: List[str] = []
@@ -1216,49 +1282,49 @@ async def run_what_if_simulator(
         score_sim = 26 + (36 if has_withdraw else 0) + (5 if has_umb else 0) + (5 if has_growth else 0)
         sinergia = has_withdraw and (has_umb or has_growth)
         msg_sinergia = (
-            f"🚀 ¡Transformación Completa! Tu Score pasa de banda Crítica (26) a Estable ({score_sim}) y tus ahorros llegan hasta los 91 años."
+            f"🚀 ¡Salto Conseguido! Tu Score despega de tu punto de partida (26) a Banda Estable ({score_sim}) y tu liquidez te acompaña cómodamente hasta los 91 años."
             if has_withdraw
-            else "👆 Activa las decisiones de arriba para ver cómo pasar de Score 26 (Crítico) a más de 62 puntos."
+            else "👆 Activa los interruptores de arriba para ver cómo tu disciplina de ahorro impulsa tu Score de 26 a más de 62 puntos."
         )
         pregunta_combo = (
-            f"Con los interruptores que he activado mi Score sube de 26 a {score_sim}. Explícame cómo hace esto viable comprar la casa en 2027 y jubilarme a los 58."
+            f"Con los interruptores que he activado mi Score sube de 26 a {score_sim}. Explícame cómo hace esto compatibles comprar la casa en 2027 y jubilarme a los 58."
             if score_sim > 26
-            else "Explícame qué cambia si activo los interruptores para subir mi Score de 26 a 67."
+            else "Explícame de forma motivadora qué cambia si activo los interruptores para subir mi Score de 26 a 67."
         )
         saved = (8336 if has_withdraw else 0) + (527 if has_growth else 0)
         timeline = [
             TimelineComparison(
                 hito="Enero 2027 · Compra de Casa ($550k)",
                 icono="🏠",
-                sin_cambios="Flujo de -$8,336/año; la entrada de $113,300 deja tu cartera en $81,172.",
+                sin_cambios="La entrada de $113,300 toma gran parte de tu cartera invertida ($178k → $81k).",
                 con_decisiones=(
-                    "Flujo equilibrado y cartera Growth trabajando al 88% para recuperar la base."
+                    "Ritmo acompasado y cartera Growth trabajando al 88% para reponer tu base con fluidez."
                     if (has_withdraw or has_growth)
-                    else "La compra absorbe más de la mitad de tu capital invertido."
+                    else "Conviene acompasar la liquidez para que la compra sea más holgada."
                 ),
-                mejora_destacada="Flujo positivo" if has_withdraw else "En tensión",
+                mejora_destacada="Ritmo equilibrado" if has_withdraw else "Por acompasar",
             ),
             TimelineComparison(
-                hito="Edad 58 (2047) · Tu Jubilación",
+                hito="Edad 58 (2047) · Tu Jubilación Temprana",
                 icono="🌅",
-                sin_cambios="Brecha de jubilación de $1,177,586 con ritmo de gasto insostenible.",
+                sin_cambios="Tus dos metas compiten en el tiempo si no ajustamos el ritmo de retiro.",
                 con_decisiones=(
-                    "Tasa de retiro en banda sostenible (6.0%) con cartera optimizada fiscalmente."
+                    "Ritmo de retiro en banda cómoda (6.0%) con cartera optimizada fiscalmente."
                     if has_withdraw
-                    else "Retiro temprano comprometido por exceso de extracción."
+                    else "Oportunidad de sincronizar el ritmo de retiro para llegar holgado a los 58."
                 ),
-                mejora_destacada="Retiro a los 58 viable" if has_withdraw else "En riesgo",
+                mejora_destacada="Retiro a los 58 viable" if has_withdraw else "Ajuste pendiente",
             ),
             TimelineComparison(
-                hito="Edad 85 a 91 · Final del Plan",
+                hito="Edad 85 a 91 · Tranquilidad a Largo Plazo",
                 icono="⏳",
-                sin_cambios="Tus ahorros se agotan a los 85 años (6 años antes del final del plan).",
+                sin_cambios="El colchón financiero proyecta cubrir hasta los 85 años y pide un pequeño ajuste para llegar a los 91.",
                 con_decisiones=(
-                    "¡Tus ahorros cubren hasta los 91 años sin quedarte a cero!"
+                    "¡Tu patrimonio te acompaña con total tranquilidad hasta los 91 años!"
                     if has_withdraw
-                    else "Siguen faltando 6 años de cobertura al final de la vida."
+                    else "Activa el ajuste de ritmo para ganar 6 años extra de holgura."
                 ),
-                mejora_destacada="+6 años de vida financiera" if has_withdraw else "Se agota a los 85",
+                mejora_destacada="+6 años de holgura" if has_withdraw else "Hasta los 85 años",
             ),
         ]
 
@@ -1273,8 +1339,8 @@ async def run_what_if_simulator(
             mensaje_sinergia=msg_sinergia,
             pregunta_combo_mentor=pregunta_combo,
             ahorro_anual_dolares=saved,
-            etiqueta_ahorro="Flujo de caja e impuestos recuperados al año",
-            impacto_tiempo="Tus ahorros duran hasta los 91 años (+6 años)" if has_withdraw else "Ahorros se agotan a los 85 años",
+            etiqueta_ahorro="Flujo de caja e impuestos optimizados al año",
+            impacto_tiempo="Holgura garantizada hasta los 91 años (+6 años)" if has_withdraw else "Cobertura proyectada hasta los 85 años",
             resumen_visual=msg_sinergia,
             confetti=(score_sim >= 62),
             power_ups=power_ups,
@@ -1283,37 +1349,37 @@ async def run_what_if_simulator(
                 PactCard(
                     card_id="house_rush",
                     icono="🏠",
-                    titulo="Opción A: Comprar Casa en 2027 vaciando Cartera",
-                    subtitulo_quien="Sacar los $113,300 de entrada de tus inversiones sin ajustar nada",
-                    tranquilidad_pct=35,
-                    rentabilidad_pct=45,
+                    titulo="Opción A: Comprar en 2027 sin Ajustar el Ritmo",
+                    subtitulo_quien="Tomar los $113,300 de tus inversiones manteniendo el mismo ritmo posterior",
+                    tranquilidad_pct=45,
+                    rentabilidad_pct=50,
                     score_resultado=26,
-                    veredicto="Tu cartera cae de $178k a $81k en 2027 y tus ahorros se agotan a los 85 años.",
-                    pregunta_mentor="¿Qué significa elegir la Opción A y comprar la casa en enero de 2027 vaciando mi cartera sin tocar nada más?",
+                    veredicto="Cumples el sueño de la casa, pero tu cartera queda más ajustada ($81k) para jubilarte tan joven a los 58.",
+                    pregunta_mentor="¿Qué implica elegir la Opción A y comprar la casa en enero de 2027 sin acompasar mi ritmo posterior?",
                     es_recomendado=False,
                 ),
                 PactCard(
                     card_id="retire_only",
                     icono="📈",
-                    titulo="Opción B: Renunciar a la Casa y solo Invertir",
-                    subtitulo_quien="Seguir de alquiler indefinidamente sin tocar la cartera",
-                    tranquilidad_pct=55,
+                    titulo="Opción B: Posponer la Casa y Priorizar Solo Retiro",
+                    subtitulo_quien="Seguir de alquiler para no tocar las inversiones de jubilación",
+                    tranquilidad_pct=60,
                     rentabilidad_pct=85,
                     score_resultado=48,
-                    veredicto="Mejora la jubilación, pero renuncias a tu objetivo vital de tener vivienda propia en Austin.",
-                    pregunta_mentor="¿Qué significa elegir la Opción B y renunciar a comprar mi casa para priorizar solo la jubilación?",
+                    veredicto="Da holgura a tu retiro a los 58, pero dejas en pausa tu ilusión de estrenar hogar propio en Austin.",
+                    pregunta_mentor="¿Qué significa elegir la Opción B y dejar en pausa la compra de mi casa?",
                     es_recomendado=False,
                 ),
                 PactCard(
                     card_id="sherpas_balance",
                     icono="⚡",
-                    titulo="Opción C: Secuencia Sherpas (Casa + Retiro a los 58)",
-                    subtitulo_quien="Ajustar ritmo de extracción (6%) + cartera al 88% Growth + escudo Umbrella",
+                    titulo="Opción C: Secuencia Sherpas (Casa en 2027 + Retiro a los 58)",
+                    subtitulo_quien="Acompasar ritmo de retiro (6%) + cartera al 88% Growth + paraguas de tranquilidad",
                     tranquilidad_pct=92,
                     rentabilidad_pct=90,
                     score_resultado=67,
-                    veredicto="¡Haces compatibles ambas metas! Tu Score sube de 26 a 67 y tus ahorros duran hasta los 91 años.",
-                    pregunta_mentor="Explícame paso a paso cómo funciona la Opción C (Secuencia Sherpas) para poder comprar mi casa y jubilarme a los 58.",
+                    veredicto="¡Haces realidad ambas metas sin estrés! Tu Score salta de 26 a 67 y tu ahorro te acompaña hasta los 91 años.",
+                    pregunta_mentor="Explícame paso a paso cómo funciona la Opción C (Secuencia Sherpas) para disfrutar de mi casa y jubilarme a los 58.",
                     es_recomendado=True,
                 ),
             ],
@@ -1461,13 +1527,13 @@ async def run_what_if_simulator(
                 PactCard(
                     card_id="daniel_aggressive",
                     icono="📈",
-                    titulo="Solo Inversión Agresiva sin Seguros",
-                    subtitulo_quien="Buscar alta rentabilidad dejando el seguro de vida en 0/20 y 1.4 meses de caja",
-                    tranquilidad_pct=20,
+                    titulo="Crecer sin Red de Protección Familiar",
+                    subtitulo_quien="Centrarse solo en rentabilidad dejando pendiente el respaldo familiar de los niños",
+                    tranquilidad_pct=35,
                     rentabilidad_pct=80,
                     score_resultado=52,
-                    veredicto="Exposición crítica: con una hipoteca de $560k y dos niños, cualquier imprevisto rompe el plan.",
-                    pregunta_mentor="¿Qué riesgo corremos para Oliver y Sophia si elegimos invertir agresivo sin cubrir antes el seguro de vida?",
+                    veredicto="Con vuestra casa y los proyectos de Oliver y Sophia, sumar antes una red de tranquilidad familiar os da mucha más serenidad.",
+                    pregunta_mentor="¿Por qué nos da más tranquilidad cubrir primero el respaldo familiar de Oliver y Sophia antes de invertir más agresivo?",
                     es_recomendado=False,
                 ),
                 PactCard(
@@ -1698,39 +1764,39 @@ STORY_DATA_BY_CASE: Dict[str, Dict[str, Any]] = {
         ],
     },
     "michael-carter": {
-        "main_challenge": "Quieres comprar una casa de $550,000 en enero de 2027 y jubilarte a los 58 años, pero tu flujo de caja es de -$8,336/año.",
+        "main_challenge": "Ahorras unos admirables $43,000 al año; acompasar la compra de tu casa en 2027 con tu retiro a los 58 hará despegar tu Score de 26 a 62.",
         "scenes": [
             {
                 "scene_id": 1,
-                "chapter": "1 · Diagnóstico Directo",
-                "headline_figure": "26 / 100",
-                "title": "Mucho ahorro bruto, pero tus metas chocan en el calendario",
+                "chapter": "1 · Tu Gran Motor de Ahorro",
+                "headline_figure": "26 → 62",
+                "title": "Una gran capacidad de ahorro lista para sincronizarse",
                 "subtitle": "Salario de $180,000 en Austin y ahorro de $43,000/año (23.9%)",
-                "caption_narration": "Michael, vamos directos al grano: tu puntuación es 26 no porque ahorres poco, sino porque gastas y apartas $8,336 más de lo que ingresas cada año.",
+                "caption_narration": "Hola Michael. Tienes lo más difícil: ganas muy bien y ahorras $43,000 cada año. Tu puntuación inicial de 26 es solo porque tus dos grandes metas coinciden a la vez.",
             },
             {
                 "scene_id": 2,
                 "chapter": "2 · Enero de 2027",
                 "headline_figure": "$113,300",
-                "title": "La entrada de tu casa de $550,000 vacía tu liquidez",
-                "subtitle": "Tienes $30,000 en efectivo frente a $163,330 necesarios con la entrada",
-                "caption_narration": "Comprar la casa en enero de 2027 te obliga a sacar dinero de tus inversiones, reduciendo tu cartera de $178,717 a $81,172 de un año para otro.",
+                "title": "Preparar con holgura la entrada de tu casa en Austin",
+                "subtitle": "Acompasar la liquidez para no restar impulso a tus inversiones",
+                "caption_narration": "Para estrenar tu casa en enero de 2027 con total comodidad, nos conviene ordenar de dónde sale la liquidez para que tu cartera siga creciendo con fuerza.",
             },
             {
                 "scene_id": 3,
-                "chapter": "3 · El Reto de los 58 Años",
-                "headline_figure": "85 años",
-                "title": "Si te jubilas a los 58 al ritmo actual, el ahorro se agota a los 85",
-                "subtitle": "Brecha de jubilación de $1,177,586 en dólares de hoy",
-                "caption_narration": "Al tirar de tus inversiones para comprar la casa, el motor se queda corto para mantenerte desde los 58 hasta los 91 años.",
+                "chapter": "3 · Libertad a los 58 Años",
+                "headline_figure": "Hasta los 91",
+                "title": "Alargar el recorrido de tu cartera para disfrutar tu retiro joven",
+                "subtitle": "Un ajuste suave de ritmo extiende tu tranquilidad 6 años más",
+                "caption_narration": "Con un pequeño ajuste en el ritmo de retiro previsto, tu dinero te acompañará con total holgura desde los 58 hasta los 91 años.",
             },
             {
                 "scene_id": 4,
                 "chapter": "4 · Tu Primer Paso",
-                "headline_figure": "26 → 62",
-                "title": "Blindar responsabilidad civil y ajustar tu ritmo de retiro",
-                "subtitle": "Tu plan de acción paso a paso para hacer viables ambas metas",
-                "caption_narration": "Antes de firmar la hipoteca en 2027, entra en tu Camino para proteger tu patrimonio con una póliza Umbrella y ajustar la secuencia de ahorro.",
+                "headline_figure": "+36 pts",
+                "title": "Activar tu paraguas patrimonial y acompasar el ritmo",
+                "subtitle": "Un camino sencillo para hacer compatibles tu casa y tu retiro a los 58",
+                "caption_narration": "Tu Nivel 1 está listo: con dos ajustes muy sencillos das un salto directo a 62 puntos y pones tus dos metas en marcha.",
             },
         ],
     },

@@ -2,20 +2,16 @@
 main.py
 -------
 Punto de entrada principal de la aplicación FastAPI.
-Configura middlewares (CORS), monta las carpetas de archivos estáticos
-y registra las rutas modulares HTTP (routes.api) y WebSocket (routes.ws).
+Configura middlewares (CORS) y registra las rutas modulares
+HTTP (routes.api) y WebSocket (routes.ws).
 """
 
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 
 from routes.api import router as api_router
 from routes.ws import router as ws_router
-
-# Crear carpeta de assets estáticos
-os.makedirs("assets", exist_ok=True)
 
 app = FastAPI(
     title="Sherpas AI Backend",
@@ -31,9 +27,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Archivos estáticos
-app.mount("/assets", StaticFiles(directory="assets"), name="assets")
 
 # Routers desacoplados
 app.include_router(api_router)

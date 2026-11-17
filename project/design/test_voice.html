@@ -120,15 +120,23 @@
   .jargon-card { border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: #fff; cursor: pointer; transition: all 0.15s; }
   .jargon-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 
-  /* Voz & Chat */
+  /* Voz & Chat Estilo WhatsApp */
   .status-row { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); align-items: center; margin-bottom: 10px; }
   .meter { width: 90px; height: 8px; background: #e8ecf3; border-radius: 4px; overflow: hidden; display: inline-block; vertical-align: middle; }
   .meter i { display: block; height: 100%; width: 0%; background: #2b8a3e; transition: width 60ms linear; }
-  .chat-box { display: flex; flex-direction: column; gap: 9px; max-height: 320px; min-height: 180px; overflow-y: auto; padding: 10px; background: var(--bg); border-radius: 12px; border: 1px solid var(--line); }
-  .msg { padding: 10px 14px; border-radius: 12px; max-width: 86%; font-size: 13.5px; line-height: 1.45; }
-  .msg.user { background: var(--accent-soft); align-self: flex-end; border-bottom-right-radius: 3px; }
-  .msg.bot { background: #fff; border: 1px solid var(--line); align-self: flex-start; border-bottom-left-radius: 3px; }
-  .meta { display: block; font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .chat-box { display: flex; flex-direction: column; gap: 10px; max-height: 360px; min-height: 220px; overflow-y: auto; padding: 12px; background: #efeae2; border-radius: 14px; border: 1px solid #dfd8ce; box-shadow: inset 0 1px 4px rgba(0,0,0,0.04); }
+  .msg { padding: 9px 13px 7px; border-radius: 12px; max-width: 86%; font-size: 13.5px; line-height: 1.45; box-shadow: 0 1px 2px rgba(0,0,0,0.08); position: relative; word-wrap: break-word; }
+  .msg.user { background: #d9fdd3; color: #111b21; align-self: flex-end; border-top-right-radius: 2px; }
+  .msg.bot { background: #ffffff; color: #111b21; align-self: flex-start; border-top-left-radius: 2px; }
+  .msg-sender { display: block; font-size: 11px; font-weight: 750; margin-bottom: 3px; }
+  .msg.user .msg-sender { color: #1b7a43; }
+  .msg.bot .msg-sender { color: #3b5bdb; }
+  .meta { display: flex; justify-content: flex-end; align-items: center; gap: 4px; font-size: 10.5px; color: #667781; margin-top: 4px; }
+  .wa-checks { color: #53bdeb; font-weight: 800; letter-spacing: -2px; margin-left: 2px; }
+  .wa-input-bar { display: flex; gap: 8px; margin-top: 8px; align-items: center; }
+  .wa-input-bar input { flex: 1; border-radius: 999px; padding: 9px 14px; border: 1px solid var(--line); font-size: 13.5px; background: #fff; }
+  .wa-input-bar button { border-radius: 999px; padding: 9px 15px; background: #25d366; color: #fff; font-weight: 750; }
+  .wa-input-bar button:hover { background: #1da851; }
   .pill-btn { background: #f3f0ff; border: 1px solid #d0bfff; border-radius: 999px; padding: 6px 12px; font-size: 12px; cursor: pointer; color: var(--purple-ink); font-weight: 600; }
   .pill-btn:hover { background: #e5dbff; }
 
@@ -170,10 +178,10 @@
     </label>
     <label>3. Registro Lingüístico
       <select id="styleSelect">
-        <option value="auto" selected>Automático (según psicología D0-D6)</option>
-        <option value="refranero">🌾 Cercano y con Refranes (Aoede)</option>
-        <option value="sencillo">🏠 Sencillo / Sin tecnicismos (Puck)</option>
-        <option value="formal">🎩 Formal / Ejecutivo (Charon)</option>
+        <option value="auto" selected>Automático (según psicología D0-D6 + Idioma ES)</option>
+        <option value="refranero">🌾 Cercano y con Refranes (Voz Hispanohablante Cálida)</option>
+        <option value="sencillo">🏠 Sencillo / Sin tecnicismos (Voz Hispanohablante Práctica)</option>
+        <option value="formal">🎩 Formal / Ejecutivo (Voz Hispanohablante Ejecutiva)</option>
       </select>
     </label>
     <label>4. Modelo Voz Realtime
@@ -315,12 +323,34 @@
         <span>🎙️ Mentor IA en Tiempo Real (&lt;1s)</span>
         <span class="badge badge-mint" id="lblStatus">Desconectado</span>
       </div>
-      <p class="sub" style="margin-bottom:12px;">Habla por el micrófono o pulsa cualquier hito/metáfora de la izquierda para que el Mentor te lo explique con tu registro de voz.</p>
+      <p class="sub" style="margin-bottom:10px;">Pulsa el botón para hablar sin que el ruido ambiente interrumpa, o toca cualquier hito a la izquierda.</p>
 
-      <div style="display:flex; gap:8px; margin-bottom:12px;">
-        <button id="btnConnect" class="btn-primary" style="flex:1;">🎙️ Conectar micrófono en vivo</button>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-bottom:10px;">
+        <label style="font-size:11px;">Modo de Micrófono
+          <select id="micModeSelect" onchange="onMicModeChange()" style="padding:7px 9px; font-size:12.5px;">
+            <option value="ptt" selected>🔘 Hablar al pulsar botón (Sin ruidos)</option>
+            <option value="open">🎙️ Micrófono abierto continuo</option>
+          </select>
+        </label>
+        <label style="font-size:11px;">Velocidad de Voz
+          <select id="speedSelect" style="padding:7px 9px; font-size:12.5px;">
+            <option value="1.25" selected>⚡ 1.25x (Ágil / Dinámica)</option>
+            <option value="1.35">🚀 1.35x (Muy Rápida)</option>
+            <option value="1.15">🏃 1.15x (Fluida)</option>
+            <option value="1.0">🐢 1.0x (Normal)</option>
+          </select>
+        </label>
+      </div>
+
+      <div style="display:flex; gap:8px; margin-bottom:10px;">
+        <button id="btnConnect" class="btn-primary" style="flex:1;">🔌 Conectar canal de voz</button>
         <button id="btnDisconnect" class="btn-secondary" disabled>Cortar</button>
       </div>
+
+      <!-- Botón Push-to-Talk (Pulsar para hablar sin ruidos) -->
+      <button id="btnPtt" class="btn-peach" style="width:100%; padding:13px 16px; font-size:14px; font-weight:750; margin-bottom:12px; border:2px solid #f59f00; user-select:none;" disabled>
+        🎙️ Pulsa (o mantén Espacio) para hablar
+      </button>
 
       <div class="status-row">
         <span>Voz: <b id="lblVoice">–</b></span>
@@ -330,6 +360,10 @@
       </div>
 
       <div id="chatBox" class="chat-box"></div>
+      <div class="wa-input-bar">
+        <input type="text" id="waTextInput" placeholder="Escribe un mensaje o habla con el botón de voz..." onkeydown="if(event.key==='Enter'){sendTypedMessage();}" />
+        <button onclick="sendTypedMessage()" title="Enviar mensaje">Enviar ➤</button>
+      </div>
 
       <div style="margin-top:12px;">
         <span style="font-size:11.5px; font-weight:700; color:var(--muted); display:block; margin-bottom:6px;">PREGUNTAS RÁPIDAS PERSONALIZADAS DE LA FAMILIA:</span>
@@ -342,7 +376,9 @@
 <script>
 let ws = null, audioCtx = null, micStream = null, micNode = null, srcNode = null;
 let playHead = 0, playingSources = [], currentBotBubble = null, currentBotText = "";
+let currentMp3Audio = null;
 let lastVoiceTime = 0;
+let pttDown = false, pttDownTime = 0;
 let currentPathData = null, currentSimData = null, currentInsights = null, kidsViewActive = false;
 
 const SILENCE_HANGOVER_MS = 1100;
@@ -386,6 +422,7 @@ function updatePartnerOptions() {
 }
 
 async function onFamilyChange() {
+  if (ws) disconnectRealtime();
   updatePartnerOptions();
   $("celebrationBox").style.display = "none";
   await loadAllFamilyData();
@@ -419,9 +456,18 @@ async function loadAllFamilyData() {
   renderStory(storyRes);
 }
 
+function formatFriendlyBand(band) {
+  const b = (band || "").toLowerCase();
+  if (b === "critical") return "Punto de Impulso 🌱";
+  if (b === "vulnerable") return "En Evolución 📈";
+  if (b === "stable") return "Estable ✅";
+  if (b === "strong") return "Fuerte 🌟";
+  return band || "";
+}
+
 function renderPathAndGoals(data) {
   $("gpsBannerText").textContent = data.indicador_actual || "";
-  $("scorePill").textContent = `Score: ${data.score_actual} / 100 (${data.banda_salud})`;
+  $("scorePill").textContent = `Score: ${data.score_actual} / 100 (${formatFriendlyBand(data.banda_salud)})`;
   $("maxScoreBadge").textContent = `Score inicial ${data.score_inicial} → Potencial ${data.score_potencial_maximo} pts`;
 
   if (data.celebration && data.celebration.confetti) {
@@ -747,13 +793,92 @@ function renderStory(story) {
   `).join("");
 }
 
+let activeUserVoiceBubble = null;
+let localSpeechRec = null;
+let localTranscriptText = "";
+
+function getActiveClientLabel() {
+  const partnerSel = $("partnerSelect");
+  const pVal = partnerSel?.value || "both";
+  if (pVal && pVal !== "both" && pVal !== "auto") {
+    return pVal.charAt(0).toUpperCase() + pVal.slice(1);
+  }
+  const caseSel = $("caseSelect");
+  const optText = caseSel?.options[caseSel.selectedIndex]?.text || "Cliente";
+  return optText.split("(")[0].trim();
+}
+
+function nowTimeStr() {
+  const d = new Date();
+  return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+}
+
 function appendBubble(role, text = "", meta = "") {
   const d = document.createElement("div");
   d.className = `msg ${role}`;
-  d.innerHTML = `<div class="content">${text}</div>${meta ? `<span class="meta">${meta}</span>` : ""}`;
+  const sender = role === "user" ? `👤 Tú (${getActiveClientLabel()})` : "🧭 Sherpas Mentor";
+  const timeStr = nowTimeStr();
+  const checks = role === "user" ? `<span class="wa-checks">✓✓</span>` : "";
+  const extraMeta = meta ? `${meta} · ` : "";
+  d.innerHTML = `
+    <span class="msg-sender">${sender}</span>
+    <div class="content">${text}</div>
+    <span class="meta">${extraMeta}${timeStr}${checks}</span>
+  `;
   $("chatBox").appendChild(d);
   $("chatBox").scrollTop = $("chatBox").scrollHeight;
   return d;
+}
+
+function ensureUserVoiceBubble(initialText = "🎤 Escuchando...") {
+  if (!activeUserVoiceBubble) {
+    activeUserVoiceBubble = appendBubble("user", initialText, "🎙️ Voz");
+  } else {
+    activeUserVoiceBubble.querySelector(".content").textContent = initialText;
+  }
+  $("chatBox").scrollTop = $("chatBox").scrollHeight;
+  return activeUserVoiceBubble;
+}
+
+function startLocalSpeechRecognition() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) return;
+  stopLocalSpeechRecognition();
+  try {
+    localTranscriptText = "";
+    localSpeechRec = new SR();
+    localSpeechRec.lang = "es-ES";
+    localSpeechRec.continuous = true;
+    localSpeechRec.interimResults = true;
+    localSpeechRec.onresult = (event) => {
+      let full = "";
+      for (let i = 0; i < event.results.length; i++) {
+        full += event.results[i][0].transcript + " ";
+      }
+      const clean = full.trim();
+      if (clean) {
+        localTranscriptText = clean;
+        ensureUserVoiceBubble(clean);
+      }
+    };
+    localSpeechRec.onerror = () => {};
+    localSpeechRec.start();
+  } catch (e) {}
+}
+
+function stopLocalSpeechRecognition() {
+  if (localSpeechRec) {
+    try { localSpeechRec.stop(); } catch (e) {}
+    localSpeechRec = null;
+  }
+}
+
+function sendTypedMessage() {
+  const inp = $("waTextInput");
+  const txt = (inp?.value || "").trim();
+  if (!txt) return;
+  inp.value = "";
+  askMentorQuestion(txt);
 }
 
 function b64(buffer) {
@@ -763,6 +888,14 @@ function b64(buffer) {
     binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
   }
   return btoa(binary);
+}
+
+function getSelectedSpeed() {
+  return parseFloat($("speedSelect")?.value || "1.25") || 1.25;
+}
+
+function isPttMode() {
+  return ($("micModeSelect")?.value || "ptt") === "ptt";
 }
 
 function playPcmChunk(b64Audio) {
@@ -780,11 +913,14 @@ function playPcmChunk(b64Audio) {
 
   const src = audioCtx.createBufferSource();
   src.buffer = buf;
+  // Aplicamos un ajuste ágil suave en PCM en tiempo real según el selector
+  const rate = Math.min(1.22, Math.max(1.0, getSelectedSpeed() * 0.94));
+  src.playbackRate.value = rate;
   src.connect(audioCtx.destination);
 
-  playHead = Math.max(playHead, audioCtx.currentTime + 0.05);
+  playHead = Math.max(playHead, audioCtx.currentTime + 0.04);
   src.start(playHead);
-  playHead += buf.duration;
+  playHead += buf.duration / rate;
   playingSources.push(src);
   src.onended = () => { playingSources = playingSources.filter(s => s !== src); };
 }
@@ -793,24 +929,71 @@ function stopAudio() {
   for (const s of playingSources) { try { s.stop(); } catch(e){} }
   playingSources = [];
   playHead = audioCtx ? audioCtx.currentTime : 0;
+  if (currentMp3Audio) {
+    try { currentMp3Audio.pause(); currentMp3Audio.currentTime = 0; } catch(e){}
+    currentMp3Audio = null;
+  }
 }
 
-async function connectRealtime() {
-  $("btnConnect").disabled = true;
-  $("lblStatus").textContent = "Abriendo micrófono...";
+function updatePttButtonUI() {
+  const btn = $("btnPtt");
+  if (!btn) return;
+  if (!ws || ws.readyState !== WebSocket.OPEN) {
+    btn.disabled = true;
+    btn.textContent = "🎙️ Pulsa (o mantén Espacio) para hablar";
+    btn.style.background = "var(--peach)";
+    btn.style.color = "var(--peach-ink)";
+    btn.style.borderColor = "#f59f00";
+    return;
+  }
+  if (!isPttMode()) {
+    btn.disabled = true;
+    btn.textContent = "🎙️ Micrófono abierto continuo activo";
+    btn.style.background = "var(--mint)";
+    btn.style.color = "var(--mint-ink)";
+    btn.style.borderColor = "#8ce99a";
+    return;
+  }
+  btn.disabled = false;
+  if (pttDown) {
+    btn.textContent = "🔴 Escuchando tu voz... (Suelta o pulsa para enviar)";
+    btn.style.background = "#e03131";
+    btn.style.color = "#ffffff";
+    btn.style.borderColor = "#c92a2a";
+  } else {
+    btn.textContent = "🎙️ Pulsa para hablar (o mantén Espacio) · Mic silenciado";
+    btn.style.background = "var(--peach)";
+    btn.style.color = "var(--peach-ink)";
+    btn.style.borderColor = "#f59f00";
+  }
+}
 
-  try {
+async function ensureMicrophoneCapture() {
+  if (!audioCtx) {
     audioCtx = new AudioContext({ sampleRate: 24000 });
+  }
+  if (audioCtx.state === "suspended") {
+    await audioCtx.resume();
+  }
+  if (micStream && micNode) return true;
+  try {
     micStream = await navigator.mediaDevices.getUserMedia({
       audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true, channelCount: 1 }
     });
-    
     srcNode = audioCtx.createMediaStreamSource(micStream);
     const processor = audioCtx.createScriptProcessor(2048, 1, 1);
     srcNode.connect(processor);
     processor.connect(audioCtx.destination);
 
     processor.onaudioprocess = (e) => {
+      if (!ws || ws.readyState !== WebSocket.OPEN) return;
+
+      // En modo Push-to-Talk (por defecto), NO enviamos nada si el botón no está activo (cero ruido ambiente)
+      if (isPttMode() && !pttDown) {
+        $("micBar").style.width = "0%";
+        return;
+      }
+
       const inputData = e.inputBuffer.getChannelData(0);
       let sum = 0;
       const pcm16 = new Int16Array(inputData.length);
@@ -825,7 +1008,7 @@ async function connectRealtime() {
       const now = performance.now();
       if (rms > VOICE_RMS_THRESHOLD) lastVoiceTime = now;
 
-      if (ws && ws.readyState === WebSocket.OPEN && (now - lastVoiceTime <= SILENCE_HANGOVER_MS)) {
+      if (isPttMode() || (now - lastVoiceTime <= SILENCE_HANGOVER_MS)) {
         ws.send(JSON.stringify({
           type: "input_audio_buffer.append",
           audio: b64(pcm16.buffer)
@@ -833,72 +1016,208 @@ async function connectRealtime() {
       }
     };
     micNode = processor;
+    return true;
   } catch (err) {
     alert("Error accediendo al micrófono: " + err.message);
-    $("btnConnect").disabled = false;
-    $("lblStatus").textContent = "Error micrófono";
-    return;
+    return false;
   }
+}
 
-  const cid = $("caseSelect").value;
-  const model = $("modelSelect").value;
-  const style = $("styleSelect").value;
-  const partner = $("partnerSelect").value;
-  const host = location.hostname || "127.0.0.1";
-  const wsUrl = `ws://${host}:8000/ws/voice/${cid}?model=${model}&style=${style}&partner=${partner}`;
+async function startPttTalk() {
+  if (pttDown || !isPttMode()) return;
+  if (!ws || ws.readyState !== WebSocket.OPEN) {
+    await connectRealtime({ requestMic: true, silentGreeting: true });
+  } else if (!micStream) {
+    const ok = await ensureMicrophoneCapture();
+    if (!ok) return;
+  }
+  if (!ws || ws.readyState !== WebSocket.OPEN) return;
+  stopAudio();
+  pttDown = true;
+  pttDownTime = performance.now();
+  lastVoiceTime = performance.now();
+  activeUserVoiceBubble = null;
+  localTranscriptText = "";
+  ensureUserVoiceBubble("🎤 Hablando...");
+  startLocalSpeechRecognition();
+  $("lblStatus").textContent = "🔴 Grabando tu turno...";
+  updatePttButtonUI();
+}
 
-  $("lblStatus").textContent = "Conectando...";
-  ws = new WebSocket(wsUrl);
+function stopPttTalk() {
+  if (!ws || ws.readyState !== WebSocket.OPEN || !pttDown) return;
+  pttDown = false;
+  lastVoiceTime = performance.now();
+  stopLocalSpeechRecognition();
+  $("micBar").style.width = "0%";
+  $("lblStatus").textContent = "⏳ Procesando respuesta...";
+  updatePttButtonUI();
+  const hasLocal = Boolean(localTranscriptText && localTranscriptText.trim().length > 1);
+  if (!hasLocal && activeUserVoiceBubble) {
+    activeUserVoiceBubble.querySelector(".content").textContent = "⏳ Transcribiendo tu mensaje de voz...";
+  }
+  ws.send(JSON.stringify({ type: "end_of_speech", has_local_transcript: hasLocal }));
+}
 
-  ws.onopen = () => {
-    $("lblStatus").textContent = "En línea · Escuchando";
-    $("btnDisconnect").disabled = false;
-    $("caseSelect").disabled = true;
-    $("styleSelect").disabled = true;
-    $("modelSelect").disabled = true;
-  };
+function onMicModeChange() {
+  if (pttDown) stopPttTalk();
+  updatePttButtonUI();
+  if (ws && ws.readyState === WebSocket.OPEN) {
+    const ptt = isPttMode();
+    ws.send(JSON.stringify({
+      type: "session.update",
+      session: {
+        type: "realtime",
+        audio: {
+          input: {
+            turn_detection: ptt ? null : { type: "server_vad", silence_duration_ms: 650 }
+          }
+        }
+      }
+    }));
+    $("lblStatus").textContent = ptt ? "En línea · Pulsa para hablar" : "En línea · Mic abierto";
+  }
+}
 
-  ws.onmessage = (event) => {
-    const data = JSON.parse(event.data);
-    const t = data.type || "";
+function connectRealtime(opts = {}) {
+  const requestMic = opts.requestMic !== undefined ? opts.requestMic : true;
+  const silentGreeting = Boolean(opts.silentGreeting);
 
-    if (t === "session_ready") {
-      $("lblVoice").textContent = `${data.voice}`;
-      $("lblPartner").textContent = data.partner_mode || "both";
-      appendBubble("bot", `👋 Hola, estoy conectado al plan de <b>${data.client_id}</b> en modo <b>${data.partner_mode}</b>. Habla cuando quieras o toca cualquier hito a la izquierda.`, `Voz: ${data.voice} · ${data.style}`);
+  return new Promise(async (resolve) => {
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      if (requestMic && !micStream) await ensureMicrophoneCapture();
+      resolve(true);
+      return;
     }
-    else if (t === "input_audio_buffer.speech_started") {
-      stopAudio();
+
+    $("btnConnect").disabled = true;
+    $("lblStatus").textContent = requestMic ? "Abriendo micrófono..." : "Conectando voz (<1s)...";
+
+    if (!audioCtx) {
+      audioCtx = new AudioContext({ sampleRate: 24000 });
     }
-    else if (t === "response.created") {
-      currentBotBubble = appendBubble("bot", "…");
-      currentBotText = "";
-      if (lastVoiceTime) {
-        const diff = Math.round(performance.now() - lastVoiceTime);
-        $("lblLatency").textContent = `${diff} ms`;
+    if (audioCtx.state === "suspended") {
+      try { await audioCtx.resume(); } catch (e) {}
+    }
+
+    if (requestMic) {
+      const ok = await ensureMicrophoneCapture();
+      if (!ok) {
+        $("btnConnect").disabled = false;
+        $("lblStatus").textContent = "Error micrófono";
+        resolve(false);
+        return;
       }
     }
-    else if (t === "audio_delta" || t === "response.output_audio.delta" || t === "response.audio.delta") {
-      const chunk = data.audio_b64 || data.delta;
-      if (chunk) playPcmChunk(chunk);
-    }
-    else if (t === "transcript_delta" || t === "response.output_audio_transcript.delta" || t === "response.audio_transcript.delta") {
-      const delta = data.text || data.delta || "";
-      currentBotText += delta;
-      if (currentBotBubble) {
-        currentBotBubble.querySelector(".content").textContent = currentBotText;
-      }
-    }
-    else if (t === "tool_call") {
-      appendBubble("bot", `🔍 Consultando en vivo: <code>${data.section}</code>`);
-    }
-  };
 
-  ws.onclose = () => { ws = null; disconnectRealtime(); };
+    const cid = $("caseSelect").value;
+    const model = $("modelSelect").value;
+    const style = $("styleSelect").value;
+    const partner = $("partnerSelect").value;
+    const micMode = $("micModeSelect").value;
+    const host = location.hostname || "127.0.0.1";
+    const wsUrl = `ws://${host}:8000/ws/voice/${cid}?model=${model}&style=${style}&partner=${partner}&mic_mode=${micMode}`;
+
+    $("lblStatus").textContent = "Conectando...";
+    ws = new WebSocket(wsUrl);
+    let readyResolved = false;
+
+    ws.onopen = () => {
+      $("lblStatus").textContent = isPttMode() ? "En línea · Pulsa para hablar" : "En línea · Escuchando";
+      $("btnDisconnect").disabled = false;
+      updatePttButtonUI();
+    };
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      const t = data.type || "";
+
+      if (t === "session_ready") {
+        $("lblVoice").textContent = `${data.voice}`;
+        $("lblPartner").textContent = data.partner_mode || "both";
+        if (!silentGreeting) {
+          const modeMsg = isPttMode()
+            ? "Pulsa el botón naranja <b>🎙️ Pulsa para hablar</b> (o mantén la barra espaciadora) cuando quieras hablar: el micrófono está silenciado mientras tanto para no captar ruido."
+            : "El micrófono está en modo continuo.";
+          appendBubble("bot", `👋 Hola, estoy conectado al plan de <b>${data.client_id}</b> en modo <b>${data.partner_mode}</b>. ${modeMsg}`, `Voz: ${data.voice} · ${data.style}`);
+        }
+        if (!readyResolved) {
+          readyResolved = true;
+          resolve(true);
+        }
+      }
+      else if (t === "voice_changed_for_language") {
+        $("lblVoice").textContent = `${data.voice} (${data.language.toUpperCase()})`;
+      }
+      else if (t === "input_audio_buffer.speech_started") {
+        if (!isPttMode()) {
+          stopAudio();
+          activeUserVoiceBubble = null;
+          ensureUserVoiceBubble("🎤 Escuchando...");
+        }
+      }
+      else if (t === "user_transcript" || t.includes("input_audio_transcription")) {
+        const uText = (data.text || data.transcript || data.delta || "").trim();
+        if (uText) {
+          if (!activeUserVoiceBubble) {
+            activeUserVoiceBubble = appendBubble("user", uText, "🎙️ Voz");
+            if (currentBotBubble && currentBotBubble.parentNode === $("chatBox")) {
+              $("chatBox").insertBefore(activeUserVoiceBubble, currentBotBubble);
+            }
+          } else {
+            const cur = activeUserVoiceBubble.querySelector(".content").textContent;
+            if (t.endsWith(".delta") && !cur.startsWith("🎤") && !cur.startsWith("⏳")) {
+              activeUserVoiceBubble.querySelector(".content").textContent = cur + " " + uText;
+            } else {
+              activeUserVoiceBubble.querySelector(".content").textContent = uText;
+            }
+          }
+          $("chatBox").scrollTop = $("chatBox").scrollHeight;
+        }
+      }
+      else if (t === "response.created") {
+        $("lblStatus").textContent = "🗣️ Mentor respondiendo...";
+        currentBotBubble = appendBubble("bot", "…");
+        currentBotText = "";
+        if (lastVoiceTime) {
+          const diff = Math.round(performance.now() - lastVoiceTime);
+          $("lblLatency").textContent = `${diff} ms`;
+        }
+      }
+      else if (t === "audio_delta" || t === "response.output_audio.delta" || t === "response.audio.delta") {
+        const chunk = data.audio_b64 || data.delta;
+        if (chunk) playPcmChunk(chunk);
+      }
+      else if (t === "transcript_delta" || t === "response.output_audio_transcript.delta" || t === "response.audio_transcript.delta") {
+        const delta = data.text || data.delta || "";
+        currentBotText += delta;
+        if (currentBotBubble) {
+          currentBotBubble.querySelector(".content").textContent = currentBotText;
+        }
+      }
+      else if (t === "response.done") {
+        $("lblStatus").textContent = isPttMode() ? "En línea · Pulsa para hablar" : "En línea · Escuchando";
+      }
+      else if (t === "tool_call") {
+        appendBubble("bot", `🔍 Consultando en vivo: <code>${data.section}</code>`);
+      }
+    };
+
+    ws.onerror = () => {
+      if (!readyResolved) { readyResolved = true; resolve(false); }
+    };
+    ws.onclose = () => {
+      ws = null;
+      if (!readyResolved) { readyResolved = true; resolve(false); }
+      disconnectRealtime();
+    };
+  });
 }
 
 function disconnectRealtime() {
   stopAudio();
+  stopLocalSpeechRecognition();
+  pttDown = false;
   if (ws) { const tmp = ws; ws = null; try { tmp.close(); } catch(e){} }
   if (micNode) { try { micNode.disconnect(); } catch(e){} micNode = null; }
   if (srcNode) { try { srcNode.disconnect(); } catch(e){} srcNode = null; }
@@ -907,22 +1226,31 @@ function disconnectRealtime() {
 
   $("btnConnect").disabled = false;
   $("btnDisconnect").disabled = true;
-  $("caseSelect").disabled = false;
-  $("styleSelect").disabled = false;
-  $("modelSelect").disabled = false;
   $("lblStatus").textContent = "Desconectado";
   $("micBar").style.width = "0%";
+  updatePttButtonUI();
 }
 
 async function askMentorQuestion(q) {
+  stopAudio();
+  lastVoiceTime = performance.now();
   appendBubble("user", q);
-  if (ws && ws.readyState === WebSocket.OPEN) {
-    stopAudio();
+
+  // Conectamos automáticamente el canal Realtime en streaming (<1s de latencia y MISMA voz)
+  // sin abrir el micrófono hasta que el usuario pulse 'Pulsa para hablar'.
+  if (!ws || ws.readyState !== WebSocket.OPEN) {
+    const connected = await connectRealtime({ requestMic: false, silentGreeting: true });
+    if (connected && ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify({ type: "user_text", text: q }));
+      return;
+    }
+  } else {
     ws.send(JSON.stringify({ type: "user_text", text: q }));
     return;
   }
-  // Si el micrófono WebSocket no está abierto, consulta por HTTP rápido (/api/voice/ask) y reproduce el MP3
-  const bubble = appendBubble("bot", "⏳ Pensando y generando voz con metáfora...");
+
+  // Fallback HTTP solo si el WebSocket no estuviera disponible
+  const bubble = appendBubble("bot", "⏳ Respondiendo...");
   try {
     const cid = $("caseSelect").value;
     const style = $("styleSelect").value;
@@ -935,15 +1263,52 @@ async function askMentorQuestion(q) {
     bubble.querySelector(".content").textContent = res.respuesta_ia;
     if (res.audio_url) {
       const audio = new Audio(res.audio_url);
+      const speed = getSelectedSpeed();
+      audio.preservesPitch = true;
+      audio.playbackRate = speed;
+      currentMp3Audio = audio;
       audio.play().catch(() => {});
     }
   } catch (e) {
-    bubble.querySelector(".content").textContent = "Conecta el micrófono arriba para hablar en vivo con el Mentor.";
+    bubble.querySelector(".content").textContent = "Conecta el canal de voz arriba para hablar en vivo con el Mentor.";
   }
 }
 
-$("btnConnect").onclick = connectRealtime;
+$("btnConnect").onclick = () => connectRealtime({ requestMic: true, silentGreeting: false });
 $("btnDisconnect").onclick = disconnectRealtime;
+
+// Soporte dual para el botón Push-to-Talk:
+// 1) Mantener pulsado y soltar (si se mantiene > 300ms)
+// 2) O hacer un clic para empezar a hablar y otro clic para terminar y enviar
+$("btnPtt").addEventListener("pointerdown", (e) => {
+  e.preventDefault();
+  if (!ws || ws.readyState !== WebSocket.OPEN || !isPttMode()) return;
+  if (!pttDown) {
+    startPttTalk();
+  } else {
+    stopPttTalk();
+  }
+});
+window.addEventListener("pointerup", () => {
+  if (pttDown && (performance.now() - pttDownTime > 320)) {
+    stopPttTalk();
+  }
+});
+// También permite mantener pulsada la Barra Espaciadora para hablar
+window.addEventListener("keydown", (e) => {
+  if (e.code === "Space" && !e.repeat && !["INPUT", "TEXTAREA", "SELECT", "BUTTON"].includes(document.activeElement?.tagName)) {
+    if (ws && ws.readyState === WebSocket.OPEN && isPttMode()) {
+      e.preventDefault();
+      startPttTalk();
+    }
+  }
+});
+window.addEventListener("keyup", (e) => {
+  if (e.code === "Space" && pttDown) {
+    e.preventDefault();
+    stopPttTalk();
+  }
+});
 updatePartnerOptions();
 loadAllFamilyData();
 </script>

@@ -446,7 +446,14 @@ async def build_realtime_brief(
     state = fh_case.get("state", "") if isinstance(fh_case, dict) else ""
 
     score_val = fh_score.get("published_score") if isinstance(fh_score, dict) else "N/A"
-    score_band = fh_score.get("band") if isinstance(fh_score, dict) else ""
+    raw_band = (fh_score.get("band") if isinstance(fh_score, dict) else "") or ""
+    friendly_bands = {
+        "critical": "Punto de Impulso (Alto potencial de mejora rápida)",
+        "vulnerable": "En Evolución (Base sólida por coordinar)",
+        "stable": "Equilibrado",
+        "strong": "Base Patrimonial Fuerte",
+    }
+    score_band = friendly_bands.get(raw_band.lower(), raw_band)
     top_moves = (fh_score.get("top_moves") if isinstance(fh_score, dict) else []) or []
     combined_moves = (fh_score.get("combined_moves") if isinstance(fh_score, dict) else []) or []
 
@@ -475,13 +482,34 @@ async def build_realtime_brief(
         else ""
     )
 
+    emotional_guides = {
+        "michael-carter": (
+            "GUÍA EMOCIONAL (CERO MIEDO): Michael tiene una puntuación inicial de 26, pero PROHIBIDO decirle que está en 'estado crítico' o que 'gasta más de lo que ingresa'. "
+            "Felicítalo primero porque gana $180,000, no tiene deudas malas y ahorra $43,000 al año. Explícale con suavidad y optimismo que solo necesita acompasar el ritmo entre su futura casa de 2027 y su retiro a los 58 años para dar un salto directo de 26 a 62 puntos."
+        ),
+        "daniel-emily-johnson": (
+            "GUÍA EMOCIONAL (TEMAS SENSIBLES CON TACTO): Al hablar del seguro de vida ($1.6M recomendados frente a $250k actuales), PROHIBIDO mencionar muerte, fallecimiento o tragedias. "
+            "Exprésalo con calidez como 'poner una red de tranquilidad debajo del hogar para que los sueños y la universidad de Oliver y Sophia estén siempre garantizados pase lo que pase'."
+        ),
+        "timothy-melanie-weah": (
+            "GUÍA EMOCIONAL (TRANQUILIDAD EN PAREJA): Valora el gran colchón de $150,800 que han logrado reunir. Al hablar de la tarjeta y del seguro de vida para Liam y Josh, "
+            "hazlo desde la serenidad familiar y el alivio de quitar pequeños frenos sin tocar su seguridad."
+        ),
+        "samantha-lewis": (
+            "GUÍA EMOCIONAL (HORIZONTE DE VIDA): Al explicar la proyección de liquidez a los 73 años, NUNCA uses frases alarmistas como 'te quedarás sin dinero en la vejez'. "
+            "Enfócalo de forma constructiva como 'darle ventaja fiscal a tu gran ahorro anual para que tu liquidez acompañe tu ritmo de vida con total holgura hasta los 90 años'."
+        ),
+    }
+    emotional_block = emotional_guides.get(case_id, "")
+
     partes = [
-        f"HOGAR: {people} ({city}, {state}). SCORE: {score_val}/100 ({score_band}).",
+        f"HOGAR: {people} ({city}, {state}). PUNTUACIÓN INICIAL: {score_val}/100 ({score_band}).",
+        emotional_block,
         partner_block,
         topic_block,
-        moves_txt and f"PASOS QUE SUBEN SU SCORE:\n{moves_txt}",
-        f"RESUMEN DE SITUACIÓN Y BRECHAS (D3):\n{d3_gaps}",
-        clean_alerts and f"ALERTA INMINENTE:\n{clean_alerts}",
+        moves_txt and f"PASOS QUE IMPULSAN SU PLAN:\n{moves_txt}",
+        f"CONTEXTO INTERNO DEL EXPEDIENTE (TRADUCIR CON SUAVIDAD Y OPTIMISMO):\n{d3_gaps}",
+        clean_alerts and f"HITO CERCANO EN CALENDARIO:\n{clean_alerts}",
         recs and f"RECOMENDACIÓN CLAVE DE SHERPAS:\n{recs}",
     ]
     return "\n\n".join(p for p in partes if p)

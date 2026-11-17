@@ -206,7 +206,12 @@ async def ask_voice_agent(query: VoiceQuery, request: Request):
         build_realtime_brief(case_id, partner=query.partner, topic=query.topic),
     )
     style_override = None if query.style == "auto" else query.style
-    voice_profile = resolve_voice_profile(case_id, compact_context, style_override=style_override)
+    voice_profile = resolve_voice_profile(
+        case_id,
+        compact_context,
+        style_override=style_override,
+        user_text=query.question,
+    )
 
     texto_ia, mcp_usado, claves_consultadas = await ask_llm_with_tools(
         client_id=case_id,
@@ -215,8 +220,7 @@ async def ask_voice_agent(query: VoiceQuery, request: Request):
         voice_profile=voice_profile,
     )
 
-    _, ruta_archivo = await synthesize_elevenlabs_speech(texto_ia, voice_profile)
-    base_url = str(request.base_url).rstrip("/")
+    _, data_uri = await synthesize_elevenlabs_speech(texto_ia, voice_profile)
 
     return {
         "status": "success",
@@ -225,8 +229,9 @@ async def ask_voice_agent(query: VoiceQuery, request: Request):
         "mcp_usado": mcp_usado,
         "voz_seleccionada": voice_profile["voice_name"],
         "estilo_asesor": voice_profile["style_label"],
+        "speech_speed": voice_profile.get("speech_speed", 1.20),
         "partner_mode": query.partner,
         "claves_consultadas": claves_consultadas,
         "respuesta_ia": texto_ia,
-        "audio_url": f"{base_url}/{ruta_archivo}",
+        "audio_url": data_uri,
     }

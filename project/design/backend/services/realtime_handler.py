@@ -9,15 +9,18 @@ Manejador de sesiones de voz en tiempo real bidireccionales (< 1s de latencia).
 - Protege los tokens compactando las respuestas de `get_case` y omitiendo instrucciones de tools cuando no aplican.
 """
 
+import io
 import ssl
+import wave
 import json
+import base64
 import asyncio
 from typing import Any, Dict, Optional
 import certifi
 import websockets
 from fastapi import WebSocket, WebSocketDisconnect
 
-from config import WS_BASE_URL, TEAM_KEY, VALID_REALTIME_MODELS
+from config import WS_BASE_URL, TEAM_KEY, VALID_REALTIME_MODELS, llm_client
 from mcp_client import (
     normalize_case_id,
     get_compact_client_context,
@@ -25,11 +28,38 @@ from mcp_client import (
     build_realtime_brief,
     get_section,
 )
-from services.voice_profiles import resolve_voice_profile
+from services.voice_profiles import resolve_voice_profile, detect_user_language
 from services.ai_service import REALTIME_TOOLS
 
 # Contexto TLS global reutilizable (evita leer cacert.pem de disco en cada sesión)
 _SSL_CTX = ssl.create_default_context(cafile=certifi.where())
+
+
+async def _transcribe_user_pcm_async(pcm_bytes: bytes, websocket: WebSocket) -> None:
+    """
+    Transcribe en segundo plano (sin añadir latencia a la respuesta de voz) lo que dijo el
+    cliente cuando usa Gemini Live y el navegador no envió transcripción local, para mostrar
+    su burbuja en el chat estilo WhatsApp.
+    """
+    if len(pcm_bytes) < 4800:  # Menos de ~0.1s de audio a 24kHz PCM16
+        return
+    try:
+        buf = io.BytesIO()
+        with wave.open(buf, "wb") as wf:
+            wf.setnchannels(1)
+            wf.setsampwidth(2)
+            wf.setframerate(24000)
+            wf.writeframes(pcm_bytes)
+        wav_data = buf.getvalue()
+        resp = await llm_client.audio.transcriptions.create(
+            model="scribe-v2",
+            file=("user_turn.wav", wav_data, "audio/wav"),
+        )
+        txt = (getattr(resp, "text", None) or "").strip()
+        if txt:
+            await websocket.send_json({"type": "user_transcript", "text": txt})
+    except Exception:
+        pass
 
 
 def _compose_instructions(
@@ -39,17 +69,19 @@ def _compose_instructions(
 ) -> str:
     """Construye las instrucciones del sistema ajustadas al modelo y perfil."""
     tool_rule = (
-        "\n4. Si el cliente pide un detalle técnico concreto que no está en tu chuleta (ej. tickers de ETFs en 'positions' o año exacto en 'projections'), usa `get_case` con `sub_section` y explícalo sin tecnicismos."
+        "\n5. Si el cliente pide un detalle técnico concreto que no está en tu chuleta (ej. tickers de ETFs en 'positions' o año exacto en 'projections'), usa `get_case` con `sub_section` y explícalo sin tecnicismos."
         if include_tools
         else ""
     )
     return (
-        "Eres el asesor financiero en vivo de Sherpas Wealth, cercano, empático y claro.\n\n"
+        "Eres el asesor financiero en vivo de Sherpas Wealth, cercano, empático, optimista y claro.\n\n"
         f"{voice_profile['tone_instructions']}\n\n"
-        "REGLAS ESTRICTAS DE CONVERSACIÓN HABLADA:\n"
-        "1. PROHIBIDO recitar listas de cifras, porcentajes o decimales. Usa los datos de abajo como tu chuleta interna y tradúcelos a ideas humanas y comparaciones cotidianas.\n"
-        "2. Sé breve y dinámico: máximo 2 o 3 frases por turno. Si el cliente te interrumpe, cállate al instante y responde a su nueva duda.\n"
-        f"3. Habla siempre en español de España.{tool_rule}\n\n"
+        "REGLAS ESTRICTAS DE CONVERSACIÓN HABLADA Y EMPATÍA EMOCIONAL:\n"
+        "1. SUAVIZAR NOTICIAS DIFÍCILES (CERO MIEDO): Las malas noticias hacen que la gente aparte la vista en vez de actuar. NUNCA uses palabras alarmistas como 'crítico', 'momento crítico', 'peligro', 'gastas más de lo que ingresas', 'muerte', 'fallecimiento' ni 'quedarte sin dinero'. Si el Score es bajo (como el 26 de Michael), destaca primero su gran capacidad de ahorro y preséntalo con suavidad como un simple ajuste de calendario entre sus metas. Si hablas de seguro de vida (como Daniel y Emily), exprésalo siempre como 'una red de tranquilidad para los sueños de los niños'.\n"
+        "2. VELOCIDAD Y RITMO: Habla con ritmo RÁPIDO, ÁGIL, DINÁMICO Y CON CHISPA (como en una conversación viva y energética). Prohibido hablar lento, pausado o monótono.\n"
+        "3. BREVEDAD: Máximo 2 frases cortas y directas por turno. Ve directo al grano sin rodeos ni introducciones largas. Si el cliente te interrumpe, cállate al instante.\n"
+        "4. Si el usuario habla en español, responde SIEMPRE con acento, entonación y cadencia 100% española nativa (castellano peninsular), NUNCA con acento inglés o extranjero, incluso al pronunciar nombres propios o cuentas como 401k."
+        f"{tool_rule}\n\n"
         f"CHULETA INTERNA DEL CLIENTE:\n{brief}"
     )
 
@@ -73,6 +105,7 @@ async def handle_realtime_websocket(websocket: WebSocket, client_id: str):
     partner_mode: Optional[str] = websocket.query_params.get("partner", "auto")
     topic: Optional[str] = websocket.query_params.get("topic")
     auto_greet: bool = websocket.query_params.get("greet", "0") in ("1", "true")
+    mic_mode: str = websocket.query_params.get("mic_mode", "ptt")
 
     proxy_ws_url = f"{WS_BASE_URL}/realtime?model={model}"
 
@@ -100,13 +133,19 @@ async def handle_realtime_websocket(websocket: WebSocket, client_id: str):
         async with websockets.connect(proxy_ws_url, additional_headers=headers, ssl=_SSL_CTX) as llm_ws:
             print(
                 f"✅ [{model}] Realtime conectado para {case_id} | "
-                f"Voz={chosen_voice} | Estilo={voice_profile['style_label']} | Partner={partner_mode}"
+                f"Voz={chosen_voice} | ModoMic={mic_mode} | Estilo={voice_profile['style_label']} | Partner={partner_mode}"
+            )
+
+            turn_detection_cfg = (
+                None
+                if mic_mode == "ptt"
+                else {"type": "server_vad", "silence_duration_ms": 650}
             )
 
             audio_config: Dict[str, Any] = {
                 "input": {
                     "format": {"type": "audio/pcm", "rate": 24000},
-                    "turn_detection": {"type": "server_vad", "silence_duration_ms": 500},
+                    "turn_detection": turn_detection_cfg,
                 },
                 "output": {
                     "format": {"type": "audio/pcm", "rate": 24000},
@@ -133,6 +172,8 @@ async def handle_realtime_websocket(websocket: WebSocket, client_id: str):
                     "client_id": case_id,
                     "model": model,
                     "voice": chosen_voice,
+                    "mic_mode": mic_mode,
+                    "speech_speed": voice_profile.get("speech_speed", 1.20),
                     "style_key": voice_profile["style_key"],
                     "style": voice_profile["style_label"],
                     "partner_mode": partner_mode,
@@ -168,36 +209,95 @@ async def handle_realtime_websocket(websocket: WebSocket, client_id: str):
                 await llm_ws.send(json.dumps({"type": "response.create"}))
 
             # Carril A: Frontend -> Proxy
+            active_lang = voice_profile.get("detected_language", "es")
+
             async def forward_frontend_to_llm():
-                nonlocal base_instructions, partner_mode, topic
+                nonlocal base_instructions, partner_mode, topic, voice_profile, chosen_voice, active_lang
+                user_pcm_buffer = bytearray()
                 try:
                     while True:
                         raw = await websocket.receive_text()
 
-                        # Fast-path: no parsear JSON en Python para los ~12 paquetes de audio/segundo
+                        # Fast-path: paquetes de audio base64
                         if '"input_audio_buffer.append"' in raw:
                             await llm_ws.send(raw)
+                            if not is_openai and len(user_pcm_buffer) < 24000 * 2 * 25:
+                                try:
+                                    b64_part = raw.split('"audio":"', 1)[1].split('"', 1)[0]
+                                    user_pcm_buffer.extend(base64.b64decode(b64_part))
+                                except Exception:
+                                    pass
                             continue
 
                         data = json.loads(raw)
                         msg_type = data.get("type", "")
 
                         if msg_type == "input_audio":
+                            b64_audio = data.get("audio_b64", "")
                             await llm_ws.send(
                                 json.dumps(
                                     {
                                         "type": "input_audio_buffer.append",
-                                        "audio": data["audio_b64"],
+                                        "audio": b64_audio,
                                     }
                                 )
                             )
+                            if not is_openai and b64_audio:
+                                try:
+                                    user_pcm_buffer.extend(base64.b64decode(b64_audio))
+                                except Exception:
+                                    pass
                         elif msg_type == "end_of_speech":
                             await llm_ws.send(json.dumps({"type": "input_audio_buffer.commit"}))
                             await llm_ws.send(json.dumps({"type": "response.create"}))
+                            if not is_openai and user_pcm_buffer and not data.get("has_local_transcript"):
+                                pcm_copy = bytes(user_pcm_buffer)
+                                user_pcm_buffer.clear()
+                                asyncio.create_task(_transcribe_user_pcm_async(pcm_copy, websocket))
+                            else:
+                                user_pcm_buffer.clear()
 
                         elif msg_type in ("user_text", "question"):
                             texto = (data.get("text") or data.get("question") or "").strip()
                             if texto:
+                                # Solo cambiar la voz si el usuario ha cambiado de idioma ('es' <-> 'en')
+                                new_lang = detect_user_language(texto, client_id=case_id)
+                                if new_lang != active_lang:
+                                    active_lang = new_lang
+                                    voice_profile = resolve_voice_profile(
+                                        case_id,
+                                        compact_context,
+                                        style_override=style_override,
+                                        user_text=texto,
+                                    )
+                                    chosen_voice = (
+                                        voice_profile["openai_voice"]
+                                        if is_openai
+                                        else voice_profile["gemini_voice"]
+                                    )
+                                    base_instructions = _compose_instructions(
+                                        voice_profile, brief, include_tools=is_openai
+                                    )
+                                    await llm_ws.send(
+                                        json.dumps(
+                                            {
+                                                "type": "session.update",
+                                                "session": {
+                                                    "type": "realtime",
+                                                    "instructions": base_instructions,
+                                                    "audio": {"output": {"voice": chosen_voice}},
+                                                },
+                                            }
+                                        )
+                                    )
+                                    await websocket.send_json(
+                                        {
+                                            "type": "voice_changed_for_language",
+                                            "language": active_lang,
+                                            "voice": chosen_voice,
+                                        }
+                                    )
+
                                 await llm_ws.send(
                                     json.dumps(
                                         {
