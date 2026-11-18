@@ -18,7 +18,7 @@ Controlador de rutas HTTP REST de la API:
 import os
 import asyncio
 from typing import Optional
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
@@ -42,6 +42,12 @@ from mcp_client import (
     SHORT_ID_MAP,
 )
 from services.voice_profiles import resolve_voice_profile
+from services.video_service import (
+    get_latest_job_for_client,
+    get_video_job,
+    list_family_videos,
+    start_video_generation,
+)
 from services.ai_service import (
     ask_llm_with_tools,
     synthesize_elevenlabs_speech,
@@ -421,4 +427,55 @@ async def ask_voice_with_raw_audio(body: AudioVoiceQuery):
         "tts_model": tts_meta.get("tts_model", "eleven_multilingual_v2"),
         "respuesta_ia": texto_ia,
         "audio_url": data_uri,
+    }
+
+
+class VideoGenerateRequest(BaseModel):
+    client_id: str = "timothy-melanie-weah"
+    demo_mode: Optional[bool] = None
+    audio_mode: Optional[str] = None
+
+
+@router.get("/api/videos")
+async def get_all_family_videos():
+    """Lista el estado de los vídeos MP4 disponibles para las 4 familias."""
+    return {"videos": list_family_videos()}
+
+
+@router.post("/api/videos/generate", status_code=202)
+async def generate_family_video(body: VideoGenerateRequest):
+    """Lanza la generación Remotion + ElevenLabs del vídeo para una familia y lo publica en /videos/{short_id}.mp4."""
+    try:
+        job = await start_video_generation(
+            client_id=body.client_id,
+            demo_mode=body.demo_mode,
+            audio_mode=body.audio_mode,
+        )
+        return job
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc))
+
+
+@router.get("/api/videos/jobs/{job_id}")
+async def get_family_video_job(job_id: str):
+    """Consulta el progreso de un trabajo de generación de vídeo."""
+    job = get_video_job(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="Trabajo de vídeo no encontrado.")
+    return job
+
+
+@router.get("/api/videos/status/{client_id}")
+async def get_family_video_status(client_id: str):
+    """Devuelve si ya existe el MP4 en /videos/{short_id}.mp4 y el último trabajo lanzado."""
+    short_id = get_short_id(client_id)
+    videos = {v["short_id"]: v for v in list_family_videos()}
+    info = videos.get(short_id, {"exists": False, "video_url": None, "size_bytes": 0})
+    return {
+        "client_id": normalize_case_id(client_id),
+        "short_id": short_id,
+        "exists": info["exists"],
+        "video_url": info["video_url"],
+        "size_bytes": info["size_bytes"],
+        "latest_job": get_latest_job_for_client(client_id),
     }

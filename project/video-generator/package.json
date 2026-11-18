@@ -1,0 +1,41 @@
+{
+  "name": "financial-video-api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Mobile-first, fact-grounded financial storytelling video API",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "build": "tsc",
+    "start:built": "node dist/server.js",
+    "llm:check": "tsx scripts/check-llm.ts"
+  },
+  "engines": {
+    "node": ">=20.11"
+  },
+  "dependencies": {
+    "@fastify/multipart": "^9.0.0",
+    "@remotion/bundler": "4.0.539",
+    "@remotion/renderer": "4.0.539",
+    "dotenv": "^16.4.5",
+    "fastify": "^5.0.0",
+    "music-metadata": "^12.5.0",
+    "openai": "^6.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "remotion": "4.0.539",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.8.0",
+    "vitest": "^3.0.0"
+  }
+}

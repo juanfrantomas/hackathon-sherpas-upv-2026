@@ -218,7 +218,7 @@
   .video-wrapper {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 9;
+    height: min(68vh, 620px);
     background: #0f172a;
     border-radius: 16px;
     overflow: hidden;
@@ -229,7 +229,7 @@
   .video-wrapper video {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
   }
   .video-placeholder-overlay {
@@ -992,23 +992,47 @@
         <div class="eyebrow" id="storyEyebrow">PREPARADO PARA LA FAMILIA WEAH</div>
         <h1 style="font-size:25px; font-weight:700; margin:2px 0 0;">Tu Historia Financiera</h1>
       </div>
-      <button class="btn btn--ghost btn--sm" onclick="stopFamilyVideo(); setStage('dashboard');">
-        Saltar
-      </button>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <button class="btn btn--secondary btn--sm" id="btnRegenerateVideo" onclick="generateFamilyVideo()">
+          Generar vídeo con IA
+        </button>
+        <button class="btn btn--ghost btn--sm" onclick="stopFamilyVideo(); setStage('dashboard');">
+          Saltar
+        </button>
+      </div>
     </div>
 
     <div class="video-wrapper">
-      <video id="familyVideoPlayer" controls playsinline preload="metadata"></video>
+      <video id="familyVideoPlayer" playsinline preload="metadata" oncontextmenu="return false;" onclick="toggleFamilyVideoPlay()" style="cursor:pointer;"></video>
+      <button id="familyCenterPlayBtn" onclick="toggleFamilyVideoPlay()" aria-label="Reproducir vídeo" style="position:absolute; width:64px; height:64px; border-radius:999px; border:1px solid rgba(255,255,255,0.28); background:rgba(15,23,42,0.68); backdrop-filter:blur(8px); color:#fff; display:grid; place-items:center; cursor:pointer;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="7 4 20 12 7 20 7 4"/></svg>
+      </button>
+      <div style="position:absolute; left:14px; right:14px; bottom:14px; background:rgba(10,17,34,0.76); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:8px 12px; display:flex; align-items:center; gap:10px; color:#fff;">
+        <button id="familyPlayPauseBtn" onclick="toggleFamilyVideoPlay()" style="background:none; border:none; color:#fff; cursor:pointer; padding:2px; display:grid; place-items:center;" aria-label="Play o pausa">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 19 12 6 20 6 4"/></svg>
+        </button>
+        <span id="familyVideoTime" style="font-size:12px; font-variant-numeric:tabular-nums; color:rgba(255,255,255,0.88); white-space:nowrap;">0:00 / 0:00</span>
+        <input id="familyVideoSeek" type="range" min="0" max="100" value="0" step="0.1" oninput="seekFamilyVideo(this.value)" style="flex:1; accent-color:#3b82f6; height:4px; cursor:pointer;">
+        <button id="familyMuteBtn" onclick="toggleFamilyVideoMute()" style="background:none; border:none; color:#fff; cursor:pointer; padding:2px; display:grid; place-items:center;" aria-label="Silenciar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+        </button>
+      </div>
       <div id="videoMissingOverlay" class="video-placeholder-overlay hidden">
         <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="5 3 19 12 5 21 5 3"/></svg>
         <strong style="font-size:18px;" id="videoMissingTitle">Vídeo de la familia</strong>
         <p style="font-size:13.5px; color:rgba(255,255,255,0.85); max-width:440px;" id="videoMissingSub">
-          Coloca el vídeo en <code>project/videos/weah.mp4</code> o selecciónalo aquí.
+          Coloca el vídeo en <code>project/videos/weah.mp4</code> o genéralo automáticamente aquí.
         </p>
-        <label class="btn btn--secondary btn--sm" style="cursor:pointer; margin-top:4px; color:var(--ink-900);">
-          Seleccionar vídeo (.mp4)
-          <input type="file" accept="video/*" style="display:none;" onchange="loadLocalVideoFile(event)">
-        </label>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:4px;">
+          <button class="btn btn--primary btn--sm" id="btnGenerateVideoOverlay" onclick="generateFamilyVideo()">
+            Generar vídeo con IA ahora
+          </button>
+          <label class="btn btn--secondary btn--sm" style="cursor:pointer; color:var(--ink-900);">
+            Seleccionar vídeo (.mp4)
+            <input type="file" accept="video/*" style="display:none;" onchange="loadLocalVideoFile(event)">
+          </label>
+        </div>
+        <div id="videoGenStatus" style="font-size:13px; color:#bfdbfe; margin-top:6px; min-height:20px;"></div>
       </div>
     </div>
 
@@ -1600,6 +1624,61 @@ function syncCaseSelect(val) {
 /* ==========================================================================
    VIDEO HANDLING
    ========================================================================== */
+let videoPollTimer = null;
+
+function formatVideoTime(sec) {
+  if (!Number.isFinite(sec) || sec < 0) return "0:00";
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60);
+  return `${m}:${String(s).padStart(2, "0")}`;
+}
+
+function syncFamilyVideoUI() {
+  const v = $("familyVideoPlayer");
+  if (!v) return;
+  const paused = v.paused;
+  const centerBtn = $("familyCenterPlayBtn");
+  const playBtn = $("familyPlayPauseBtn");
+  const timeEl = $("familyVideoTime");
+  const seekEl = $("familyVideoSeek");
+  const ov = $("videoMissingOverlay");
+  const missing = ov && !ov.classList.contains("hidden");
+  if (centerBtn) centerBtn.style.display = (!missing && paused) ? "grid" : "none";
+  if (playBtn) {
+    playBtn.innerHTML = paused
+      ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 19 12 6 20 6 4"/></svg>'
+      : '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+  }
+  const dur = v.duration || 0;
+  const cur = v.currentTime || 0;
+  if (timeEl) timeEl.textContent = `${formatVideoTime(cur)} / ${formatVideoTime(dur)}`;
+  if (seekEl && dur > 0) seekEl.value = ((cur / dur) * 100).toFixed(1);
+}
+
+function toggleFamilyVideoPlay() {
+  const v = $("familyVideoPlayer");
+  if (!v) return;
+  if (v.paused) v.play().catch(() => {});
+  else v.pause();
+}
+
+function seekFamilyVideo(pct) {
+  const v = $("familyVideoPlayer");
+  if (v && v.duration) v.currentTime = (Number(pct) / 100) * v.duration;
+}
+
+function toggleFamilyVideoMute() {
+  const v = $("familyVideoPlayer");
+  const btn = $("familyMuteBtn");
+  if (!v) return;
+  v.muted = !v.muted;
+  if (btn) {
+    btn.innerHTML = v.muted
+      ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>'
+      : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>';
+  }
+}
+
 function prepareFamilyVideo() {
   const cid = $("caseSelect").value;
   const meta = FAMILY_ENRICHMENT[cid] || FAMILY_ENRICHMENT["timothy-melanie-weah"];
@@ -1608,13 +1687,100 @@ function prepareFamilyVideo() {
 
   $("storyEyebrow").textContent = `HISTORIA FINANCIERA · FAMILIA ${meta.surname.toUpperCase()}`;
   $("videoMissingTitle").textContent = `Vídeo de ${meta.names} ${meta.surname}`;
-  $("videoMissingSub").innerHTML = `Coloca el archivo en <code>project/videos/${meta.shortId}.mp4</code> o selecciónalo aquí.`;
+  $("videoMissingSub").innerHTML = `Coloca el archivo en <code>project/videos/${meta.shortId}.mp4</code> o genéralo con IA aquí.`;
 
   const srcUrl = customVideoUrls[cid] || `/videos/${meta.shortId}.mp4`;
   overlay.classList.add("hidden");
   videoEl.src = srcUrl;
-  videoEl.onerror = () => overlay.classList.remove("hidden");
-  videoEl.onloadeddata = () => overlay.classList.add("hidden");
+  videoEl.onplay = syncFamilyVideoUI;
+  videoEl.onpause = syncFamilyVideoUI;
+  videoEl.ontimeupdate = syncFamilyVideoUI;
+  videoEl.onloadedmetadata = syncFamilyVideoUI;
+  videoEl.onended = syncFamilyVideoUI;
+  videoEl.onerror = () => { overlay.classList.remove("hidden"); syncFamilyVideoUI(); };
+  videoEl.onloadeddata = () => {
+    overlay.classList.add("hidden");
+    syncFamilyVideoUI();
+    videoEl.play().catch(() => {});
+  };
+  syncFamilyVideoUI();
+}
+
+function setVideoGenProgress(text, busy) {
+  const statusEl = $("videoGenStatus");
+  const btnOverlay = $("btnGenerateVideoOverlay");
+  const btnTop = $("btnRegenerateVideo");
+  if (statusEl) statusEl.textContent = text || "";
+  if (btnOverlay) btnOverlay.disabled = !!busy;
+  if (btnTop) {
+    btnTop.disabled = !!busy;
+    btnTop.textContent = busy ? text : "Generar vídeo con IA";
+  }
+}
+
+async function generateFamilyVideo() {
+  const cid = $("caseSelect").value;
+  const meta = FAMILY_ENRICHMENT[cid] || FAMILY_ENRICHMENT["timothy-melanie-weah"];
+  if (videoPollTimer) {
+    clearInterval(videoPollTimer);
+    videoPollTimer = null;
+  }
+
+  const overlay = $("videoMissingOverlay");
+  overlay.classList.remove("hidden");
+  setVideoGenProgress("Iniciando generación...", true);
+
+  try {
+    const res = await fetch("/api/videos/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ client_id: cid }),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || `Error HTTP ${res.status}`);
+    }
+    const job = await res.json();
+    const statusLabels = {
+      queued: "En cola...",
+      starting: "Preparando motor de vídeo...",
+      generating_storyboard: "Creando guion personalizado...",
+      generating_audio: "Generando narración con ElevenLabs...",
+      generating_music: "Añadiendo música ambiental...",
+      rendering: "Renderizando vídeo MP4 con Remotion...",
+    };
+
+    videoPollTimer = setInterval(async () => {
+      try {
+        const pollRes = await fetch(`/api/videos/jobs/${job.job_id}`);
+        if (!pollRes.ok) return;
+        const st = await pollRes.json();
+        const label = statusLabels[st.status] || st.status;
+        setVideoGenProgress(`${label} (${st.progress || 0}%)`, true);
+
+        if (st.status === "completed") {
+          clearInterval(videoPollTimer);
+          videoPollTimer = null;
+          setVideoGenProgress("", false);
+          const videoEl = $("familyVideoPlayer");
+          const bustedUrl = `/videos/${meta.shortId}.mp4?t=${Date.now()}`;
+          customVideoUrls[cid] = bustedUrl;
+          overlay.classList.add("hidden");
+          videoEl.src = bustedUrl;
+          videoEl.load();
+          videoEl.play().catch(() => {});
+        } else if (st.status === "failed") {
+          clearInterval(videoPollTimer);
+          videoPollTimer = null;
+          setVideoGenProgress(`Error: ${st.error || "Fallo al generar vídeo"}`, false);
+        }
+      } catch (e) {
+        // Reintentar en el siguiente tick
+      }
+    }, 2000);
+  } catch (err) {
+    setVideoGenProgress(`Error: ${err.message}`, false);
+  }
 }
 
 function loadLocalVideoFile(event) {
@@ -2413,26 +2579,6 @@ async function startVoiceCapture() {
     };
 
     mediaRecorder.start();
-
-    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (SpeechRec) {
-      try {
-        activeSpeechRec = new SpeechRec();
-        activeSpeechRec.lang = "es-ES";
-        activeSpeechRec.continuous = true;
-        activeSpeechRec.interimResults = true;
-        activeSpeechRec.onresult = (ev) => {
-          let acc = "";
-          for (let i = 0; i < ev.results.length; i++) {
-            acc += ev.results[i][0].transcript + " ";
-          }
-          if (acc.trim()) localSpeechTranscript = acc.trim();
-        };
-        activeSpeechRec.start();
-      } catch (e) {
-        activeSpeechRec = null;
-      }
-    }
   } catch (err) {
     isRecordingVoice = false;
     setOrbVisualState("ready");
@@ -2441,10 +2587,6 @@ async function startVoiceCapture() {
 }
 
 function stopVoiceCapture(sendAudio = true) {
-  if (activeSpeechRec) {
-    try { activeSpeechRec.stop(); } catch (e) {}
-    activeSpeechRec = null;
-  }
   if (!mediaRecorder) {
     isRecordingVoice = false;
     setOrbVisualState("ready");
@@ -2459,19 +2601,7 @@ function stopVoiceCapture(sendAudio = true) {
       activeMicStream.getTracks().forEach(t => t.stop());
       activeMicStream = null;
     }
-    if (!sendAudio) {
-      localSpeechTranscript = "";
-      setOrbVisualState("ready");
-      return;
-    }
-    const fastText = (localSpeechTranscript || "").trim();
-    localSpeechTranscript = "";
-    if (fastText.length > 1) {
-      audioChunks = [];
-      await askMentorQuestion(fastText);
-      return;
-    }
-    if (audioChunks.length === 0) {
+    if (!sendAudio || audioChunks.length === 0) {
       setOrbVisualState("ready");
       return;
     }
@@ -2557,6 +2687,7 @@ window.addEventListener("keyup", (e) => {
 
 updatePartnerOptions();
 loadAllFamilyData();
+setStage("story");
 </script>
 </body>
 </html>

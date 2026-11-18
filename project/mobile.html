@@ -603,10 +603,23 @@
           <button class="btn btn--ghost btn--sm" onclick="stopMobVideo(); setMobStage('dashboard');">Saltar</button>
         </div>
 
-        <div>
+        <div style="flex:1; display:flex; flex-direction:column; justify-content:center; min-height:0; margin:10px 0;">
           <div class="eyebrow" id="mobStoryEyebrow" style="margin-bottom:6px;">FAMILIA WEAH</div>
-          <div style="position:relative; width:100%; aspect-ratio:16/9; border-radius:14px; overflow:hidden; background:#0f172a; display:grid; place-items:center;">
-            <video id="mobVideoPlayer" controls playsinline style="width:100%; height:100%; object-fit:cover;"></video>
+          <div id="mobVideoBox" style="position:relative; width:100%; max-height:100%; aspect-ratio:9/16; border-radius:16px; overflow:hidden; background:#0f172a; display:grid; place-items:center; margin:0 auto;">
+            <video id="mobVideoPlayer" playsinline preload="metadata" oncontextmenu="return false;" onclick="toggleMobVideoPlay()" style="width:100%; height:100%; object-fit:contain; cursor:pointer;"></video>
+            <button id="mobCenterPlayBtn" onclick="toggleMobVideoPlay()" aria-label="Reproducir vídeo" style="position:absolute; width:56px; height:56px; border-radius:999px; border:1px solid rgba(255,255,255,0.28); background:rgba(15,23,42,0.68); backdrop-filter:blur(8px); color:#fff; display:grid; place-items:center; cursor:pointer;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="7 4 20 12 7 20 7 4"/></svg>
+            </button>
+            <div id="mobVideoControls" style="position:absolute; left:10px; right:10px; bottom:10px; background:rgba(10,17,34,0.76); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:7px 10px; display:flex; align-items:center; gap:8px; color:#fff;">
+              <button id="mobPlayPauseBtn" onclick="toggleMobVideoPlay()" style="background:none; border:none; color:#fff; cursor:pointer; padding:2px; display:grid; place-items:center;" aria-label="Play o pausa">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 19 12 6 20 6 4"/></svg>
+              </button>
+              <span id="mobVideoTime" style="font-size:11px; font-variant-numeric:tabular-nums; color:rgba(255,255,255,0.88); white-space:nowrap;">0:00 / 0:00</span>
+              <input id="mobVideoSeek" type="range" min="0" max="100" value="0" step="0.1" oninput="seekMobVideo(this.value)" style="flex:1; accent-color:#3b82f6; height:4px; cursor:pointer;">
+              <button id="mobMuteBtn" onclick="toggleMobVideoMute()" style="background:none; border:none; color:#fff; cursor:pointer; padding:2px; display:grid; place-items:center;" aria-label="Silenciar">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+              </button>
+            </div>
             <div id="mobVideoOverlay" style="position:absolute; inset:0; background:var(--sw-gradient-accent); color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:18px; text-align:center; gap:8px;">
               <strong style="font-size:15px;" id="mobVideoTitle">Vídeo de la familia</strong>
               <span style="font-size:12px; opacity:0.85;">Selecciona el archivo .mp4 o guárdalo en project/videos/</span>
@@ -941,6 +954,59 @@ function toggleMobNotif(force) {
   if (show) $("mobBellDot").style.display = "none";
 }
 
+function formatMobTime(sec) {
+  if (!Number.isFinite(sec) || sec < 0) return "0:00";
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60);
+  return `${m}:${String(s).padStart(2, "0")}`;
+}
+
+function syncMobVideoUI() {
+  const v = $("mobVideoPlayer");
+  if (!v) return;
+  const paused = v.paused;
+  const centerBtn = $("mobCenterPlayBtn");
+  const playBtn = $("mobPlayPauseBtn");
+  const timeEl = $("mobVideoTime");
+  const seekEl = $("mobVideoSeek");
+  const ov = $("mobVideoOverlay");
+  const missing = ov && !ov.classList.contains("hidden");
+  if (centerBtn) centerBtn.style.display = (!missing && paused) ? "grid" : "none";
+  if (playBtn) {
+    playBtn.innerHTML = paused
+      ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 19 12 6 20 6 4"/></svg>'
+      : '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+  }
+  const dur = v.duration || 0;
+  const cur = v.currentTime || 0;
+  if (timeEl) timeEl.textContent = `${formatMobTime(cur)} / ${formatMobTime(dur)}`;
+  if (seekEl && dur > 0) seekEl.value = ((cur / dur) * 100).toFixed(1);
+}
+
+function toggleMobVideoPlay() {
+  const v = $("mobVideoPlayer");
+  if (!v) return;
+  if (v.paused) v.play().catch(() => {});
+  else v.pause();
+}
+
+function seekMobVideo(pct) {
+  const v = $("mobVideoPlayer");
+  if (v && v.duration) v.currentTime = (Number(pct) / 100) * v.duration;
+}
+
+function toggleMobVideoMute() {
+  const v = $("mobVideoPlayer");
+  const btn = $("mobMuteBtn");
+  if (!v) return;
+  v.muted = !v.muted;
+  if (btn) {
+    btn.innerHTML = v.muted
+      ? '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>'
+      : '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>';
+  }
+}
+
 function prepareMobVideo() {
   const cid = $("caseSelect").value;
   const meta = FAMILY_META[cid] || FAMILY_META["timothy-melanie-weah"];
@@ -950,8 +1016,18 @@ function prepareMobVideo() {
   const ov = $("mobVideoOverlay");
   ov.classList.add("hidden");
   v.src = customVideoUrls[cid] || `/videos/${meta.shortId}.mp4`;
-  v.onerror = () => ov.classList.remove("hidden");
-  v.onloadeddata = () => ov.classList.add("hidden");
+  v.onplay = syncMobVideoUI;
+  v.onpause = syncMobVideoUI;
+  v.ontimeupdate = syncMobVideoUI;
+  v.onloadedmetadata = syncMobVideoUI;
+  v.onended = syncMobVideoUI;
+  v.onerror = () => { ov.classList.remove("hidden"); syncMobVideoUI(); };
+  v.onloadeddata = () => {
+    ov.classList.add("hidden");
+    syncMobVideoUI();
+    v.play().catch(() => {});
+  };
+  syncMobVideoUI();
 }
 
 function loadMobLocalVideo(e) {
@@ -1366,26 +1442,6 @@ async function startMobVoiceCapture() {
     mobMediaRecorder.start();
     isRecordingVoice = true;
     setMobOrbState("listening");
-
-    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (SpeechRec) {
-      try {
-        mobSpeechRec = new SpeechRec();
-        mobSpeechRec.lang = "es-ES";
-        mobSpeechRec.continuous = true;
-        mobSpeechRec.interimResults = true;
-        mobSpeechRec.onresult = (ev) => {
-          let acc = "";
-          for (let i = 0; i < ev.results.length; i++) {
-            acc += ev.results[i][0].transcript + " ";
-          }
-          if (acc.trim()) mobLocalSpeechTranscript = acc.trim();
-        };
-        mobSpeechRec.start();
-      } catch (e) {
-        mobSpeechRec = null;
-      }
-    }
   } catch (e) {
     isRecordingVoice = false;
     setMobOrbState("ready");
@@ -1393,10 +1449,6 @@ async function startMobVoiceCapture() {
 }
 
 function stopMobVoiceCapture(send = true) {
-  if (mobSpeechRec) {
-    try { mobSpeechRec.stop(); } catch (e) {}
-    mobSpeechRec = null;
-  }
   if (!isRecordingVoice) return;
   isRecordingVoice = false;
 
@@ -1412,19 +1464,7 @@ function stopMobVoiceCapture(send = true) {
       mobMediaStream.getTracks().forEach(t => t.stop());
       mobMediaStream = null;
     }
-    if (!send) {
-      mobLocalSpeechTranscript = "";
-      setMobOrbState("ready");
-      return;
-    }
-    const fastText = (mobLocalSpeechTranscript || "").trim();
-    mobLocalSpeechTranscript = "";
-    if (fastText.length > 1) {
-      mobAudioChunks = [];
-      await askMobMentor(fastText);
-      return;
-    }
-    if (!mobAudioChunks.length) {
+    if (!send || !mobAudioChunks.length) {
       setMobOrbState("ready");
       return;
     }
@@ -1480,6 +1520,7 @@ function stopMobVoiceCapture(send = true) {
 }
 
 loadAllFamilyData();
+setMobStage("story");
 </script>
 </body>
 </html>

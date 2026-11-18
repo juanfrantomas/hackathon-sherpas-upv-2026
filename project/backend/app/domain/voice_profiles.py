@@ -26,9 +26,9 @@ STYLE_PROFILES: dict[str, dict[str, str]] = {
         "style_key": "refranero",
         "gemini_voice": "Aoede",
         "openai_voice": "coral",
-        "voice_id": "gD1IexrzCvsXPHUuT0s3",  # ElevenLabs ES Nativa: Sara Martín
-        "fallback_voice": "KHCvMklQZZo0O30ERnVn",
-        "voice_name": "Sara Martín (ES Nativa / Cercana)",
+        "voice_id": "yiWEefwu5z3DQCM79clN",  # ElevenLabs ES Nativa: Laura López
+        "fallback_voice": "UOIqAnmS11Reiei1Ytkc",
+        "voice_name": "Laura López (ES Nativa / Cercana)",
         "style_label": "Cercana, Cálida y Cotidiana",
         "tone_instructions": (
             "REGISTRO DE LENGUAJE: CERCANO, CÁLIDO Y COTIDIANO "
@@ -61,9 +61,9 @@ STYLE_PROFILES: dict[str, dict[str, str]] = {
         "style_key": "formal",
         "gemini_voice": "Charon",
         "openai_voice": "marin",
-        "voice_id": "Ir1QNHvhaJXbAGhT50w3",  # ElevenLabs ES Nativa: Sara Martín Ejecutiva
+        "voice_id": "tXgbXPnsMpKXkuTgvE3h",  # ElevenLabs ES Nativa: Elena
         "fallback_voice": "erKgR0s8Y67t4iiHuA9R",
-        "voice_name": "Elena Martín (ES Nativa / Ejecutiva)",
+        "voice_name": "Elena (ES Nativa / Ejecutiva)",
         "style_label": "Formal, Ejecutivo y Estratégico",
         "tone_instructions": (
             "REGISTRO DE LENGUAJE: FORMAL, CULTO Y EJECUTIVO "

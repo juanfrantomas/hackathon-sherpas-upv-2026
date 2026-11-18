@@ -52,8 +52,8 @@ STYLE_PROFILES: Dict[str, Dict[str, Any]] = {
         "language": "es",
         "gemini_voice": "Zephyr",
         "openai_voice": "coral",
-        "voice_id": "gD1IexrzCvsXPHUuT0s3",  # ElevenLabs ES Nativa (España): Sara Martín 3 (cálida, conversacional, natural)
-        "fallback_voice": "KHCvMklQZZo0O30ERnVn",  # ElevenLabs ES Nativa (España): Sara Martín 1
+        "voice_id": "yiWEefwu5z3DQCM79clN",  # ElevenLabs ES Nativa (es-ES): Laura López (Bright, Clear and Dynamic)
+        "fallback_voice": "UOIqAnmS11Reiei1Ytkc",  # ElevenLabs ES Nativa (es-ES): Carolina
         "en_gemini_voice": "Aoede",
         "en_openai_voice": "coral",
         "en_voice_id": "EXAVITQu4vr4xnSDxMaL",  # ElevenLabs EN: Sarah (cálida, acento americano cercano)
@@ -63,7 +63,7 @@ STYLE_PROFILES: Dict[str, Dict[str, Any]] = {
         "stability": 0.48,
         "similarity_boost": 0.78,
         "style_weight": 0.22,
-        "voice_name": "Sara Martín · ElevenLabs (ES Nativa · Cercana)",
+        "voice_name": "Laura López · ElevenLabs (ES Nativa · Cercana)",
         "en_voice_name": "Sarah · ElevenLabs (EN · Warm American)",
         "zh_voice_name": "Jessica · ElevenLabs (ZH · 亲切温暖)",
         "style_label": "Cercana, Cálida y Cotidiana",
@@ -86,8 +86,8 @@ STYLE_PROFILES: Dict[str, Dict[str, Any]] = {
         "language": "es",
         "gemini_voice": "Aoede",
         "openai_voice": "sage",
-        "voice_id": "KHCvMklQZZo0O30ERnVn",  # ElevenLabs ES Nativa (España): Sara Martín 1 (empática, pedagógica y familiar)
-        "fallback_voice": "gD1IexrzCvsXPHUuT0s3",  # ElevenLabs ES Nativa (España): Sara Martín 3
+        "voice_id": "UOIqAnmS11Reiei1Ytkc",  # ElevenLabs ES Nativa (es-ES): Carolina (Natural, Neutral and Clear)
+        "fallback_voice": "yiWEefwu5z3DQCM79clN",  # ElevenLabs ES Nativa (es-ES): Laura López
         "en_gemini_voice": "Aoede",
         "en_openai_voice": "sage",
         "en_voice_id": "Xb7hH8MSUJpSbSDYk0k2",  # ElevenLabs EN: Alice (educadora clara, acento británico)
@@ -97,7 +97,7 @@ STYLE_PROFILES: Dict[str, Dict[str, Any]] = {
         "stability": 0.50,
         "similarity_boost": 0.78,
         "style_weight": 0.18,
-        "voice_name": "Sara Martín · ElevenLabs (ES Nativa · Familiar)",
+        "voice_name": "Carolina · ElevenLabs (ES Nativa · Familiar)",
         "en_voice_name": "Alice · ElevenLabs (EN · British Educator)",
         "zh_voice_name": "Jessica · ElevenLabs (ZH · 温和家庭顾问)",
         "style_label": "Empático, Familiar y Mediador",
@@ -152,7 +152,7 @@ STYLE_PROFILES: Dict[str, Dict[str, Any]] = {
         "language": "es",
         "gemini_voice": "Kore",
         "openai_voice": "cedar",
-        "voice_id": "Ir1QNHvhaJXbAGhT50w3",  # ElevenLabs ES Nativa (España): Sara Martín 2 (serena, culta y ejecutiva)
+        "voice_id": "tXgbXPnsMpKXkuTgvE3h",  # ElevenLabs ES Nativa (es-ES): Elena (Resolute, Engaging and Lively)
         "fallback_voice": "erKgR0s8Y67t4iiHuA9R",  # ElevenLabs ES Nativa (España): Martín Osborne 7
         "en_gemini_voice": "Charon",
         "en_openai_voice": "marin",
@@ -163,7 +163,7 @@ STYLE_PROFILES: Dict[str, Dict[str, Any]] = {
         "stability": 0.55,
         "similarity_boost": 0.80,
         "style_weight": 0.15,
-        "voice_name": "Elena Martín · ElevenLabs (ES Nativa · Ejecutiva)",
+        "voice_name": "Elena · ElevenLabs (ES Nativa · Ejecutiva)",
         "en_voice_name": "Daniel · ElevenLabs (EN · Executive British)",
         "zh_voice_name": "Eric · ElevenLabs (ZH · 私人银行高管顾问)",
         "style_label": "Formal, Ejecutivo y Estratégico",
@@ -211,19 +211,24 @@ def detect_user_language(user_text: Optional[str] = None, client_id: Optional[st
         return "zh"
 
     english_markers = {
-        "what", "how", "why", "should", "can", "would", "could", "our", "my",
-        "the", "with", "first", "about", "explain", "plan", "house", "retire",
-        "hello", "hi", "please", "tell", "me", "help", "does", "is", "are",
-        "your", "this", "that", "have", "will", "from", "save", "card", "money",
+        "what", "how", "why", "when", "where", "who", "which", "should", "can", "would",
+        "could", "our", "my", "the", "with", "first", "about", "explain", "plan",
+        "house", "home", "retire", "retirement", "hello", "hi", "hey", "please", "tell",
+        "me", "help", "does", "do", "did", "is", "are", "your", "you", "we", "this",
+        "that", "have", "has", "will", "from", "save", "saving", "savings", "card",
+        "credit", "money", "cash", "debt", "score", "tax", "taxes", "kids", "children",
+        "family", "wife", "husband", "much", "many", "best", "start", "need", "want",
     }
     spanish_markers = {
-        "que", "como", "por", "para", "este", "esto", "pacto", "activo",
-        "cambia", "significa", "hola", "tarjeta", "casa", "nuestro", "mi",
-        "cual", "donde", "cuando", "seguro", "dinero", "ahorro", "paso", "hijos",
+        "que", "como", "por", "para", "este", "esto", "esta", "pacto", "activo",
+        "cambia", "significa", "hola", "buenas", "tarjeta", "casa", "nuestro", "nuestra",
+        "mi", "mis", "cual", "donde", "cuando", "seguro", "dinero", "ahorro", "ahorrar",
+        "paso", "hijos", "familia", "jubilacion", "jubilarme", "efectivo", "deuda",
+        "impuestos", "hacemos", "hago", "puedo", "podemos", "conviene", "explicame",
     }
     en_hits = len(words & english_markers)
     es_hits = len(words & spanish_markers)
-    if en_hits >= 2 and en_hits > es_hits:
+    if en_hits > es_hits and (en_hits >= 2 or (en_hits >= 1 and es_hits == 0)):
         _LAST_LANG_BY_CLIENT[cid] = "en"
         return "en"
 
