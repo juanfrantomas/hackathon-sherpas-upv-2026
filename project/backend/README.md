@@ -49,7 +49,7 @@ make dev                     # http://127.0.0.1:8001/docs
 | `MENTOR_MODEL` | The model that answers the mentor | `gemini-3.5-flash-lite` |
 | `DIGEST_MAX_CHARS` | Context budget of one generation | `60000` |
 | `SYNC_MIN_INTERVAL_MINUTES` | Minimum gap between automatic syncs | `1440` |
-| `ALLOWED_CASE_IDS` | Comma separated allowlist | empty (denies everything) |
+| `ALLOWED_CASE_IDS` | Comma separated allowlist | empty (allows the standard demo cases) |
 | `CORS_ORIGINS` | Comma separated origins | `http://localhost:5173` |
 
 `AI_API_KEY` is the name of the variable that holds the team key in this
@@ -223,9 +223,9 @@ still returned with `"meta": {"stale": true, "stale_reason": "..."}`.
 The MVP has no authentication. That is a prototyping decision, not a
 production answer.
 
-* `ALLOWED_CASE_IDS` is a guard rail: an empty list denies every request
-  (fail closed) and a case outside the list is refused **before** any call to
-  the MCP or the AI.
+* `ALLOWED_CASE_IDS` is a guard rail: an empty list allows the standard demo
+  cases, and a case outside the configured list is refused **before** any call
+  to the MCP or the AI. Set an explicit list for deployments.
 * The MCP token and the team key never reach a log or a response.
 * The server binds to `127.0.0.1` and the CORS origins are explicit.
 

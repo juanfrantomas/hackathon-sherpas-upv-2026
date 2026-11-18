@@ -156,7 +156,7 @@ def authorize_case(case_id: str, settings: Settings) -> str:
     """Check that this instance may serve the requested case.
 
     The allowlist is a guard rail for the prototype, not an authentication
-    mechanism.  An empty allowlist denies everything.
+    mechanism. An empty setting permits the standard demo cases.
 
     Returns the official slug of the case, so the caller works with it.
     """

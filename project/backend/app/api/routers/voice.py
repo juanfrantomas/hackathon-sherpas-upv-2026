@@ -74,6 +74,13 @@ async def voice_realtime(
     """
     from app.realtime.handler import handle_realtime_websocket
 
+    if (
+        settings.environment == "production"
+        and websocket.headers.get("origin") not in settings.cors_origin_list
+    ):
+        await websocket.close(code=1008, reason="Origin not allowed")
+        return
+
     try:
         slug = authorize_case(case_id, settings)
     except AppError as exc:

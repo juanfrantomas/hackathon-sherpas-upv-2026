@@ -1,0 +1,14 @@
+FROM python:3.12-slim
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+WORKDIR /app
+COPY project/backend/pyproject.toml ./
+COPY project/backend/app ./app
+RUN pip install --no-cache-dir .
+COPY project/backend/alembic.ini ./
+COPY project/backend/alembic ./alembic
+COPY cases /cases
+RUN useradd --create-home app && mkdir -p /app/data && chown app:app /app/data
+USER app
+ENV CASES_DIR=/cases DATABASE_URL=sqlite:////app/data/app.db TTS_CACHE_DIR=/app/data/tts_cache
+EXPOSE 8001
+CMD ["sh", "-c", "alembic upgrade head && exec uvicorn app.main:app --host 0.0.0.0 --port 8001 --workers 1"]
