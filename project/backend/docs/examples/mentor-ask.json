@@ -1,0 +1,16 @@
+{
+  "status_code": 200,
+  "body": {
+    "status": "success",
+    "case_id": "timothy-melanie-weah",
+    "short_id": "weah",
+    "mcp_used": false,
+    "voice": "Aoede (Cercana / Refranero Popular)",
+    "style": "Cercana, Familiar y con Refranes",
+    "style_key": "refranero",
+    "partner_mode": "both",
+    "consulted": [],
+    "answer": "¡Hola, Timothy y Melanie! Qué alegría saludaros a los dos por aquí. \n\nMirando vuestra economía familiar, con esos dos terremotos en casa —Liam y Josh—, es normal que a veces los pequeños gastos del día a día se queden en la tarjeta. Pero **más vale prevenir que curar**, y tener esa tarjeta de crédito al 18% acumulando intereses es como tener un grifo abierto que gotea sin parar: de cada pago que hacéis al mes, casi todo se va en intereses al banco y apenas arañáis la deuda principal. \n\nA este ritmo, tal y como estáis ahora, se os van **más de 3.000 dólares al año** solo en pagarle al banco por esa deuda de la tarjeta. Y claro, como bien piensa Timothy, ese dinero rindiendo en otro sitio daría mucha alegría; y como bien cuida Melanie, ese dinero en el banco nos da la paz mental que los peques necesitan. \n\nComo dice el refrán, *no se puede empezar la casa por el tejado*: con el buen colchón de ahorros que tenéis acumulado, podéis usar una pequeña parte para apagar ese fuego de golpe y quitaros ese peso de encima. ¿Qué os parece si le damos una vuelta juntos para que el dinero vuelva a trabajar para vuestra familia?",
+    "audio_url": "/audio/tts_183588f3033a.mp3"
+  }
+}

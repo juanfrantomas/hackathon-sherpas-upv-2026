@@ -1,0 +1,49 @@
+/* =========================== 5 Plan =========================== */
+.plan-strip { display: flex; gap: 8px; overflow-x: auto; padding: 4px 20px 10px; scrollbar-width: none; position: sticky; top: 50px; z-index: 2; background: rgba(255,255,255,.94); }
+.plan-strip::-webkit-scrollbar { display: none; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 8px; }
+.fact { padding: 12px; border: 1px solid var(--line); border-radius: var(--r-md); display: grid; gap: 2px; }
+.fact span { font-size: 12px; color: var(--ink-500); }
+.fact strong { font-size: 18px; letter-spacing: -0.01em; }
+.fact em { font-style: normal; font-size: 12px; color: var(--warn-600); font-weight: 600; }
+.rec { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); overflow: hidden; transition: border-color var(--dur-1); }
+.rec.is-open { border-color: var(--sw-blue-200); }
+.rec__head { width: 100%; display: flex; gap: 10px; align-items: flex-start; padding: 16px; border: 0; background: none; text-align: left; cursor: pointer; }
+.rec__head h3 { margin: 0 0 4px; font-size: 16px; line-height: 22px; }
+.rec__chev { color: var(--ink-400); transition: transform var(--dur-2) var(--ease); flex: none; margin-top: 2px; }
+.is-open > * > .rec__chev, .is-open .rec__head .rec__chev, .is-open .ms__head .rec__chev { transform: rotate(180deg); }
+.rec__chart { padding: 0 16px 14px; }
+.rec__body { padding: 0 16px 16px; display: grid; gap: 14px; animation: screenIn var(--dur-2) var(--ease); }
+.qa { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: qa; }
+.qa li { padding-left: 30px; position: relative; counter-increment: qa; }
+.qa li::before { content: counter(qa); position: absolute; left: 0; top: 0; width: 20px; height: 20px; border-radius: 50%; background: var(--sw-blue-50); color: var(--sw-blue-700); font-size: 11px; font-weight: 700; display: grid; place-items: center; }
+.qa__q { font-size: 12.5px; font-weight: 600; color: var(--ink-500); }
+.qa p { font-size: 14.5px; line-height: 21px; margin-top: 2px; }
+.pending { display: grid; justify-items: start; gap: 8px; padding: 20px; border: 1px dashed var(--ink-300); border-radius: var(--r-lg); color: var(--ink-500); }
+.pending h3 { margin: 0; color: var(--ink-900); font-size: 16px; }
+
+/* Charts */
+.chart { margin: 0; display: grid; gap: 8px; }
+.chart figcaption { font-size: 11.5px; color: var(--ink-400); }
+.chart--score { grid-template-columns: auto 1fr; align-items: center; gap: 12px; }
+.bars { display: grid; gap: 12px; }
+.bars__row { display: grid; gap: 5px; }
+.bars__meta { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--ink-500); }
+.bars__meta strong { color: var(--ink-900); font-size: 13.5px; }
+.bars__track { height: 10px; border-radius: 5px; background: var(--line-soft); overflow: hidden; }
+.bars__fill { height: 100%; border-radius: 5px; animation: grow 900ms var(--ease); transform-origin: left; }
+.bar--cash { background: var(--sw-blue-600); }
+.bar--debt { background: var(--warn-600); }
+@keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.gtl { position: relative; height: 70px; margin: 0 34px; }
+.gtl__line { position: absolute; left: 0; right: 0; top: 10px; height: 2px; background: var(--line); }
+.gtl__pt { position: absolute; top: 0; transform: translateX(-50%); display: grid; justify-items: center; gap: 2px; text-align: center; width: 90px; }
+.gtl__dot { width: 12px; height: 12px; border-radius: 50%; background: var(--surface); border: 2px solid var(--sw-blue-600); margin: 5px 0 6px; }
+.gtl__pt.is-now .gtl__dot { background: var(--sw-blue-600); box-shadow: 0 0 0 4px var(--sw-blue-100); }
+.gtl__k { font-size: 13px; font-weight: 650; }
+.gtl__v { font-size: 11.5px; color: var(--ink-500); line-height: 14px; }
+.two-goals { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: center; }
+.two-goals > div:not(.tg__vs) { padding: 12px; border-radius: var(--r-md); background: var(--sw-blue-50); display: grid; gap: 2px; }
+.tg__k { font-size: 11px; color: var(--ink-500); text-transform: uppercase; letter-spacing: .05em; font-weight: 600; }
+.tg__s { font-size: 12px; color: var(--ink-500); }
+.tg__vs { font-size: 12px; color: var(--ink-400); }

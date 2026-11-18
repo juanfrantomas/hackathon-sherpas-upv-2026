@@ -1,0 +1,64 @@
+{
+  "status_code": 200,
+  "body": {
+    "case_id": "timothy-melanie-weah",
+    "is_couple": true,
+    "members": [
+      {
+        "key": "timothy",
+        "name": "Timothy",
+        "role": "client",
+        "age": 40,
+        "retirement_age": 62,
+        "risk_profile": "Growth",
+        "personal_focus": "Crecimiento, rentabilidad y coste de oportunidad fiscal/inversor"
+      },
+      {
+        "key": "melanie",
+        "name": "Melanie",
+        "role": "co-client",
+        "age": 38,
+        "retirement_age": 60,
+        "risk_profile": "Moderate",
+        "personal_focus": "Seguridad familiar, colchón de liquidez y protección de los hijos"
+      }
+    ],
+    "consensus_bridge": "Timothy (perfil Growth) busca que el dinero rinda y no perder un 18% en la tarjeta, mientras que Melanie (perfil Moderate) prioriza la seguridad de Liam y Josh con un gran colchón de liquidez. El punto de encuentro: usar solo una parte del efectivo excedente ($60k sobre la reserva) para liquidar la tarjeta al 18% y cubrir el seguro de vida mantiene intacto el fondo de emergencia de Melanie y logra el retorno garantizado que busca Timothy, subiendo su Score de 60 a 73.",
+    "kids_safe_view": [
+      {
+        "id": "vacation-goal",
+        "icon": "✈️",
+        "friendly_title": "Family Trips",
+        "visual_meta": "Packing bags for new adventures",
+        "progress_percentage": 50,
+        "children_explanation": "We are saving up so our family can go on fun trips together every single year!"
+      },
+      {
+        "id": "vehicle-goal",
+        "icon": "🚗",
+        "friendly_title": "New Family Car",
+        "visual_meta": "A shiny set of wheels on the driveway",
+        "progress_percentage": 40,
+        "children_explanation": "We are getting ready to pick out a brand new family car to drive to all our favorite places."
+      },
+      {
+        "id": "home-goal",
+        "icon": "🏡",
+        "friendly_title": "Our New House",
+        "visual_meta": "Building blocks for a cozy home",
+        "progress_percentage": 30,
+        "children_explanation": "We have a big plan to get a new house where we can play games and make wonderful memories together."
+      },
+      {
+        "id": "college-goal",
+        "icon": "🎓",
+        "friendly_title": "School Adventures for Liam and Josh",
+        "visual_meta": "Stack of colorful books and a graduation cap",
+        "progress_percentage": 20,
+        "children_explanation": "We are saving special funds to help Liam and Josh go to college and learn all about the things they love when they grow up."
+      }
+    ],
+    "high_fives": [],
+    "generated": true
+  }
+}

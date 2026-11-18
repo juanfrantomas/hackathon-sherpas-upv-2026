@@ -1,0 +1,45 @@
+{
+  "status_code": 200,
+  "body": [
+    {
+      "id": "task_b1220531232f4fc5",
+      "title": "List priorities and the numbers each needs",
+      "description": null,
+      "order": 0,
+      "is_required": true,
+      "status": "pending",
+      "origin": "ai",
+      "completed_at": null
+    },
+    {
+      "id": "task_00b6fd8f069341c9",
+      "title": "Model 2–3 allocation scenarios",
+      "description": null,
+      "order": 1,
+      "is_required": false,
+      "status": "pending",
+      "origin": "ai",
+      "completed_at": null
+    },
+    {
+      "id": "task_452d547521f44c26",
+      "title": "Agree on sequence and set dollar amounts",
+      "description": null,
+      "order": 2,
+      "is_required": true,
+      "status": "pending",
+      "origin": "ai",
+      "completed_at": null
+    },
+    {
+      "id": "task_53bfcae65af4480f",
+      "title": "Schedule the first implementations",
+      "description": null,
+      "order": 3,
+      "is_required": false,
+      "status": "pending",
+      "origin": "ai",
+      "completed_at": null
+    }
+  ]
+}

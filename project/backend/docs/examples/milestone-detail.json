@@ -1,0 +1,73 @@
+{
+  "status_code": 200,
+  "body": {
+    "id": "ms_cc46d071df4971ee",
+    "title": "Schedule $6,800 payment to the Chase credit card",
+    "why": "The plan recommends an initial payment to reduce the high-rate card: \"The first move is paying $6,800 on the 18% card from cash. The published score moves from 60 to 62, leaving $11,200 total after the move.\"",
+    "action": "Confirm available accessible cash and schedule a $6,800 payment from a cash account to the Chase CC to reduce the outstanding balance to $11,200; record the payment in your cash plan.",
+    "section": "debt",
+    "status": "not_started",
+    "checkin": "Nov 13",
+    "case_id": "timothy-melanie-weah",
+    "category": "Debt",
+    "type": "financial",
+    "priority": "medium",
+    "tasks": [
+      {
+        "id": "task_2bc18c6c2c7944f7",
+        "title": "Confirm accessible cash and intended funding account",
+        "description": null,
+        "order": 0,
+        "is_required": true,
+        "status": "pending",
+        "origin": "ai",
+        "completed_at": null
+      },
+      {
+        "id": "task_3526802c151d4203",
+        "title": "Schedule the $6,800 payment to Chase CC",
+        "description": null,
+        "order": 1,
+        "is_required": true,
+        "status": "pending",
+        "origin": "ai",
+        "completed_at": null
+      },
+      {
+        "id": "task_4bbcedc1b78f4c9a",
+        "title": "Update your budget and cash plan",
+        "description": null,
+        "order": 2,
+        "is_required": false,
+        "status": "pending",
+        "origin": "ai",
+        "completed_at": null
+      }
+    ],
+    "task_progress": 0,
+    "financial_progress": null,
+    "financial_progress_state": "conflicting",
+    "financial_metric_key": "liability_chase_cc",
+    "financial_direction": "decrease",
+    "financial_start_value": "18000.00",
+    "financial_target_value": "11200.00",
+    "financial_unit": "USD",
+    "financial_currency": "USD",
+    "due_date": "2026-11-08",
+    "checkin_pending": true,
+    "checkin_date": "2026-11-13",
+    "overdue": true,
+    "source": [
+      {
+        "part": "financial-health",
+        "section": "score",
+        "json_path": "financial-health.score",
+        "quote": "The first move is paying $6,800 on the 18% card from cash. The published score moves from 60 to 62, leaving $11,200 total after the move."
+      }
+    ],
+    "created_at": "2026-11-17T15:33:51Z",
+    "updated_at": "2026-11-17T15:33:51Z",
+    "completed_at": null,
+    "last_reviewed_at": null
+  }
+}

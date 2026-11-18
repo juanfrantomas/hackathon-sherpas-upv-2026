@@ -1,0 +1,4355 @@
+{
+  "components": {
+    "schemas": {
+      "CaseSummary": {
+        "description": "One household, with the register the mentor will use with it.",
+        "properties": {
+          "band": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Band"
+          },
+          "case_id": {
+            "title": "Case Id",
+            "type": "string"
+          },
+          "city": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "City"
+          },
+          "gemini_voice": {
+            "title": "Gemini Voice",
+            "type": "string"
+          },
+          "household_name": {
+            "title": "Household Name",
+            "type": "string"
+          },
+          "is_couple": {
+            "title": "Is Couple",
+            "type": "boolean"
+          },
+          "members": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Members",
+            "type": "array"
+          },
+          "openai_voice": {
+            "title": "Openai Voice",
+            "type": "string"
+          },
+          "score": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Score"
+          },
+          "short_id": {
+            "title": "Short Id",
+            "type": "string"
+          },
+          "state": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "State"
+          },
+          "voice_label": {
+            "title": "Voice Label",
+            "type": "string"
+          },
+          "voice_name": {
+            "title": "Voice Name",
+            "type": "string"
+          },
+          "voice_style": {
+            "title": "Voice Style",
+            "type": "string"
+          }
+        },
+        "required": [
+          "case_id",
+          "short_id",
+          "household_name",
+          "is_couple",
+          "members",
+          "voice_style",
+          "voice_label",
+          "voice_name",
+          "gemini_voice",
+          "openai_voice"
+        ],
+        "title": "CaseSummary",
+        "type": "object"
+      },
+      "CheckinListResponse": {
+        "description": "The reviews of a case.",
+        "properties": {
+          "checkins": {
+            "items": {
+              "$ref": "#/components/schemas/CheckinResponse"
+            },
+            "title": "Checkins",
+            "type": "array"
+          }
+        },
+        "required": [
+          "checkins"
+        ],
+        "title": "CheckinListResponse",
+        "type": "object"
+      },
+      "CheckinResponse": {
+        "description": "One scheduled review.",
+        "properties": {
+          "completed_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed At"
+          },
+          "effective_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective Date"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "milestone_id": {
+            "title": "Milestone Id",
+            "type": "string"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "pending": {
+            "default": false,
+            "title": "Pending",
+            "type": "boolean"
+          },
+          "scheduled_date": {
+            "format": "date",
+            "title": "Scheduled Date",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          }
+        },
+        "required": [
+          "id",
+          "milestone_id",
+          "scheduled_date",
+          "status"
+        ],
+        "title": "CheckinResponse",
+        "type": "object"
+      },
+      "CompleteMilestoneRequest": {
+        "description": "The explicit confirmation that closes a milestone.",
+        "properties": {
+          "confirmed": {
+            "description": "Must be true: completing a milestone is a client statement",
+            "title": "Confirmed",
+            "type": "boolean"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          }
+        },
+        "required": [
+          "confirmed"
+        ],
+        "title": "CompleteMilestoneRequest",
+        "type": "object"
+      },
+      "CoupleMember": {
+        "description": "One member of the household.",
+        "properties": {
+          "age": {
+            "title": "Age",
+            "type": "integer"
+          },
+          "key": {
+            "title": "Key",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "personal_focus": {
+            "title": "Personal Focus",
+            "type": "string"
+          },
+          "retirement_age": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retirement Age"
+          },
+          "risk_profile": {
+            "title": "Risk Profile",
+            "type": "string"
+          },
+          "role": {
+            "title": "Role",
+            "type": "string"
+          }
+        },
+        "required": [
+          "key",
+          "name",
+          "role",
+          "age",
+          "risk_profile",
+          "personal_focus"
+        ],
+        "title": "CoupleMember",
+        "type": "object"
+      },
+      "CoupleOverview": {
+        "description": "The state of the couple mode.",
+        "properties": {
+          "case_id": {
+            "title": "Case Id",
+            "type": "string"
+          },
+          "consensus_bridge": {
+            "default": "",
+            "title": "Consensus Bridge",
+            "type": "string"
+          },
+          "generated": {
+            "default": false,
+            "title": "Generated",
+            "type": "boolean"
+          },
+          "high_fives": {
+            "items": {
+              "$ref": "#/components/schemas/HighFiveItem"
+            },
+            "title": "High Fives",
+            "type": "array"
+          },
+          "is_couple": {
+            "title": "Is Couple",
+            "type": "boolean"
+          },
+          "kids_safe_view": {
+            "items": {
+              "$ref": "#/components/schemas/KidsGoalItem"
+            },
+            "title": "Kids Safe View",
+            "type": "array"
+          },
+          "members": {
+            "items": {
+              "$ref": "#/components/schemas/CoupleMember"
+            },
+            "title": "Members",
+            "type": "array"
+          }
+        },
+        "required": [
+          "case_id",
+          "is_couple"
+        ],
+        "title": "CoupleOverview",
+        "type": "object"
+      },
+      "DecisionPowerUp": {
+        "description": "One decision the household can switch on.",
+        "properties": {
+          "active": {
+            "default": false,
+            "title": "Active",
+            "type": "boolean"
+          },
+          "effort": {
+            "default": "",
+            "title": "Effort",
+            "type": "string"
+          },
+          "icon": {
+            "default": "",
+            "title": "Icon",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "individual_impact": {
+            "default": "",
+            "title": "Individual Impact",
+            "type": "string"
+          },
+          "lifts_a_cap": {
+            "default": false,
+            "title": "Lifts A Cap",
+            "type": "boolean"
+          },
+          "lock_label": {
+            "default": "",
+            "title": "Lock Label",
+            "type": "string"
+          },
+          "mentor_question": {
+            "default": "",
+            "title": "Mentor Question",
+            "type": "string"
+          },
+          "score_after": {
+            "default": 0,
+            "title": "Score After",
+            "type": "integer"
+          },
+          "score_before": {
+            "default": 0,
+            "title": "Score Before",
+            "type": "integer"
+          },
+          "score_impact": {
+            "default": 0,
+            "title": "Score Impact",
+            "type": "integer"
+          },
+          "short_action": {
+            "default": "",
+            "title": "Short Action",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title"
+        ],
+        "title": "DecisionPowerUp",
+        "type": "object"
+      },
+      "FinancialProgressResponse": {
+        "description": "The financial progress of a milestone.",
+        "properties": {
+          "conflict": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Conflict"
+          },
+          "currency": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Currency"
+          },
+          "direction": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Direction"
+          },
+          "metric_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metric Key"
+          },
+          "milestone_id": {
+            "title": "Milestone Id",
+            "type": "string"
+          },
+          "progress": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Progress"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/ObservationResponse"
+            },
+            "title": "Sources",
+            "type": "array"
+          },
+          "start_value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start Value"
+          },
+          "state": {
+            "title": "State",
+            "type": "string"
+          },
+          "target_value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Value"
+          },
+          "unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit"
+          },
+          "used_source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Used Source"
+          }
+        },
+        "required": [
+          "milestone_id",
+          "state"
+        ],
+        "title": "FinancialProgressResponse",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "HighFiveItem": {
+        "description": "A high five between the two members of a couple.",
+        "properties": {
+          "case_id": {
+            "title": "Case Id",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "from_member": {
+            "title": "From Member",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "milestone_title": {
+            "title": "Milestone Title",
+            "type": "string"
+          },
+          "to_member": {
+            "title": "To Member",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "case_id",
+          "from_member",
+          "to_member",
+          "milestone_title",
+          "message",
+          "created_at"
+        ],
+        "title": "HighFiveItem",
+        "type": "object"
+      },
+      "HighFiveRequest": {
+        "description": "A high five the household sends to each other.",
+        "properties": {
+          "from_member": {
+            "title": "From Member",
+            "type": "string"
+          },
+          "message": {
+            "default": "¡Choca esos cinco! Un paso más cerca de nuestra meta familiar 👋",
+            "title": "Message",
+            "type": "string"
+          },
+          "milestone_title": {
+            "title": "Milestone Title",
+            "type": "string"
+          },
+          "to_member": {
+            "title": "To Member",
+            "type": "string"
+          }
+        },
+        "required": [
+          "from_member",
+          "to_member",
+          "milestone_title"
+        ],
+        "title": "HighFiveRequest",
+        "type": "object"
+      },
+      "JargonPill": {
+        "description": "A financial term, explained with a comparison of everyday life.",
+        "properties": {
+          "family_impact": {
+            "default": "",
+            "title": "Family Impact",
+            "type": "string"
+          },
+          "metaphor_explanation": {
+            "default": "",
+            "title": "Metaphor Explanation",
+            "type": "string"
+          },
+          "metaphor_title": {
+            "default": "",
+            "title": "Metaphor Title",
+            "type": "string"
+          },
+          "short_tag": {
+            "default": "",
+            "title": "Short Tag",
+            "type": "string"
+          },
+          "term": {
+            "title": "Term",
+            "type": "string"
+          },
+          "voice_question": {
+            "default": "",
+            "title": "Voice Question",
+            "type": "string"
+          }
+        },
+        "required": [
+          "term"
+        ],
+        "title": "JargonPill",
+        "type": "object"
+      },
+      "KidsGoalItem": {
+        "description": "A goal of the household, told to the children.",
+        "properties": {
+          "children_explanation": {
+            "default": "",
+            "title": "Children Explanation",
+            "type": "string"
+          },
+          "friendly_title": {
+            "default": "",
+            "title": "Friendly Title",
+            "type": "string"
+          },
+          "icon": {
+            "default": "",
+            "title": "Icon",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "progress_percentage": {
+            "default": 0,
+            "title": "Progress Percentage",
+            "type": "integer"
+          },
+          "visual_meta": {
+            "default": "",
+            "title": "Visual Meta",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "title": "KidsGoalItem",
+        "type": "object"
+      },
+      "MarkReadResponse": {
+        "description": "The result of marking notices as read.",
+        "properties": {
+          "read": {
+            "default": 0,
+            "title": "Read",
+            "type": "integer"
+          }
+        },
+        "title": "MarkReadResponse",
+        "type": "object"
+      },
+      "MentorAskRequest": {
+        "description": "A question from the household.",
+        "properties": {
+          "case_id": {
+            "description": "The household the question is about",
+            "title": "Case Id",
+            "type": "string"
+          },
+          "partner": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Which member of the couple is speaking",
+            "title": "Partner"
+          },
+          "question": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Question",
+            "type": "string"
+          },
+          "style": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The register the household asks for",
+            "title": "Style"
+          },
+          "topic": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The milestone the household opened",
+            "title": "Topic"
+          }
+        },
+        "required": [
+          "case_id",
+          "question"
+        ],
+        "title": "MentorAskRequest",
+        "type": "object"
+      },
+      "MentorAskResponse": {
+        "description": "The answer of the mentor.",
+        "properties": {
+          "answer": {
+            "title": "Answer",
+            "type": "string"
+          },
+          "audio_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Audio Url"
+          },
+          "case_id": {
+            "title": "Case Id",
+            "type": "string"
+          },
+          "consulted": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Consulted",
+            "type": "array"
+          },
+          "mcp_used": {
+            "default": false,
+            "title": "Mcp Used",
+            "type": "boolean"
+          },
+          "partner_mode": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partner Mode"
+          },
+          "short_id": {
+            "title": "Short Id",
+            "type": "string"
+          },
+          "status": {
+            "default": "success",
+            "title": "Status",
+            "type": "string"
+          },
+          "style": {
+            "title": "Style",
+            "type": "string"
+          },
+          "style_key": {
+            "title": "Style Key",
+            "type": "string"
+          },
+          "voice": {
+            "title": "Voice",
+            "type": "string"
+          }
+        },
+        "required": [
+          "case_id",
+          "short_id",
+          "voice",
+          "style",
+          "style_key",
+          "answer"
+        ],
+        "title": "MentorAskResponse",
+        "type": "object"
+      },
+      "MentorInsightsResponse": {
+        "description": "The proactive mentor and the translator of jargon.",
+        "properties": {
+          "case_id": {
+            "title": "Case Id",
+            "type": "string"
+          },
+          "generated": {
+            "default": false,
+            "title": "Generated",
+            "type": "boolean"
+          },
+          "jargon_pills": {
+            "items": {
+              "$ref": "#/components/schemas/JargonPill"
+            },
+            "title": "Jargon Pills",
+            "type": "array"
+          },
+          "proactive_nudge": {
+            "$ref": "#/components/schemas/ProactiveInsight"
+          },
+          "short_id": {
+            "title": "Short Id",
+            "type": "string"
+          },
+          "style_key": {
+            "title": "Style Key",
+            "type": "string"
+          },
+          "style_label": {
+            "title": "Style Label",
+            "type": "string"
+          }
+        },
+        "required": [
+          "case_id",
+          "short_id",
+          "style_key",
+          "style_label",
+          "proactive_nudge"
+        ],
+        "title": "MentorInsightsResponse",
+        "type": "object"
+      },
+      "MilestoneCheckinResponse": {
+        "description": "The review schedule of one milestone.",
+        "properties": {
+          "history": {
+            "items": {
+              "$ref": "#/components/schemas/CheckinResponse"
+            },
+            "title": "History",
+            "type": "array"
+          },
+          "last_reviewed_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Reviewed At"
+          },
+          "milestone_id": {
+            "title": "Milestone Id",
+            "type": "string"
+          },
+          "next_review": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Review"
+          },
+          "next_review_display": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Review Display"
+          },
+          "overdue": {
+            "default": false,
+            "title": "Overdue",
+            "type": "boolean"
+          },
+          "pending": {
+            "default": false,
+            "title": "Pending",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "milestone_id"
+        ],
+        "title": "MilestoneCheckinResponse",
+        "type": "object"
+      },
+      "MilestoneListMeta": {
+        "description": "Context about the listing itself.",
+        "properties": {
+          "case_id": {
+            "title": "Case Id",
+            "type": "string"
+          },
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "data_source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data Source"
+          },
+          "last_successful_sync_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Successful Sync At"
+          },
+          "stale": {
+            "default": false,
+            "title": "Stale",
+            "type": "boolean"
+          },
+          "stale_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stale Reason"
+          }
+        },
+        "required": [
+          "case_id",
+          "count"
+        ],
+        "title": "MilestoneListMeta",
+        "type": "object"
+      },
+      "MilestoneListResponse": {
+        "description": "The listing, compatible with the current frontend contract.",
+        "properties": {
+          "grouped_by_category": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "items": {
+                    "$ref": "#/components/schemas/MilestoneResponse"
+                  },
+                  "type": "array"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Grouped By Category"
+          },
+          "meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MilestoneListMeta"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "milestones": {
+            "items": {
+              "$ref": "#/components/schemas/MilestoneResponse"
+            },
+            "title": "Milestones",
+            "type": "array"
+          }
+        },
+        "required": [
+          "milestones"
+        ],
+        "title": "MilestoneListResponse",
+        "type": "object"
+      },
+      "MilestoneResponse": {
+        "description": "A milestone, in the shape the frontend consumes.",
+        "properties": {
+          "action": {
+            "title": "Action",
+            "type": "string"
+          },
+          "case_id": {
+            "title": "Case Id",
+            "type": "string"
+          },
+          "category": {
+            "title": "Category",
+            "type": "string"
+          },
+          "checkin": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Checkin"
+          },
+          "checkin_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Checkin Date"
+          },
+          "checkin_pending": {
+            "default": false,
+            "title": "Checkin Pending",
+            "type": "boolean"
+          },
+          "completed_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed At"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "due_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Due Date"
+          },
+          "financial_currency": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Financial Currency"
+          },
+          "financial_direction": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Financial Direction"
+          },
+          "financial_metric_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Financial Metric Key"
+          },
+          "financial_progress": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Financial Progress"
+          },
+          "financial_progress_state": {
+            "default": "not_quantifiable",
+            "title": "Financial Progress State",
+            "type": "string"
+          },
+          "financial_start_value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Financial Start Value"
+          },
+          "financial_target_value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Financial Target Value"
+          },
+          "financial_unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Financial Unit"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "last_reviewed_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Reviewed At"
+          },
+          "overdue": {
+            "default": false,
+            "title": "Overdue",
+            "type": "boolean"
+          },
+          "priority": {
+            "title": "Priority",
+            "type": "string"
+          },
+          "section": {
+            "title": "Section",
+            "type": "string"
+          },
+          "source": {
+            "items": {
+              "$ref": "#/components/schemas/SourceRefOut"
+            },
+            "title": "Source",
+            "type": "array"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "task_progress": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Task Progress"
+          },
+          "tasks": {
+            "items": {
+              "$ref": "#/components/schemas/TaskResponse"
+            },
+            "title": "Tasks",
+            "type": "array"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "why": {
+            "title": "Why",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "why",
+          "action",
+          "section",
+          "status",
+          "case_id",
+          "category",
+          "type",
+          "priority",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "MilestoneResponse",
+        "type": "object"
+      },
+      "MilestoneStatus": {
+        "description": "Lifecycle of a milestone.  Only the client changes these.",
+        "enum": [
+          "not_started",
+          "in_progress",
+          "completed",
+          "on_hold",
+          "cancelled"
+        ],
+        "title": "MilestoneStatus",
+        "type": "string"
+      },
+      "NotificationListResponse": {
+        "description": "The notices of a case.",
+        "properties": {
+          "notifications": {
+            "items": {
+              "$ref": "#/components/schemas/NotificationResponse"
+            },
+            "title": "Notifications",
+            "type": "array"
+          },
+          "unread_count": {
+            "default": 0,
+            "title": "Unread Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "notifications"
+        ],
+        "title": "NotificationListResponse",
+        "type": "object"
+      },
+      "NotificationResponse": {
+        "description": "An internal notice.",
+        "properties": {
+          "body": {
+            "title": "Body",
+            "type": "string"
+          },
+          "case_id": {
+            "title": "Case Id",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "milestone_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Milestone Id"
+          },
+          "read_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Read At"
+          },
+          "reference_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reference Date"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "case_id",
+          "type",
+          "title",
+          "body",
+          "created_at"
+        ],
+        "title": "NotificationResponse",
+        "type": "object"
+      },
+      "ObservationCreateRequest": {
+        "description": "A value the client declares for a milestone.",
+        "properties": {
+          "currency": {
+            "anyOf": [
+              {
+                "pattern": "^[A-Z]{3}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Currency"
+          },
+          "metric_key": {
+            "maxLength": 64,
+            "minLength": 3,
+            "title": "Metric Key",
+            "type": "string"
+          },
+          "metric_type": {
+            "maxLength": 32,
+            "minLength": 2,
+            "title": "Metric Type",
+            "type": "string"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "observed_at": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Observed At"
+          },
+          "unit": {
+            "maxLength": 32,
+            "minLength": 1,
+            "title": "Unit",
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "description": "The declared value",
+            "title": "Value"
+          }
+        },
+        "required": [
+          "metric_key",
+          "metric_type",
+          "value",
+          "unit"
+        ],
+        "title": "ObservationCreateRequest",
+        "type": "object"
+      },
+      "ObservationListResponse": {
+        "description": "The observations of a milestone, grouped by source.",
+        "properties": {
+          "conflict": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Conflict"
+          },
+          "observations": {
+            "items": {
+              "$ref": "#/components/schemas/ObservationResponse"
+            },
+            "title": "Observations",
+            "type": "array"
+          }
+        },
+        "required": [
+          "observations"
+        ],
+        "title": "ObservationListResponse",
+        "type": "object"
+      },
+      "ObservationResponse": {
+        "description": "A stored observation.",
+        "properties": {
+          "currency": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Currency"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "is_conflicted": {
+            "default": false,
+            "title": "Is Conflicted",
+            "type": "boolean"
+          },
+          "metric_key": {
+            "title": "Metric Key",
+            "type": "string"
+          },
+          "metric_type": {
+            "title": "Metric Type",
+            "type": "string"
+          },
+          "milestone_id": {
+            "title": "Milestone Id",
+            "type": "string"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "observed_at": {
+            "format": "date",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "recorded_at": {
+            "format": "date-time",
+            "title": "Recorded At",
+            "type": "string"
+          },
+          "source": {
+            "title": "Source",
+            "type": "string"
+          },
+          "unit": {
+            "title": "Unit",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "milestone_id",
+          "metric_key",
+          "metric_type",
+          "value",
+          "unit",
+          "observed_at",
+          "source",
+          "recorded_at"
+        ],
+        "title": "ObservationResponse",
+        "type": "object"
+      },
+      "PactCard": {
+        "description": "The agreement between the two members of a couple.",
+        "properties": {
+          "card_id": {
+            "title": "Card Id",
+            "type": "string"
+          },
+          "icon": {
+            "default": "",
+            "title": "Icon",
+            "type": "string"
+          },
+          "mentor_question": {
+            "default": "",
+            "title": "Mentor Question",
+            "type": "string"
+          },
+          "peace_percentage": {
+            "default": 0,
+            "title": "Peace Percentage",
+            "type": "integer"
+          },
+          "recommended": {
+            "default": false,
+            "title": "Recommended",
+            "type": "boolean"
+          },
+          "resulting_score": {
+            "default": 0,
+            "title": "Resulting Score",
+            "type": "integer"
+          },
+          "return_percentage": {
+            "default": 0,
+            "title": "Return Percentage",
+            "type": "integer"
+          },
+          "subtitle_for": {
+            "default": "",
+            "title": "Subtitle For",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "verdict": {
+            "default": "",
+            "title": "Verdict",
+            "type": "string"
+          }
+        },
+        "required": [
+          "card_id",
+          "title"
+        ],
+        "title": "PactCard",
+        "type": "object"
+      },
+      "ProactiveInsight": {
+        "description": "The nudge the mentor leaves on the door.",
+        "properties": {
+          "badge": {
+            "default": "",
+            "title": "Badge",
+            "type": "string"
+          },
+          "cta_label": {
+            "default": "",
+            "title": "Cta Label",
+            "type": "string"
+          },
+          "greeting": {
+            "default": "",
+            "title": "Greeting",
+            "type": "string"
+          },
+          "message": {
+            "default": "",
+            "title": "Message",
+            "type": "string"
+          },
+          "voice_question": {
+            "default": "",
+            "title": "Voice Question",
+            "type": "string"
+          }
+        },
+        "title": "ProactiveInsight",
+        "type": "object"
+      },
+      "ProgressSummary": {
+        "description": "Aggregated progress for a case.",
+        "properties": {
+          "cancelled": {
+            "title": "Cancelled",
+            "type": "integer"
+          },
+          "checkins_pending": {
+            "title": "Checkins Pending",
+            "type": "integer"
+          },
+          "completed": {
+            "title": "Completed",
+            "type": "integer"
+          },
+          "financial_progress_average": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Financial Progress Average"
+          },
+          "in_progress": {
+            "title": "In Progress",
+            "type": "integer"
+          },
+          "milestones_total": {
+            "title": "Milestones Total",
+            "type": "integer"
+          },
+          "not_started": {
+            "title": "Not Started",
+            "type": "integer"
+          },
+          "on_hold": {
+            "title": "On Hold",
+            "type": "integer"
+          },
+          "overdue": {
+            "title": "Overdue",
+            "type": "integer"
+          },
+          "task_progress_average": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Task Progress Average"
+          }
+        },
+        "required": [
+          "milestones_total",
+          "completed",
+          "in_progress",
+          "not_started",
+          "on_hold",
+          "cancelled",
+          "overdue",
+          "checkins_pending"
+        ],
+        "title": "ProgressSummary",
+        "type": "object"
+      },
+      "ReviewCompletedRequest": {
+        "description": "The client reports that a review happened.",
+        "properties": {
+          "effective_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "When the review actually took place",
+            "title": "Effective Date"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          }
+        },
+        "title": "ReviewCompletedRequest",
+        "type": "object"
+      },
+      "ReviewCompletedResponse": {
+        "description": "The result of registering a review.",
+        "properties": {
+          "checkin": {
+            "$ref": "#/components/schemas/CheckinResponse"
+          },
+          "next_review": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Review"
+          },
+          "next_review_display": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Review Display"
+          },
+          "pending": {
+            "default": false,
+            "title": "Pending",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "checkin"
+        ],
+        "title": "ReviewCompletedResponse",
+        "type": "object"
+      },
+      "SimulatorRequest": {
+        "description": "The decisions the household switched on.",
+        "properties": {
+          "active_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Active Ids",
+            "type": "array"
+          }
+        },
+        "title": "SimulatorRequest",
+        "type": "object"
+      },
+      "SimulatorResponse": {
+        "description": "What the plan says about those decisions.",
+        "properties": {
+          "annual_saving_dollars": {
+            "default": 0,
+            "title": "Annual Saving Dollars",
+            "type": "integer"
+          },
+          "case_id": {
+            "title": "Case Id",
+            "type": "string"
+          },
+          "combo_mentor_question": {
+            "default": "",
+            "title": "Combo Mentor Question",
+            "type": "string"
+          },
+          "confetti": {
+            "default": false,
+            "title": "Confetti",
+            "type": "boolean"
+          },
+          "generated": {
+            "default": false,
+            "description": "False when the copy could not be written",
+            "title": "Generated",
+            "type": "boolean"
+          },
+          "household_name": {
+            "default": "",
+            "title": "Household Name",
+            "type": "string"
+          },
+          "pact_cards": {
+            "items": {
+              "$ref": "#/components/schemas/PactCard"
+            },
+            "title": "Pact Cards",
+            "type": "array"
+          },
+          "power_ups": {
+            "items": {
+              "$ref": "#/components/schemas/DecisionPowerUp"
+            },
+            "title": "Power Ups",
+            "type": "array"
+          },
+          "saving_label": {
+            "default": "",
+            "title": "Saving Label",
+            "type": "string"
+          },
+          "score_base": {
+            "default": 0,
+            "title": "Score Base",
+            "type": "integer"
+          },
+          "score_delta": {
+            "default": 0,
+            "title": "Score Delta",
+            "type": "integer"
+          },
+          "short_id": {
+            "title": "Short Id",
+            "type": "string"
+          },
+          "simulated_score": {
+            "default": 0,
+            "title": "Simulated Score",
+            "type": "integer"
+          },
+          "synergy_detected": {
+            "default": false,
+            "title": "Synergy Detected",
+            "type": "boolean"
+          },
+          "synergy_message": {
+            "default": "",
+            "title": "Synergy Message",
+            "type": "string"
+          },
+          "time_impact": {
+            "default": "",
+            "title": "Time Impact",
+            "type": "string"
+          },
+          "timeline_comparison": {
+            "items": {
+              "$ref": "#/components/schemas/TimelineComparison"
+            },
+            "title": "Timeline Comparison",
+            "type": "array"
+          },
+          "visual_summary": {
+            "default": "",
+            "title": "Visual Summary",
+            "type": "string"
+          }
+        },
+        "required": [
+          "case_id",
+          "short_id"
+        ],
+        "title": "SimulatorResponse",
+        "type": "object"
+      },
+      "SourceRefOut": {
+        "description": "A pointer back to the plan data.",
+        "properties": {
+          "json_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Json Path"
+          },
+          "part": {
+            "title": "Part",
+            "type": "string"
+          },
+          "quote": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quote"
+          },
+          "section": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Section"
+          }
+        },
+        "required": [
+          "part"
+        ],
+        "title": "SourceRefOut",
+        "type": "object"
+      },
+      "StatusUpdateRequest": {
+        "description": "A client request to move a milestone to another status.",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/MilestoneStatus"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "StatusUpdateRequest",
+        "type": "object"
+      },
+      "StoryResponse": {
+        "description": "The package of the introductory story.",
+        "properties": {
+          "band": {
+            "default": "",
+            "title": "Band",
+            "type": "string"
+          },
+          "case_id": {
+            "title": "Case Id",
+            "type": "string"
+          },
+          "city": {
+            "default": "",
+            "title": "City",
+            "type": "string"
+          },
+          "first_step_cta": {
+            "additionalProperties": true,
+            "title": "First Step Cta",
+            "type": "object"
+          },
+          "full_narration_script": {
+            "default": "",
+            "title": "Full Narration Script",
+            "type": "string"
+          },
+          "generated": {
+            "default": false,
+            "title": "Generated",
+            "type": "boolean"
+          },
+          "household_title": {
+            "title": "Household Title",
+            "type": "string"
+          },
+          "is_couple": {
+            "default": false,
+            "title": "Is Couple",
+            "type": "boolean"
+          },
+          "main_challenge": {
+            "default": "",
+            "title": "Main Challenge",
+            "type": "string"
+          },
+          "scenes": {
+            "items": {
+              "$ref": "#/components/schemas/StoryScene"
+            },
+            "title": "Scenes",
+            "type": "array"
+          },
+          "score": {
+            "default": 0,
+            "title": "Score",
+            "type": "integer"
+          },
+          "short_id": {
+            "title": "Short Id",
+            "type": "string"
+          },
+          "state": {
+            "default": "",
+            "title": "State",
+            "type": "string"
+          },
+          "style_key": {
+            "default": "",
+            "title": "Style Key",
+            "type": "string"
+          },
+          "style_label": {
+            "default": "",
+            "title": "Style Label",
+            "type": "string"
+          },
+          "voice_name": {
+            "default": "",
+            "title": "Voice Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "case_id",
+          "short_id",
+          "household_title"
+        ],
+        "title": "StoryResponse",
+        "type": "object"
+      },
+      "StoryScene": {
+        "description": "One scene of the financial story.",
+        "properties": {
+          "caption_narration": {
+            "title": "Caption Narration",
+            "type": "string"
+          },
+          "chapter": {
+            "title": "Chapter",
+            "type": "string"
+          },
+          "headline_figure": {
+            "title": "Headline Figure",
+            "type": "string"
+          },
+          "scene_id": {
+            "title": "Scene Id",
+            "type": "integer"
+          },
+          "subtitle": {
+            "title": "Subtitle",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "scene_id",
+          "chapter",
+          "headline_figure",
+          "title",
+          "subtitle",
+          "caption_narration"
+        ],
+        "title": "StoryScene",
+        "type": "object"
+      },
+      "SyncRequest": {
+        "description": "A manual synchronisation request.",
+        "properties": {
+          "force": {
+            "default": false,
+            "description": "Ignore the interval and the fingerprint",
+            "title": "Force",
+            "type": "boolean"
+          }
+        },
+        "title": "SyncRequest",
+        "type": "object"
+      },
+      "SyncStateResponse": {
+        "description": "The synchronisation state of a case.",
+        "properties": {
+          "ai_model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ai Model"
+          },
+          "case_id": {
+            "title": "Case Id",
+            "type": "string"
+          },
+          "last_attempt_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Attempt At"
+          },
+          "last_error_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Error Code"
+          },
+          "last_error_message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Error Message"
+          },
+          "last_success_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Success At"
+          },
+          "milestones_created": {
+            "default": 0,
+            "title": "Milestones Created",
+            "type": "integer"
+          },
+          "milestones_kept": {
+            "default": 0,
+            "title": "Milestones Kept",
+            "type": "integer"
+          },
+          "milestones_updated": {
+            "default": 0,
+            "title": "Milestones Updated",
+            "type": "integer"
+          },
+          "plan_fingerprint": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plan Fingerprint"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "trigger": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Trigger"
+          }
+        },
+        "required": [
+          "case_id",
+          "status"
+        ],
+        "title": "SyncStateResponse",
+        "type": "object"
+      },
+      "TaskCreateRequest": {
+        "description": "A task added by the client.",
+        "properties": {
+          "description": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "is_required": {
+            "default": true,
+            "title": "Is Required",
+            "type": "boolean"
+          },
+          "order": {
+            "anyOf": [
+              {
+                "maximum": 50.0,
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Order"
+          },
+          "title": {
+            "maxLength": 240,
+            "minLength": 3,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "title"
+        ],
+        "title": "TaskCreateRequest",
+        "type": "object"
+      },
+      "TaskProgressResponse": {
+        "description": "The operational progress of a milestone.",
+        "properties": {
+          "auto_completable": {
+            "default": false,
+            "title": "Auto Completable",
+            "type": "boolean"
+          },
+          "completed_optional_tasks": {
+            "default": 0,
+            "title": "Completed Optional Tasks",
+            "type": "integer"
+          },
+          "completed_required_tasks": {
+            "default": 0,
+            "title": "Completed Required Tasks",
+            "type": "integer"
+          },
+          "milestone_id": {
+            "title": "Milestone Id",
+            "type": "string"
+          },
+          "optional_tasks": {
+            "default": 0,
+            "title": "Optional Tasks",
+            "type": "integer"
+          },
+          "required_tasks": {
+            "default": 0,
+            "title": "Required Tasks",
+            "type": "integer"
+          },
+          "task_progress": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Task Progress"
+          }
+        },
+        "required": [
+          "milestone_id"
+        ],
+        "title": "TaskProgressResponse",
+        "type": "object"
+      },
+      "TaskResponse": {
+        "description": "A task of a milestone.",
+        "properties": {
+          "completed_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed At"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "is_required": {
+            "title": "Is Required",
+            "type": "boolean"
+          },
+          "order": {
+            "default": 0,
+            "title": "Order",
+            "type": "integer"
+          },
+          "origin": {
+            "default": "ai",
+            "title": "Origin",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "is_required",
+          "status"
+        ],
+        "title": "TaskResponse",
+        "type": "object"
+      },
+      "TaskUpdateRequest": {
+        "description": "A change to a task (completing it, uncompleting it or editing it).",
+        "properties": {
+          "description": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "is_required": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Required"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "pattern": "^(pending|completed)$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "maxLength": 240,
+                "minLength": 3,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          }
+        },
+        "title": "TaskUpdateRequest",
+        "type": "object"
+      },
+      "TimelineComparison": {
+        "description": "One moment of the family, with and without the decisions.",
+        "properties": {
+          "highlighted_change": {
+            "title": "Highlighted Change",
+            "type": "string"
+          },
+          "icon": {
+            "default": "",
+            "title": "Icon",
+            "type": "string"
+          },
+          "milestone": {
+            "title": "Milestone",
+            "type": "string"
+          },
+          "with_decisions": {
+            "title": "With Decisions",
+            "type": "string"
+          },
+          "without_changes": {
+            "title": "Without Changes",
+            "type": "string"
+          }
+        },
+        "required": [
+          "milestone",
+          "without_changes",
+          "with_decisions",
+          "highlighted_change"
+        ],
+        "title": "TimelineComparison",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "Personalised financial milestones generated from a Sherpas financial plan.",
+    "title": "Sherpas Financial Milestones",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/cases": {
+      "get": {
+        "description": "The households this instance can serve, with their voice profile.",
+        "operationId": "get_cases_api_cases_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CaseSummary"
+                  },
+                  "title": "Response Get Cases Api Cases Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Get Cases",
+        "tags": [
+          "cases"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/checkins": {
+      "get": {
+        "description": "The reviews of a case.",
+        "operationId": "list_checkins_api_cases__case_id__checkins_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pending",
+            "required": false,
+            "schema": {
+              "default": false,
+              "title": "Pending",
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckinListResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Checkins",
+        "tags": [
+          "checkins"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/couple": {
+      "get": {
+        "description": "The portrait of the couple and the wall of their high fives.",
+        "operationId": "get_couple_api_cases__case_id__couple_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CoupleOverview"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Couple",
+        "tags": [
+          "couple"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/couple/high-five": {
+      "post": {
+        "description": "A high five between the two members of the household.",
+        "operationId": "send_high_five_api_cases__case_id__couple_high_five_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HighFiveRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HighFiveItem"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Send High Five",
+        "tags": [
+          "couple"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/mentor/insights": {
+      "get": {
+        "description": "The nudge of the mentor and the jargon pills of the household.",
+        "operationId": "get_mentor_insights_api_cases__case_id__mentor_insights_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MentorInsightsResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Mentor Insights",
+        "tags": [
+          "mentor"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/milestones": {
+      "get": {
+        "description": "The milestones of a case, in the shape the frontend consumes.",
+        "operationId": "list_milestones_api_cases__case_id__milestones_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "group_by",
+            "required": false,
+            "schema": {
+              "default": "none",
+              "pattern": "^(none|category)$",
+              "title": "Group By",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          },
+          {
+            "in": "query",
+            "name": "category",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Category"
+            }
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Type"
+            }
+          },
+          {
+            "in": "query",
+            "name": "priority",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Priority"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MilestoneListResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Milestones",
+        "tags": [
+          "milestones"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/milestones/generate": {
+      "post": {
+        "description": "Generate the milestones of a case.",
+        "operationId": "generate_milestones_api_cases__case_id__milestones_generate_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Payload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MilestoneListResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Generate Milestones",
+        "tags": [
+          "milestones"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/milestones/{milestone_id}": {
+      "get": {
+        "description": "One milestone of a case.",
+        "operationId": "get_milestone_api_cases__case_id__milestones__milestone_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "milestone_id",
+            "required": true,
+            "schema": {
+              "title": "Milestone Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MilestoneResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Milestone",
+        "tags": [
+          "milestones"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/milestones/{milestone_id}/checkins": {
+      "get": {
+        "description": "The review schedule of one milestone.",
+        "operationId": "get_milestone_checkins_api_cases__case_id__milestones__milestone_id__checkins_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "milestone_id",
+            "required": true,
+            "schema": {
+              "title": "Milestone Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MilestoneCheckinResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Milestone Checkins",
+        "tags": [
+          "checkins"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/milestones/{milestone_id}/checkins/complete": {
+      "post": {
+        "description": "Register that a review happened and schedule the next one.",
+        "operationId": "complete_review_api_cases__case_id__milestones__milestone_id__checkins_complete_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "milestone_id",
+            "required": true,
+            "schema": {
+              "title": "Milestone Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewCompletedRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewCompletedResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Complete Review",
+        "tags": [
+          "checkins"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/milestones/{milestone_id}/complete": {
+      "post": {
+        "description": "Close a milestone on the client's explicit confirmation.",
+        "operationId": "complete_milestone_api_cases__case_id__milestones__milestone_id__complete_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "milestone_id",
+            "required": true,
+            "schema": {
+              "title": "Milestone Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompleteMilestoneRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MilestoneResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Complete Milestone",
+        "tags": [
+          "milestones"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/milestones/{milestone_id}/financial-progress": {
+      "get": {
+        "description": "The financial progress of a milestone and where the figures come from.",
+        "operationId": "get_financial_progress_api_cases__case_id__milestones__milestone_id__financial_progress_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "milestone_id",
+            "required": true,
+            "schema": {
+              "title": "Milestone Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FinancialProgressResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Financial Progress",
+        "tags": [
+          "observations"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/milestones/{milestone_id}/observations": {
+      "get": {
+        "description": "The observations of a milestone, with the disagreement between sources.",
+        "operationId": "list_observations_api_cases__case_id__milestones__milestone_id__observations_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "milestone_id",
+            "required": true,
+            "schema": {
+              "title": "Milestone Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "metric_key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Metric Key"
+            }
+          },
+          {
+            "in": "query",
+            "name": "source",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Source"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObservationListResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Observations",
+        "tags": [
+          "observations"
+        ]
+      },
+      "post": {
+        "description": "Record a value the client declares.",
+        "operationId": "create_observation_api_cases__case_id__milestones__milestone_id__observations_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "milestone_id",
+            "required": true,
+            "schema": {
+              "title": "Milestone Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ObservationCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObservationResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create Observation",
+        "tags": [
+          "observations"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/milestones/{milestone_id}/progress": {
+      "get": {
+        "description": "The operational progress of a milestone.",
+        "operationId": "get_milestone_progress_api_cases__case_id__milestones__milestone_id__progress_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "milestone_id",
+            "required": true,
+            "schema": {
+              "title": "Milestone Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskProgressResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Milestone Progress",
+        "tags": [
+          "milestones"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/milestones/{milestone_id}/status": {
+      "patch": {
+        "description": "Move a milestone to another status.  Only the client does this.",
+        "operationId": "update_milestone_status_api_cases__case_id__milestones__milestone_id__status_patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "milestone_id",
+            "required": true,
+            "schema": {
+              "title": "Milestone Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StatusUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MilestoneResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Update Milestone Status",
+        "tags": [
+          "milestones"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/milestones/{milestone_id}/tasks": {
+      "get": {
+        "description": "The tasks of a milestone.",
+        "operationId": "list_tasks_api_cases__case_id__milestones__milestone_id__tasks_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "milestone_id",
+            "required": true,
+            "schema": {
+              "title": "Milestone Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/TaskResponse"
+                  },
+                  "title": "Response List Tasks Api Cases  Case Id  Milestones  Milestone Id  Tasks Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Tasks",
+        "tags": [
+          "tasks"
+        ]
+      },
+      "post": {
+        "description": "Add a task to a milestone.",
+        "operationId": "create_task_api_cases__case_id__milestones__milestone_id__tasks_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "milestone_id",
+            "required": true,
+            "schema": {
+              "title": "Milestone Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create Task",
+        "tags": [
+          "tasks"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/milestones/{milestone_id}/tasks/{task_id}": {
+      "delete": {
+        "description": "Remove a task.",
+        "operationId": "delete_task_api_cases__case_id__milestones__milestone_id__tasks__task_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "milestone_id",
+            "required": true,
+            "schema": {
+              "title": "Milestone Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "task_id",
+            "required": true,
+            "schema": {
+              "title": "Task Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete Task",
+        "tags": [
+          "tasks"
+        ]
+      },
+      "patch": {
+        "description": "Complete, uncomplete or edit a task.\n\nThe answer is the milestone, because completing a task can change the\nprogress and even close an educational milestone.",
+        "operationId": "update_task_api_cases__case_id__milestones__milestone_id__tasks__task_id__patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "milestone_id",
+            "required": true,
+            "schema": {
+              "title": "Milestone Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "task_id",
+            "required": true,
+            "schema": {
+              "title": "Task Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MilestoneResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Update Task",
+        "tags": [
+          "tasks"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/notifications": {
+      "get": {
+        "description": "The notices of a case.\n\nThe notices are evaluated before answering, so a pending review is\nreported even when the client never had the application open.",
+        "operationId": "list_notifications_api_cases__case_id__notifications_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "unread",
+            "required": false,
+            "schema": {
+              "default": false,
+              "title": "Unread",
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Type"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationListResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Notifications",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/notifications/read-all": {
+      "post": {
+        "description": "Mark every notice of a case as read.",
+        "operationId": "mark_all_read_api_cases__case_id__notifications_read_all_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarkReadResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Mark All Read",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/notifications/{notification_id}/read": {
+      "post": {
+        "description": "Mark one notice as read.",
+        "operationId": "mark_notification_read_api_cases__case_id__notifications__notification_id__read_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "notification_id",
+            "required": true,
+            "schema": {
+              "title": "Notification Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Mark Notification Read",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/progress": {
+      "get": {
+        "description": "The aggregated progress of a case.",
+        "operationId": "get_case_progress_api_cases__case_id__progress_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProgressSummary"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Case Progress",
+        "tags": [
+          "milestones"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/simulator": {
+      "get": {
+        "description": "The laboratory with the decisions the household switched on.",
+        "operationId": "get_simulator_api_cases__case_id__simulator_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimulatorResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Simulator",
+        "tags": [
+          "simulator"
+        ]
+      },
+      "post": {
+        "description": "What the plan says about the decisions the household switched on.",
+        "operationId": "simulate_decisions_api_cases__case_id__simulator_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimulatorRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimulatorResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Simulate Decisions",
+        "tags": [
+          "simulator"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/story": {
+      "get": {
+        "description": "The four scenes of the financial story of a household.",
+        "operationId": "get_story_api_cases__case_id__story_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StoryResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Story",
+        "tags": [
+          "story"
+        ]
+      }
+    },
+    "/api/cases/{case_id}/sync": {
+      "get": {
+        "description": "The state of the last synchronisation.",
+        "operationId": "get_sync_state_api_cases__case_id__sync_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SyncStateResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Sync State",
+        "tags": [
+          "sync"
+        ]
+      },
+      "post": {
+        "description": "Bring the milestones in line with the current plan.",
+        "operationId": "sync_case_api_cases__case_id__sync_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "case_id",
+            "required": true,
+            "schema": {
+              "title": "Case Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/SyncRequest"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Payload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MilestoneListResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Sync Case",
+        "tags": [
+          "sync"
+        ]
+      }
+    },
+    "/api/categories": {
+      "get": {
+        "description": "The closed catalogue of milestone categories.",
+        "operationId": "categories_api_categories_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Categories Api Categories Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Categories",
+        "tags": [
+          "meta"
+        ]
+      }
+    },
+    "/api/environment": {
+      "get": {
+        "description": "A small summary of how this instance is configured.",
+        "operationId": "environment_api_environment_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Environment Api Environment Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Environment",
+        "tags": [
+          "meta"
+        ]
+      }
+    },
+    "/api/health": {
+      "get": {
+        "description": "Is the service up and is the database reachable?",
+        "operationId": "health_api_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Health Api Health Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health",
+        "tags": [
+          "meta"
+        ]
+      }
+    },
+    "/api/sections": {
+      "get": {
+        "description": "The sections of a Sherpas plan.",
+        "operationId": "sections_api_sections_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Sections Api Sections Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Sections",
+        "tags": [
+          "meta"
+        ]
+      }
+    },
+    "/api/voice/ask": {
+      "post": {
+        "description": "Ask the mentor a question about the plan of a household.",
+        "operationId": "ask_the_mentor_api_voice_ask_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MentorAskRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MentorAskResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Ask The Mentor",
+        "tags": [
+          "mentor"
+        ]
+      }
+    },
+    "/api/voice/styles": {
+      "get": {
+        "description": "The registers the household can ask for.",
+        "operationId": "voice_styles_api_voice_styles_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Voice Styles Api Voice Styles Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Voice Styles",
+        "tags": [
+          "mentor"
+        ]
+      }
+    }
+  }
+}

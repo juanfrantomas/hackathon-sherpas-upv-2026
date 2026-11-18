@@ -1,0 +1,30 @@
+/* =========================== 2 Story =========================== */
+.screen--story { padding: 0 20px 40px; gap: 18px; min-height: 100%; }
+.story__head { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; }
+.story__intro { display: grid; gap: 6px; }
+.player { display: grid; gap: 12px; }
+.player__frame { position: relative; aspect-ratio: 1 / 1; max-width: 100%; border-radius: var(--r-xl); background: linear-gradient(170deg, #1f3a8f 0%, #2a56d8 70%, #4a72e6 100%); color: #fff; overflow: hidden; cursor: pointer; }
+.player__flag { position: absolute; top: 14px; left: 14px; font-size: 10.5px; font-weight: 600; letter-spacing: .03em; padding: 4px 8px; border-radius: 6px; background: rgba(255,255,255,.14); color: rgba(255,255,255,.88); z-index: 2; }
+.scene { position: absolute; inset: 0; padding: 64px 24px 24px; display: flex; flex-direction: column; justify-content: center; gap: 8px; animation: sceneIn 700ms var(--ease); }
+@keyframes sceneIn { from { opacity: 0; transform: scale(.98); } to { opacity: 1; transform: none; } }
+.scene__chapter { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.7); }
+.scene__big { font-size: 52px; line-height: 1; font-weight: 650; letter-spacing: -0.035em; }
+.scene__label { font-size: 18px; line-height: 24px; font-weight: 500; color: rgba(255,255,255,.9); max-width: 260px; text-wrap: balance; }
+.scene__sub { color: rgba(255,255,255,.75); font-size: 14px; }
+.scene__ridge { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 26%; color: rgba(255,255,255,.08); }
+.scene--end { align-items: flex-start; }
+.scene__done { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.18); }
+.player__paused { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(10,20,50,.25); }
+.player__paused .ic { width: 64px; height: 64px; padding: 18px; border-radius: 50%; background: rgba(255,255,255,.95); color: var(--sw-blue-700); }
+.captions { font-size: 15px; line-height: 22px; color: var(--ink-900); background: var(--canvas); border-radius: var(--r-md); padding: 12px 14px; min-height: 68px; }
+.player__progress { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+.seg-bar { height: 16px; border: 0; background: none; padding: 6px 0; cursor: pointer; }
+.seg-bar span { display: block; height: 4px; border-radius: 2px; background: var(--sw-blue-600); box-shadow: inset 0 0 0 0 transparent; }
+.seg-bar { position: relative; }
+.seg-bar::before { content: ""; position: absolute; left: 0; right: 0; top: 6px; height: 4px; border-radius: 2px; background: var(--line); }
+.seg-bar span { position: relative; }
+.player__chapters { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-400); margin-top: -4px; }
+.player__chapters .is-on { color: var(--ink-900); font-weight: 600; }
+.player__controls { display: flex; justify-content: center; align-items: center; gap: 24px; }
+.play-btn { width: 56px; height: 56px; border-radius: 50%; border: 0; background: var(--ink-900); color: #fff; display: grid; place-items: center; cursor: pointer; }
+.story__foot { margin-top: auto; }

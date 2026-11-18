@@ -1,0 +1,35 @@
+{
+  "status_code": 200,
+  "body": {
+    "milestone_id": "ms_329f10ade5f90b72",
+    "next_review": "2026-12-24",
+    "next_review_display": "Dec 24",
+    "pending": false,
+    "overdue": false,
+    "last_reviewed_at": "2026-11-17T15:33:51.481359Z",
+    "history": [
+      {
+        "id": "chk_c2008fc96c834fa5",
+        "milestone_id": "ms_329f10ade5f90b72",
+        "title": "Decide how to allocate the cash surplus across protection, debt and education",
+        "scheduled_date": "2026-11-24",
+        "effective_date": "2026-11-17",
+        "status": "completed",
+        "completed_at": "2026-11-17T15:33:51.479949Z",
+        "pending": false,
+        "note": null
+      },
+      {
+        "id": "chk_bc4f04a803f24baa",
+        "milestone_id": "ms_329f10ade5f90b72",
+        "title": "Decide how to allocate the cash surplus across protection, debt and education",
+        "scheduled_date": "2026-12-24",
+        "effective_date": null,
+        "status": "scheduled",
+        "completed_at": null,
+        "pending": false,
+        "note": null
+      }
+    ]
+  }
+}

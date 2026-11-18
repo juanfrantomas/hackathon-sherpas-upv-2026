@@ -43,7 +43,7 @@ STYLE_PROFILES: dict[str, dict[str, str]] = {
         "gemini_voice": "Puck",
         "openai_voice": "echo",
         "voice_id": "Nh2zY9kknu6z4pZy6FhD",  # ElevenLabs ES Nativa: David Martín
-        "fallback_voice": "eEyWolF7iBpMA65GbtAm",
+        "fallback_voice": "fXcll5SYKmCCtKLLpepe",
         "voice_name": "David Martín (ES Nativo / Práctico)",
         "style_label": "Sencillo, Directo y Sin Tecnicismos",
         "tone_instructions": (
@@ -62,7 +62,7 @@ STYLE_PROFILES: dict[str, dict[str, str]] = {
         "gemini_voice": "Charon",
         "openai_voice": "marin",
         "voice_id": "Ir1QNHvhaJXbAGhT50w3",  # ElevenLabs ES Nativa: Sara Martín Ejecutiva
-        "fallback_voice": "fXcll5SYKmCCtKLLpepe",
+        "fallback_voice": "erKgR0s8Y67t4iiHuA9R",
         "voice_name": "Elena Martín (ES Nativa / Ejecutiva)",
         "style_label": "Formal, Ejecutivo y Estratégico",
         "tone_instructions": (

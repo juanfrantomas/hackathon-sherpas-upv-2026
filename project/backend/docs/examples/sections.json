@@ -1,0 +1,31 @@
+{
+  "status_code": 200,
+  "body": {
+    "sections": [
+      {
+        "id": "summary",
+        "label": "Summary"
+      },
+      {
+        "id": "retirement",
+        "label": "Retirement & Goals"
+      },
+      {
+        "id": "assets",
+        "label": "Assets & Investments"
+      },
+      {
+        "id": "debt",
+        "label": "Debt management"
+      },
+      {
+        "id": "savings",
+        "label": "Savings & Expenses"
+      },
+      {
+        "id": "protection",
+        "label": "Insurance & Protection"
+      }
+    ]
+  }
+}

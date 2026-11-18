@@ -1,0 +1,12 @@
+{
+  "status_code": 403,
+  "body": {
+    "error": {
+      "code": "CASE_NOT_ALLOWED",
+      "message": "This case is not served by this instance",
+      "details": {
+        "case_id": "some-other-household"
+      }
+    }
+  }
+}

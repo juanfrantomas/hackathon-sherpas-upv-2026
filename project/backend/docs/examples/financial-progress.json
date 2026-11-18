@@ -1,0 +1,54 @@
+{
+  "status_code": 200,
+  "body": {
+    "milestone_id": "ms_cc46d071df4971ee",
+    "progress": null,
+    "state": "conflicting",
+    "direction": "decrease",
+    "start_value": "18000.00",
+    "target_value": "11200.00",
+    "used_source": null,
+    "sources": [
+      {
+        "id": "obs_4713c0ebd820412c",
+        "milestone_id": "ms_cc46d071df4971ee",
+        "metric_key": "liability_chase_cc",
+        "metric_type": "balance",
+        "value": "12000.00",
+        "unit": "USD",
+        "currency": "USD",
+        "observed_at": "2026-11-17",
+        "source": "client",
+        "is_conflicted": true,
+        "note": "Paid down with the year end bonus.",
+        "recorded_at": "2026-11-17T15:33:51Z"
+      },
+      {
+        "id": "obs_7b5a036b9a9649ff",
+        "milestone_id": "ms_cc46d071df4971ee",
+        "metric_key": "liability_chase_cc",
+        "metric_type": "balance",
+        "value": "18000.00",
+        "unit": "USD",
+        "currency": "USD",
+        "observed_at": "2026-11-17",
+        "source": "mcp",
+        "is_conflicted": true,
+        "note": null,
+        "recorded_at": "2026-11-17T15:33:51Z"
+      }
+    ],
+    "conflict": {
+      "metric_key": "liability_chase_cc",
+      "mcp_value": "18000.00",
+      "mcp_observed_at": "2026-11-17",
+      "client_value": "12000.00",
+      "client_observed_at": "2026-11-17",
+      "difference": "6000.00",
+      "resolution": "Declare a new value or let the advisor update the plan"
+    },
+    "metric_key": "liability_chase_cc",
+    "unit": "USD",
+    "currency": "USD"
+  }
+}
