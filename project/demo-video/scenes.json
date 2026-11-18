@@ -1,0 +1,73 @@
+{
+  "voice": "es-ES-AlvaroNeural",
+  "rate": "+0%",
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "scenes": [
+    {
+      "id": "01-hook",
+      "title": "MySherpas — Bring the Plan to Life",
+      "subtitle": "Convierte planes financieros complejos en experiencias claras y accionables",
+      "image": "01-welcome.png",
+      "narration": "Hoy en día, las familias reciben planes financieros llenos de cifras, porcentajes y gráficas que casi nunca entienden solas. Por eso el asesor tiene que explicarlo todo manualmente, una reunión tras otra. Con MySherpas, damos vida al plan financiero para que cada familia lo entienda y quiera actuar desde el primer segundo."
+    },
+    {
+      "id": "02-welcome",
+      "title": "Experiencia Mobile-First Personalizada",
+      "subtitle": "Diseñada para consultarse en el móvil, en cualquier momento",
+      "image": "01-welcome.png",
+      "narration": "Todo comienza con una experiencia pensada para el móvil y adaptada al perfil real de cada hogar. Sin jerga técnica innecesaria y con un lenguaje cercano que conecta con sus metas y preocupaciones reales."
+    },
+    {
+      "id": "03-story",
+      "title": "Financial Story Interactiva",
+      "subtitle": "Tu situación financiera contada en formato historia, paso a paso",
+      "image": "04-story.png",
+      "narration": "En lugar de un PDF interminable, MySherpas resume el plan en una historia visual interactiva, capítulo a capítulo. En menos de un minuto, la familia comprende dónde está hoy, qué riesgos tiene y qué decisiones importan más."
+    },
+    {
+      "id": "04-dashboard",
+      "title": "Home Dashboard Claro y Humano",
+      "subtitle": "Indicadores visuales que traducen millones en decisiones cotidianas",
+      "image": "03-home.png",
+      "narration": "El panel principal traduce números abstractos en indicadores claros. La familia ve de un vistazo su salud financiera, sus prioridades inmediatas y el impacto real de cada recomendación del asesor."
+    },
+    {
+      "id": "05-plan",
+      "title": "Plan Financiero Accionable",
+      "subtitle": "Simulaciones y recomendaciones concretas para tomar decisiones",
+      "image": "05-plan.png",
+      "narration": "Dentro del plan interactivo, pueden explorar cada recomendación, entender por qué se propone y comprobar cómo una decisión tomada hoy cambia su futuro dentro de diez o veinte años."
+    },
+    {
+      "id": "06-milestones",
+      "title": "Metas, Milestones y Progreso",
+      "subtitle": "Seguimiento visual de objetivos a corto, medio y largo plazo",
+      "image": "06-milestones.png",
+      "narration": "Las metas vitales —como comprar una vivienda, proteger a los hijos o planificar la jubilación— se transforman en hitos medibles con seguimiento de progreso, manteniendo a toda la familia alineada."
+    },
+    {
+      "id": "07-checkin",
+      "title": "Check-in Mensual Continuo",
+      "subtitle": "Acompañamiento el día 3 y el día 30, no solo el día de la reunión",
+      "image": "08-checkin.png",
+      "narration": "Porque las dudas surgen días después de la reunión, el check-in mensual mantiene el contacto vivo: recuerda los próximos pasos, recoge nuevas inquietudes y ayuda a que el plan no se quede guardado en un cajón."
+    },
+    {
+      "id": "08-mentor",
+      "title": "AI Voice Mentor en Tiempo Real",
+      "subtitle": "Resuelve dudas al instante con voz natural, adaptado a cada perfil",
+      "image": "10-mentor-speaking.png",
+      "narration": "Y si surge cualquier pregunta, nuestro mentor de voz con inteligencia artificial responde al instante con explicaciones claras y personalizadas, ajustando el nivel de detalle según quien pregunte."
+    },
+    {
+      "id": "09-video-ia",
+      "title": "Videos Financieros Generados con IA",
+      "subtitle": "Storytelling personalizado en MP4 listo para enviar a cada familia",
+      "image": "07-journey.png",
+      "video": "../videos/carter.mp4",
+      "narration": "Además, nuestro motor de generación de video crea cápsulas personalizadas en formato vertical con narración y métricas reales de cada cliente, listas para enviar y compartir. MySherpas: del plan a la acción, en minutos."
+    }
+  ]
+}

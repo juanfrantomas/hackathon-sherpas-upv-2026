@@ -78,6 +78,13 @@ export async function launch({ port = 9222, width = 1440, height = 1000 } = {}) 
       listeners.set(method, handler)
     })
 
+  const on = (method, handler) => {
+    listeners.set(method, handler)
+    return () => {
+      if (listeners.get(method) === handler) listeners.delete(method)
+    }
+  }
+
   await send('Page.enable')
   await send('Runtime.enable')
   await send('Emulation.setDeviceMetricsOverride', {
@@ -90,6 +97,7 @@ export async function launch({ port = 9222, width = 1440, height = 1000 } = {}) 
   return {
     send,
     once,
+    on,
     async goto(url) {
       const loaded = once('Page.loadEventFired')
       await send('Page.navigate', { url })
