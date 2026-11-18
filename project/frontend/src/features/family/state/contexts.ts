@@ -6,7 +6,6 @@ import type {
   FamilyState,
   Navigate,
   NavigationState,
-  VoiceState,
 } from '../types'
 import type { FamilyAction } from './familyReducer'
 import type { MilestoneWithStatus } from './selectors'
@@ -35,12 +34,10 @@ export interface FamilyDataValue {
 export interface NavigationValue {
   screen: FamilyScreen
   nav: NavigationState
-  voice: VoiceState
   /** Changes whenever the visible screen changes; used to replay animations. */
   screenKey: number
   go: Navigate
   setNav: (nav: Partial<NavigationState>) => void
-  setVoice: (voice: VoiceState) => void
 }
 
 export const FamilyDataContext = createContext<FamilyDataValue | null>(null)

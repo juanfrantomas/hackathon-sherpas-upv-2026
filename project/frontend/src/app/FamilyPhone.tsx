@@ -19,7 +19,7 @@ export interface FamilyPhoneProps {
 /** The phone mockup, and the screen that the app is currently showing. */
 export function FamilyPhone({ scrollRef }: FamilyPhoneProps) {
   const { family, state, dispatch, milestones, current } = useFamilyData()
-  const { screen, nav, voice, screenKey, go, setNav } = useNavigation()
+  const { screen, nav, screenKey, go, setNav } = useNavigation()
 
   const showTabBar =
     screen === 'home' || screen === 'plan' || screen === 'progress'
@@ -71,7 +71,7 @@ export function FamilyPhone({ scrollRef }: FamilyPhoneProps) {
           />
         )
       case 'mentor':
-        return <MentorScreen family={family} nav={nav} voice={voice} go={go} />
+        return <MentorScreen family={family} nav={nav} go={go} />
     }
   }
 

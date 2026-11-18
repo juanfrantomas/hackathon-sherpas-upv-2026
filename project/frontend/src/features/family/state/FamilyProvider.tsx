@@ -114,14 +114,12 @@ export function FamilyProvider({ children }: { children: ReactNode }) {
     () => ({
       screen: state.screen,
       nav: state.nav,
-      voice: state.voice,
       screenKey: state.screenKey,
       go: ((screen: FamilyScreen, options) =>
         rawDispatch({ type: 'navigate', screen, options })) satisfies Navigate,
       setNav: (nav: Partial<NavigationState>) => rawDispatch({ type: 'set_nav', nav }),
-      setVoice: (voice) => rawDispatch({ type: 'set_voice', voice }),
     }),
-    [state.screen, state.nav, state.voice, state.screenKey],
+    [state.screen, state.nav, state.screenKey],
   )
 
   return (

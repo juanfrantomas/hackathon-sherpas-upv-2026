@@ -161,8 +161,6 @@ export const FAMILIES: Family[] = [
           topic: "Credit card debt",
           question:
             "Why should we worry about our credit card when we have so much cash?",
-          answer:
-            "That's a fair question. Your plan shows $150,000 in cash and $18,000 on credit cards at 18% interest. At that rate, the card costs you about $3,240 a year if the balance doesn't change. Your cash is a real strength, so the question isn't whether you're doing badly. It's whether some of that cash should go toward the card while you keep enough set aside for your family. That's the choice your plan asks you to make.",
           prompts: [
             "Can you explain this more simply?",
             "How much cash should we keep available?",
@@ -307,8 +305,6 @@ export const FAMILIES: Family[] = [
         mentor: {
           topic: "Home vs. retirement",
           question: "How does buying a house affect retirement?",
-          answer:
-            "Your plan has two big goals: a $550,000 home in 2027 and retiring at 58. Money you put toward the home isn't available to build retirement savings, so the two are linked. I can walk you through how your plan describes each goal, so you can decide which one should lead.",
           prompts: [
             "Can you explain this more simply?",
             "What does my score of 26 mean?",
@@ -446,8 +442,6 @@ export const FAMILIES: Family[] = [
         mentor: {
           topic: "College vs. retirement",
           question: "Should we save for college or retirement first?",
-          answer:
-            "Your plan includes both college funding for your two children and your retirement. They compete for the same money, so the order matters. I can explain how your plan describes each goal. The decision itself is yours, and if you work with an advisor, it's a good one to bring to them.",
           prompts: [
             "Can you explain this more simply?",
             "What should we focus on this month?",
@@ -608,8 +602,6 @@ export const FAMILIES: Family[] = [
         mentor: {
           topic: "Future commitments",
           question: "My score is 82. Why do I need to think about this now?",
-          answer:
-            "Your score of 82 and having no debt are real strengths. Your plan also shows college expenses beginning and a second home planned for 2030. A score describes today; those commitments are what's ahead. Understanding them now helps keep your plan strong.",
           prompts: [
             "Can you explain this more simply?",
             "What should I focus on this month?",

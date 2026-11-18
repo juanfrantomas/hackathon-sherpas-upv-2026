@@ -138,8 +138,6 @@ export interface Milestone {
 export interface MentorScript {
   topic: string
   question: string
-  /** Scripted answer, used when the live mentor is unavailable. */
-  answer: string
   prompts: string[]
 }
 

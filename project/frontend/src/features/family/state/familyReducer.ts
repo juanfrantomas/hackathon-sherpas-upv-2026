@@ -6,7 +6,6 @@ import type {
   MilestoneStatus,
   NavigationState,
   NavigateOptions,
-  VoiceState,
 } from '../types'
 import { FAMILIES } from '../data/families'
 
@@ -30,7 +29,6 @@ export interface FamilyFeatureState {
   states: Record<FamilyId, FamilyState>
   screen: FamilyScreen
   nav: NavigationState
-  voice: VoiceState
   /** Bumped whenever the visible screen changes, to replay the enter animation. */
   screenKey: number
 }
@@ -44,7 +42,6 @@ export type FamilyAction =
   | { type: 'mark_watched' }
   | { type: 'navigate'; screen: FamilyScreen; options?: NavigateOptions }
   | { type: 'set_nav'; nav: Partial<NavigationState> }
-  | { type: 'set_voice'; voice: VoiceState }
 
 export interface CommitCheckinPayload {
   summary: string
@@ -86,7 +83,6 @@ export function createInitialFamilyFeatureState(
     states: createInitialFamilyStates(),
     screen: 'welcome',
     nav: { ...DEFAULT_NAVIGATION },
-    voice: 'ready',
     screenKey: 0,
   }
 }
@@ -110,8 +106,7 @@ export function familyReducer(
         familyId: action.familyId,
         screen: 'welcome',
         nav: { ...DEFAULT_NAVIGATION },
-        voice: 'ready',
-        screenKey: state.screenKey + 1,
+            screenKey: state.screenKey + 1,
       }
 
     case 'reset_all':
@@ -120,8 +115,7 @@ export function familyReducer(
         states: createInitialFamilyStates(),
         screen: 'welcome',
         nav: { ...DEFAULT_NAVIGATION },
-        voice: 'ready',
-        screenKey: state.screenKey + 1,
+            screenKey: state.screenKey + 1,
       }
 
     case 'set_milestone_status':
@@ -204,15 +198,11 @@ export function familyReducer(
         nav: { ...state.nav, ...nav },
         screen: action.screen,
         screenKey: screenChanged ? state.screenKey + 1 : state.screenKey,
-        voice: action.screen === 'mentor' ? 'ready' : state.voice,
       }
     }
 
     case 'set_nav':
       return { ...state, nav: { ...state.nav, ...action.nav } }
-
-    case 'set_voice':
-      return { ...state, voice: action.voice }
 
     default:
       return state

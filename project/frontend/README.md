@@ -28,23 +28,20 @@ Two areas, behind a prototype shell:
   reference.
 
 The shell carries a journey rail that drives the phone through eight steps,
-and a control panel with a voice-state picker, a sample conversation and a
-reset. Four demo households can be selected from the top bar.
+and a small control panel with a reset. Four demo households can be selected from the top bar.
 
 ## Configuration
 
-The mentor runs **fully scripted** by default: it makes no network request and
-always works. To ask a real backend instead, copy `.env.example` to
-`.env.local` and set:
+The AI mentor talks to the backend over a **live WebSocket**
+(`/api/voice/ws/{case_id}`); there is no scripted or simulated answer. Copy
+`.env.example` to `.env.local` and set:
 
 ```
-VITE_MENTOR_API_URL=http://localhost:8000
-VITE_MENTOR_FALLBACK=scripted
+VITE_BACKEND_API_URL=http://127.0.0.1:8001
 ```
 
-`VITE_MENTOR_FALLBACK` decides what happens when the backend cannot be
-reached: `scripted` falls back to the scripted answer and badges the
-conversation "Sample"; `error` shows the mentor's error state.
+Without a backend the mentor shows its error state ("Try again" / "Read my
+plan"). The microphone needs `localhost` or HTTPS.
 
 The browser never holds a credential — the team AI key stays in the backend.
 

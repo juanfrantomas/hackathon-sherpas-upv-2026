@@ -6,7 +6,6 @@ import { JOURNEY } from '../features/family/data/journey'
 import { FAMILIES } from '../features/family/data/families'
 import { useFamilyData, useNavigation } from '../features/family/state/useFamily'
 import { useBackendStatus } from '../features/family/state/useBackendStatus'
-import { useMentorSession } from '../features/family/state/useMentorSession'
 import type { PrototypeMode } from '../features/family/types'
 import { FamilyPhone } from './FamilyPhone'
 import { JourneyRail } from './JourneyRail'
@@ -28,24 +27,15 @@ export interface AppShellProps {
 /** The prototype shell: top bar, journey rail, phone and prototype controls. */
 export function AppShell({ mode, onModeChange }: AppShellProps) {
   const { family, dispatch } = useFamilyData()
-  const { screen, nav, voice, go, setVoice } = useNavigation()
-  const mentor = useMentorSession()
+  const { screen, nav, go } = useNavigation()
   const backend = useBackendStatus()
 
   const scrollRef = useRef<HTMLDivElement>(null)
-  const sampleTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // Every screen change starts the phone at the top.
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = 0
   }, [screen, nav.progressTab, nav.planSection])
-
-  useEffect(
-    () => () => {
-      if (sampleTimer.current) clearTimeout(sampleTimer.current)
-    },
-    [],
-  )
 
   const selectFamily = (id: string) => {
     const selected = FAMILIES.find((option) => option.id === id)
@@ -56,16 +46,6 @@ export function AppShell({ mode, onModeChange }: AppShellProps) {
 
   const resetDemo = () => {
     dispatch({ type: 'reset_all' })
-  }
-
-  const playSample = () => {
-    if (sampleTimer.current) clearTimeout(sampleTimer.current)
-    if (screen !== 'mentor') {
-      go('mentor', { from: 'plan', topic: family.mentor.topic })
-    }
-    mentor.ask(family.mentor.question)
-    setVoice('listening')
-    sampleTimer.current = setTimeout(() => setVoice('thinking'), 3600)
   }
 
   const activeStep = JOURNEY.find(
@@ -123,10 +103,6 @@ export function AppShell({ mode, onModeChange }: AppShellProps) {
 
           <PrototypeControls
             family={family}
-            screen={screen}
-            voice={voice}
-            setVoice={setVoice}
-            onPlaySample={playSample}
             onReset={resetDemo}
           />
         </div>
