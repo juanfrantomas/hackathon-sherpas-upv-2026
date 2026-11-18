@@ -11,3 +11,4 @@
 project/backend/data
 project/deploy/htpasswd
 project/deploy/backend.env
+project/deploy-legacy/backend.env
